@@ -8,7 +8,7 @@
 	"main": "./dist/index.js",
 	"scripts": {
 		"lint": "eslint --ext .ts ./src",
-		"start": "tsx ./src/index.js",
+		"start": "tsx ./src/index.ts",
 		"dev": "tsx --watch ./src/index.ts"
 	},
 	"repository": {
