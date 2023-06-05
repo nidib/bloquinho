@@ -1,9 +1,12 @@
 import path from 'path';
 import Postgrator from 'postgrator';
 import postgres from 'postgres';
+import { drizzle } from 'drizzle-orm/postgres-js';
 
 
-const connection = postgres(process.env.DB_URL as string);
+const client = postgres(process.env.DB_URL as string);
+const connection = drizzle(client, { logger: true });
+
 const migrationConnection = postgres(process.env.DB_URL as string, { max: 1, idle_timeout: 2 * 60 });
 const migrator = new Postgrator({
 	migrationPattern: path.resolve(__dirname, 'migrations/*'),
@@ -19,9 +22,9 @@ const migrator = new Postgrator({
 });
 
 export const database = {
-	sql: connection,
-	closeConnection: connection.end,
-	healthCheck: async () => connection`SELECT 1`,
+	connection,
+	closeConnection: client.end,
+	healthCheck: async () => client`SELECT 1`,
 	migrate: async () => {
 		try {
 			console.log('Running migrations...');
