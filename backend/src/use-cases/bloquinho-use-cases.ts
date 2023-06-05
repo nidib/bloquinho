@@ -7,7 +7,7 @@ import { BloquinhoModel, bloquinhoModel } from '../database/models/bloquinho-mod
 export async function getBloquinhoByTitleUseCase(title: string) {
 	const [bloquinho] = await database
 		.connection
-		.select({ id: bloquinhoModel.id })
+		.select()
 		.from(bloquinhoModel)
 		.where(eq(bloquinhoModel.title, title))
 		.execute();
