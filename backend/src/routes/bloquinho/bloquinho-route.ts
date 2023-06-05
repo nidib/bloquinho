@@ -4,7 +4,7 @@ import { CREATED, OK } from 'http-status';
 import { GetBloquinhoRequest, GetBloquinhoResponse } from './dtos/get-bloquinho-dtos';
 import { CreateBloquinhoRequest, CreateBloquinhoResponse } from './dtos/create-bloquinho-dtos';
 import { UpdateBloquinhoRequest, UpdateBloquinhoResponse } from './dtos/update-bloquinho-dtos';
-import { createBloquinhoUseCase, getBloquinhoByIdUseCase, getBloquinhoByTitleUseCase, updateBloquinhoUseCase, viewBloquinhoUseCase } from '../../use-cases/bloquinho-use-cases';
+import { createBloquinhoUseCase, updateBloquinhoUseCase, viewBloquinhoUseCase } from '../../use-cases/bloquinho-use-cases';
 
 
 /**
