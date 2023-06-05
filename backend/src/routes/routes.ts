@@ -8,6 +8,14 @@ export function routes(fastify: FastifyInstance, _opts: FastifyPluginOptions, do
 	for (const schema of bloquinhoSchemas) {
 		fastify.addSchema(schema);
 	}
+	fastify.get('/bloquinho/:title', {
+		schema: {
+			params: $bloquinho('getBloquinhoRequestSchema'),
+			response: {
+				200: $bloquinho('getBloquinhoResponseSchema'),
+			},
+		},
+	}, BloquinhoRoutes.get);
 	fastify.post('/bloquinho', {
 		schema: {
 			body: $bloquinho('createBloquinhoRequestSchema'),

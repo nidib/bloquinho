@@ -1,15 +1,26 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CREATED, OK } from 'http-status';
 
+import { GetBloquinhoRequest, GetBloquinhoResponse } from './dtos/get-bloquinho-dtos';
 import { CreateBloquinhoRequest, CreateBloquinhoResponse } from './dtos/create-bloquinho-dtos';
 import { UpdateBloquinhoRequest, UpdateBloquinhoResponse } from './dtos/update-bloquinho-dtos';
-import { createBloquinhoUseCase, updateBloquinhoUseCase } from '../../use-cases/bloquinho-use-cases';
+import { createBloquinhoUseCase, getBloquinhoByIdUseCase, getBloquinhoByTitleUseCase, updateBloquinhoUseCase, viewBloquinhoUseCase } from '../../use-cases/bloquinho-use-cases';
 
 
 /**
  * Path: api/bloquinho
  */
 export class BloquinhoRoutes {
+
+	static async get(request: FastifyRequest<{ Params: GetBloquinhoRequest, Reply: GetBloquinhoResponse }>, reply: FastifyReply) {
+		const { title } = request.params;
+
+		const bloquinho = await viewBloquinhoUseCase(title);
+
+		return reply
+			.code(OK)
+			.send(bloquinho);
+	}
 
 	static async create(request: FastifyRequest<{ Body: CreateBloquinhoRequest, Reply: CreateBloquinhoResponse }>, reply: FastifyReply) {
 		const { title, content } = request.body;
