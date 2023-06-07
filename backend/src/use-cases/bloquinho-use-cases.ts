@@ -1,13 +1,12 @@
 import { eq } from 'drizzle-orm';
 
-import { database } from '../database/connection';
+import { Database } from '../database/connection';
 import { BloquinhoModel, bloquinhoModel } from '../database/models/bloquinho-model';
 import { removeAccents, replaceWhiteSpacesByDashes } from '../utils/string-normalization-utils';
 
 
 export async function getBloquinhoByTitleUseCase(title: string, throwIfNotExists = false) {
-	const [bloquinho] = await database
-		.connection
+	const [bloquinho] = await Database.connection
 		.select()
 		.from(bloquinhoModel)
 		.where(eq(bloquinhoModel.title, title))
@@ -21,8 +20,7 @@ export async function getBloquinhoByTitleUseCase(title: string, throwIfNotExists
 }
 
 export async function getBloquinhoByIdUseCase(id: string) {
-	const [bloquinho] = await database
-		.connection
+	const [bloquinho] = await Database.connection
 		.select()
 		.from(bloquinhoModel)
 		.where(eq(bloquinhoModel.id, id))
@@ -34,8 +32,7 @@ export async function getBloquinhoByIdUseCase(id: string) {
 export async function viewBloquinhoUseCase(title: string): Promise<BloquinhoModel> {
 	const existingBloquinho = await getBloquinhoByTitleUseCase(title, true);
 
-	const [updatedBloquinho] = await database
-		.connection
+	const [updatedBloquinho] = await Database.connection
 		.update(bloquinhoModel)
 		.set({ lastViewedAt: new Date().toISOString() })
 		.where(eq(bloquinhoModel.title, existingBloquinho.title))
@@ -57,8 +54,7 @@ export async function createBloquinhoUseCase(title: string, content: string): Pr
 		throw new Error('A bloquinho with that title already exists');
 	}
 
-	const [createdBloquinho] = await database
-		.connection
+	const [createdBloquinho] = await Database.connection
 		.insert(bloquinhoModel)
 		.values({
 			content,
@@ -78,8 +74,7 @@ export async function updateBloquinhoUseCase(id: string, content: string): Promi
 	}
 
 	const now = new Date().toISOString();
-	const [updatedBloquinho] = await database
-		.connection
+	const [updatedBloquinho] = await Database.connection
 		.update(bloquinhoModel)
 		.set({
 			content,
