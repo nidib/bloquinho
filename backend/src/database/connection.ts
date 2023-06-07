@@ -1,40 +1,35 @@
-import path from 'path';
-import Postgrator from 'postgrator';
 import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 
+import { config } from '../settings/env';
+import { migrator } from './migrator';
 
-const client = postgres(process.env.DB_URL as string);
-const connection = drizzle(client, { logger: true });
 
-const migrationConnection = postgres(process.env.DB_URL as string, { max: 1, idle_timeout: 2 * 60 });
-const migrator = new Postgrator({
-	migrationPattern: path.resolve(__dirname, 'migrations/*'),
-	driver: 'pg',
-	database: 'bloquinho',
-	schemaTable: 'main.migration_schema',
-	currentSchema: 'main',
-	execQuery: async query => {
-		const rows = await migrationConnection.unsafe(query);
+const client = postgres(config.databaseUrl);
+const ormConnection = drizzle(client, { logger: true });
 
-		return { rows };
-	},
-});
+export class Database {
+	public static connection = ormConnection;
 
-export const database = {
-	connection,
-	closeConnection: client.end,
-	healthCheck: async () => client`SELECT 1`,
-	migrate: async () => {
-		try {
-			console.log('Running migrations...');
-	
-			await migrator.migrate();
+	public static async closeConnection() {
+		return client.end();
+	}
 
-			console.log('Migrations completed!');
-		} catch(e) {
-			console.log('Something went wrong while running migrations');
-			console.error(e);
-		}
-	},
-};
+	public static async healthCheck() {
+		console.info('Health check:', '🔄 Running...');
+
+		await client`
+			SELECT 1
+		`;
+
+		console.info('Health check:', '✅ Completed!');
+	}
+
+	public static async migrate() {
+		console.info('Migrations:', '🔄 Running...');
+
+		await migrator.migrate();
+
+		console.info('Migrations:', '✅ Completed!');
+	}
+}

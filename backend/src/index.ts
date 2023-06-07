@@ -1,42 +1,41 @@
 import prexit from 'prexit';
 
 import { app } from './app';
-import { database } from './database/connection';
+import { Database } from './database/connection';
+import { config } from './settings/env';
 
-
-const SERVER_PORT = 8080;
-const SERVER_HOST = '0.0.0.0';
 
 async function main() {
 	try {
-		await database.healthCheck();
-		await database.migrate();
+		await Database.healthCheck();
+		await Database.migrate();
 		await app.listen({
-			port: SERVER_PORT,
-			host: SERVER_HOST,
+			port: config.serverPort,
+			host: config.serverHost,
 		});
 
-		console.log(`App running on port ${SERVER_PORT}`);
+		console.info(`✅ App running on port ${config.serverPort}`);
 	} catch (e) {
-		console.log('Something went wrong while starting the app');
+		console.error('🛑 Stopping application due to error');
+		console.error(e);
+		process.exit();
+	}
+}
+
+async function safeExit() {
+	console.log('\n');
+	console.info('Exiting:', '🔄 Running...');
+
+	try {
+		await app.close();
+		await Database.closeConnection();
+
+		console.info('Exiting:', '✅ Completed!');
+	} catch (e) {
+		console.error('🛑 Something went wrong while shutting down the app');
 		console.error(e);
 	}
 }
 
 main();
-
-prexit(async () => {
-	console.log('');
-	console.log('Save exiting...');
-
-	try {
-		await app.close();
-		await database.closeConnection();
-	} catch (e) {
-		console.log('Something went wrong while exiting');
-		console.error(e);
-	}
-
-	console.log('Safely exited!');
-	console.log('');
-});
+prexit(safeExit);
