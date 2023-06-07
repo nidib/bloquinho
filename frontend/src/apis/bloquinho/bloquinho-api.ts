@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 export const bloquinhoApi = axios.create({
-	baseURL: 'http://localhost:8080/api'
+	baseURL: import.meta.env.API_BASE_URL ?? 'http://localhost:8080/api',
 });
 
 export type CreatedBloquinho = {
@@ -10,4 +10,3 @@ export type CreatedBloquinho = {
 	title: string;
 	content: string;
 };
-

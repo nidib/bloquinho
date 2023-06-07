@@ -30,7 +30,7 @@ type TextInputProps = {
 };
 
 export function TextInput(props: TextInputProps) {
-	const { value, onChange, placeholder, info } = props;
+	const { value, onChange, placeholder } = props;
 
 	const handleValueChange: ChangeEventHandler<HTMLInputElement> = e => {
 		onChange(e.target.value);
