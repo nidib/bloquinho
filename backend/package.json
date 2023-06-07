@@ -2,9 +2,6 @@
 	"name": "bloquinho-backend",
 	"version": "1.0.0",
 	"description": "Um bloco de notas online",
-	"engines": {
-		"node": "18.16.0"
-	},
 	"main": "./dist/index.js",
 	"scripts": {
 		"lint": "eslint --ext .ts ./src",

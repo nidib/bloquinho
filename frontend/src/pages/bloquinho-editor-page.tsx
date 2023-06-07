@@ -38,9 +38,7 @@ const LoadingIndicator = styled('div', {
 export function BloquinhoEditorPage() {
 	const { bloquinhoTitle } = useParams();
 	const [bloquinho, setBloquinho] = useState<Optional<CreatedBloquinho>>(null);
-	const [status, setStatus] = useState<'saving' | 'saved' | null>(null);
-	console.log(status);
-	
+	const [status, setStatus] = useState<'saving' | 'saved' | null>(null);	
 
 	const handleBloquinhoInicialization = async () => {
 		if (!bloquinhoTitle) {
