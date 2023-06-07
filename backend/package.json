@@ -4,7 +4,9 @@
 	"description": "Um bloco de notas online",
 	"main": "./dist/index.js",
 	"scripts": {
+		"compile": "tsc --noEmit",
 		"lint": "eslint --ext .ts ./src",
+		"prestart": "npm run compile",
 		"start": "tsx -r dotenv/config ./src/index.ts",
 		"dev": "tsx -r dotenv/config --watch ./src/index.ts"
 	},
@@ -28,9 +30,7 @@
 		"postgrator": "^7.1.1",
 		"postgres": "^3.3.5",
 		"prexit": "^2.2.0",
-		"zod": "^3.21.4"
-	},
-	"devDependencies": {
+		"zod": "^3.21.4",
 		"@types/node": "^20.2.5",
 		"@typescript-eslint/eslint-plugin": "^5.59.8",
 		"@typescript-eslint/parser": "^5.59.8",

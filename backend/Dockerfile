@@ -1,11 +1,9 @@
 FROM node:18.16.0
 
 WORKDIR /usr/src/app
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY package*.json ./
 COPY tsconfig.json ./
-RUN pnpm install
+RUN npm ci
 COPY ./src ./src
 EXPOSE 8080
-CMD pnpm start
+CMD npm start
