@@ -4,7 +4,8 @@ import { app } from './app';
 import { database } from './database/connection';
 
 
-const SERVER_PORT = Number(process.env.PORT ?? 8080);
+const SERVER_PORT = 8080;
+const SERVER_HOST = '0.0.0.0';
 
 async function main() {
 	try {
@@ -12,7 +13,7 @@ async function main() {
 		await database.migrate();
 		await app.listen({
 			port: SERVER_PORT,
-			host: '0.0.0.0',
+			host: SERVER_HOST,
 		});
 
 		console.log(`App running on port ${SERVER_PORT}`);
