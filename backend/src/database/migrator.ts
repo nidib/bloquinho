@@ -4,7 +4,6 @@ import Postgrator from 'postgrator';
 
 import { config } from '../settings/env';
 
-
 const MIGRATION_MAX_CONNECTIONS = 1;
 const MIGRATION_IDLE_TIMEOUT_IN_SECONDS = 60;
 

@@ -4,7 +4,6 @@ import { app } from './app';
 import { Database } from './database/connection';
 import { config } from './settings/env';
 
-
 async function main() {
 	try {
 		await Database.healthCheck();
@@ -37,5 +36,5 @@ async function safeExit() {
 	}
 }
 
-main();
+void main();
 prexit(safeExit);

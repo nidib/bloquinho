@@ -3,7 +3,6 @@ import { boolean, varchar } from 'drizzle-orm/pg-core';
 
 import { baseColumns, schema, timestamp } from '../../database/models/defaults';
 
-
 export const bloquinhoModel = schema.table('bloquinho', {
 	...baseColumns,
 	title: varchar('title', { length: 50 }).notNull(),

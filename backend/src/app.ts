@@ -3,13 +3,12 @@ import cors from '@fastify/cors';
 
 import { routes } from './routes/routes';
 
-
 const app = Fastify({
 	logger: true,
 });
 
-app.register(cors);
-app.register(routes, { prefix: '/api' });
+void app.register(cors);
+void app.register(routes, { prefix: '/api' });
 
 app.get('/', () => {
 	return {
@@ -17,6 +16,4 @@ app.get('/', () => {
 	};
 });
 
-export {
-	app,
-};
+export { app };
