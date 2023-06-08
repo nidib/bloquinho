@@ -27,10 +27,11 @@ type TextInputProps = {
 	placeholder?: string;
 	info?: string;
 	onChange: (value: string) => void;
+	autoFocus: boolean;
 };
 
 export function TextInput(props: TextInputProps) {
-	const { value, onChange, placeholder } = props;
+	const { value, onChange, placeholder, autoFocus } = props;
 
 	const handleValueChange: ChangeEventHandler<HTMLInputElement> = e => {
 		onChange(e.target.value);
@@ -42,6 +43,7 @@ export function TextInput(props: TextInputProps) {
 			placeholder={placeholder}
 			value={value}
 			onChange={handleValueChange}
+			autoFocus={autoFocus}
 		/>
 	);
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { styled } from '../themes/theme';
@@ -59,9 +59,9 @@ export function HomePage() {
 	const [bloquinhoTitle, setBloquinhoTitle] = useState('');
 	const navigate = useNavigate();
 	const trimmedTitle = bloquinhoTitle.trim();
-	const normalizedBloquinhoTitle = replaceWhiteSpacesByDashes(removeAccents(bloquinhoTitle));
+	const normalizedBloquinhoTitle = replaceWhiteSpacesByDashes(removeAccents(bloquinhoTitle)).toLowerCase();
 
-	const handleSubmit: React.FormEventHandler<HTMLFormElement> = e => {
+	const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
 		e.preventDefault();
 		normalizedBloquinhoTitle && navigate(normalizedBloquinhoTitle);
 	};
@@ -79,6 +79,7 @@ export function HomePage() {
 						info={'Alguma info'}
 						placeholder={'nome-do-seu-bloquinho'}
 						onChange={setBloquinhoTitle}
+						autoFocus
 					/>
 					<Button type={'submit'}>Criar bloquinho</Button>
 				</Form>
