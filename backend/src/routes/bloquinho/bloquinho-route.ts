@@ -1,10 +1,11 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { CREATED, OK } from 'http-status';
+import { CREATED, NOT_FOUND, OK } from 'http-status';
 
+import { CreateOrUpdateBloquinhoRequest, CreateOrUpdateBloquinhoResponse } from './dtos/create-or-update-bloquinho-dtos';
+import { CreateOrUpdateBloquinhoUsecase } from '../../domains/bloquinho/usecases/create-or-update-bloquinho-usecase';
+import { CheckIfBloquinhoExistsByTitleUsecase } from '../../domains/bloquinho/usecases/check-if-bloquinho-exists-by-title-usecase';
 import { GetBloquinhoRequest, GetBloquinhoResponse } from './dtos/get-bloquinho-dtos';
-import { CreateBloquinhoRequest, CreateBloquinhoResponse } from './dtos/create-bloquinho-dtos';
-import { UpdateBloquinhoRequest, UpdateBloquinhoResponse } from './dtos/update-bloquinho-dtos';
-import { createBloquinhoUseCase, updateBloquinhoUseCase, viewBloquinhoUseCase } from '../../use-cases/bloquinho-use-cases';
+import { RetrieveBloquinhoByTitle } from '../../domains/bloquinho/usecases/retrieve-bloquinho-by-title-usecase';
 
 
 /**
@@ -12,34 +13,26 @@ import { createBloquinhoUseCase, updateBloquinhoUseCase, viewBloquinhoUseCase } 
  */
 export class BloquinhoRoutes {
 
-	static async get(request: FastifyRequest<{ Params: GetBloquinhoRequest, Reply: GetBloquinhoResponse }>, reply: FastifyReply) {
+	public static async retrieve(request: FastifyRequest<{ Params: GetBloquinhoRequest, Reply: GetBloquinhoResponse }>, reply: FastifyReply) {
 		const { title } = request.params;
 
-		const bloquinho = await viewBloquinhoUseCase(title);
+		const bloquinho = await RetrieveBloquinhoByTitle.execute(title);
+		const status = bloquinho ? OK : NOT_FOUND;
 
 		return reply
-			.code(OK)
+			.status(status)
 			.send(bloquinho);
 	}
 
-	static async create(request: FastifyRequest<{ Body: CreateBloquinhoRequest, Reply: CreateBloquinhoResponse }>, reply: FastifyReply) {
+	public static async createOrUpdate(request: FastifyRequest<{ Body: CreateOrUpdateBloquinhoRequest, Reply: CreateOrUpdateBloquinhoResponse }>, reply: FastifyReply) {
 		const { title, content } = request.body;
 
-		const createdBloquinho = await createBloquinhoUseCase(title, content);
+		const isUpdating = await CheckIfBloquinhoExistsByTitleUsecase.execute(title);
+		const bloquinho = await CreateOrUpdateBloquinhoUsecase.execute(title, content);
 
 		return reply
-			.code(CREATED)
-			.send(createdBloquinho);
-	}
-
-	static async update(request: FastifyRequest<{ Body: UpdateBloquinhoRequest, Reply: UpdateBloquinhoResponse }>, reply: FastifyReply) {
-		const { id, content } = request.body;
-
-		const updatedBloquinho = await updateBloquinhoUseCase(id, content);
-
-		return reply
-			.code(OK)
-			.send(updatedBloquinho);
+			.code(isUpdating ? OK : CREATED)
+			.send(bloquinho);
 	}
 
 }
