@@ -12,8 +12,13 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@codemirror/lang-java": "^6.0.1",
+		"@codemirror/lang-javascript": "^6.1.9",
+		"@codemirror/state": "^6.2.1",
 		"@radix-ui/colors": "^0.1.8",
 		"@stitches/react": "^1.2.8",
+		"@uiw/react-codemirror": "^4.21.2",
+		"@uiw/react-textarea-code-editor": "^2.1.1",
 		"axios": "^1.4.0",
 		"eslint-config-prettier": "^8.8.0",
 		"eslint-plugin-react": "^7.32.2",

@@ -30,6 +30,7 @@ export const { styled, css } = createStitches({
 		},
 		fontSizes: {
 			0: '1rem',
+			3: '1.25rem',
 			4: '1.875rem',
 			5: '4.5rem',
 		},
