@@ -4,7 +4,6 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import { config } from '../settings/env';
 import { migrator } from './migrator';
 
-
 const client = postgres(config.databaseUrl);
 const ormConnection = drizzle(client, { logger: true });
 

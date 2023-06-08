@@ -4,9 +4,7 @@ import { BloquinhoModel, bloquinhoModel } from './bloquinho-model';
 import { Database } from '../../database/connection';
 import { Optional } from '../../utils/types';
 
-
 export class BloquinhoRepository {
-
 	public static async getBloquinhoById(id: string): Promise<Optional<BloquinhoModel>> {
 		const bloquinhos = await Database.connection
 			.select()
@@ -48,5 +46,4 @@ export class BloquinhoRepository {
 
 		return bloquinhos[0];
 	}
-
 }

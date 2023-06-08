@@ -1,13 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
-import { AxiosError } from 'axios';
 
 import { CreatedBloquinho } from '../apis/bloquinho/bloquinho-api';
-import { createOrUpdateBloquinho, retrieveBloquinho } from '../apis/bloquinho/bloquinho-gateways';
+import { createOrUpdateBloquinho, retrieveBloquinhoIgnoringNotFound } from '../apis/bloquinho/bloquinho-gateways';
 import { BloquinhoEditor } from '../components/bloquinho-editor';
 import { styled } from '../themes/theme';
-
 
 const Box = styled('div', {
 	height: '100%',
@@ -35,21 +33,34 @@ const LoadingIndicator = styled('div', {
 	},
 });
 
-type UsedBloquinhoProperties = Pick<CreatedBloquinho, 'title' | 'content'>;
+type BloquinhoEditorPageParams = { bloquinhoTitle: string };
+type InitialBloquinhoProperties = Pick<CreatedBloquinho, 'title' | 'content'>;
 
 export function BloquinhoEditorPage() {
-	const { bloquinhoTitle } = useParams();
-	const emptyBloquinho = { title: bloquinhoTitle, content: '' } as UsedBloquinhoProperties;
-	const [bloquinho, setBloquinho] = useState<UsedBloquinhoProperties>(emptyBloquinho);
+	const { bloquinhoTitle: title } = useParams() as BloquinhoEditorPageParams;
+	const initialBloquinho = { title, content: '' };
+	const [bloquinho, setBloquinho] = useState<InitialBloquinhoProperties | CreatedBloquinho>(initialBloquinho);
 	const [status, setStatus] = useState<'saving' | 'saved' | null>(null);
 
-	const handleBloquinhoInicialization = async () => {
-		if (!bloquinhoTitle) {
-			return;
-		}
+	const lazyCreateOrUpdateBloquinho = useMemo(() => {
+		return debounce(async (title: string, content: string) => {
+			await createOrUpdateBloquinho(title, content);
+			setStatus('saved');
+		}, 800);
+	}, []);
 
-		try {
-			const bloquinhoExistente = await retrieveBloquinho(bloquinhoTitle);
+	const handleContentChange = async (content: string) => {
+		setStatus('saving');
+		setBloquinho((current) => ({
+			...current,
+			content,
+		}));
+		await lazyCreateOrUpdateBloquinho(bloquinho.title, content);
+	};
+
+	useEffect(() => {
+		const handleBloquinhoInicialization = async () => {
+			const bloquinhoExistente = await retrieveBloquinhoIgnoringNotFound(title);
 
 			if (!bloquinhoExistente) {
 				return;
@@ -57,42 +68,16 @@ export function BloquinhoEditorPage() {
 
 			setStatus('saved');
 			setBloquinho(bloquinhoExistente);
-		} catch (e) {
-			if (e instanceof AxiosError && e.response?.status === 404) {
-				setBloquinho(emptyBloquinho);
-				return;
-			}
+		};
 
-			throw e;
-		}
-	};
-
-	const deboucedUpdateBloquinho = useCallback(debounce(async (title: string, content: string) => {
-		await createOrUpdateBloquinho(title, content);
-		setStatus('saved');
-	}, 800), []);
-
-	const handleContentChange = async (content: string) => {
-		setStatus('saving');
-		setBloquinho(current => ({
-			...current,
-			content,
-		}));
-		await deboucedUpdateBloquinho(bloquinho.title, content);
-	};
-
-	useEffect(() => {
-		handleBloquinhoInicialization();
+		void handleBloquinhoInicialization();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<Box>
-			{ status !== null ? <LoadingIndicator status={status} /> : null}
-			<BloquinhoEditor
-				content={bloquinho.content}
-				onContentChange={handleContentChange}
-				autoFocus
-			/>
+			{status !== null ? <LoadingIndicator status={status} /> : null}
+			<BloquinhoEditor content={bloquinho.content} onContentChange={handleContentChange} autoFocus />
 		</Box>
 	);
 }

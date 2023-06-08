@@ -23,14 +23,7 @@ type ButtonProps = {
 };
 
 export function Button(props: ButtonProps) {
-	const {
-		type = 'submit',
-		children,
-	} = props;
+	const { type = 'submit', children } = props;
 
-	return (
-		<StyledButton type={type}>
-			{ children }
-		</StyledButton>
-	);
+	return <StyledButton type={type}>{children}</StyledButton>;
 }

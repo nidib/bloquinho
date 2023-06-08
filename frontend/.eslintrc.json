@@ -6,20 +6,35 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
-		"plugin:react-hooks/recommended"
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended",
+		"prettier"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
+		"project": true,
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["react-refresh"],
+	"plugins": ["react-refresh", "react", "react-hooks"],
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
 	"rules": {
 		"react-refresh/only-export-components": "warn",
-		"indent": ["error", "tab"],
-		"linebreak-style": ["error", "unix"],
-		"quotes": ["error", "single"],
-		"semi": ["error", "always"],
-		"comma-dangle": ["error", "always-multiline"]
+		"react/jsx-uses-react": "off",
+		"react/react-in-jsx-scope": "off",
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{
+				"checksVoidReturn": {
+					"arguments": false,
+					"attributes": false
+				}
+			}
+		]
 	}
 }

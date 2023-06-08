@@ -6,7 +6,6 @@ import { TextInput } from '../components/core/text-input';
 import { Button } from '../components/core/button';
 import { removeAccents, replaceWhiteSpacesByDashes } from '../utils/text-utils';
 
-
 const Page = styled('div', {
 	display: 'flex',
 	flexDirection: 'column',
@@ -61,7 +60,7 @@ export function HomePage() {
 	const trimmedTitle = bloquinhoTitle.trim();
 	const normalizedBloquinhoTitle = replaceWhiteSpacesByDashes(removeAccents(bloquinhoTitle)).toLowerCase();
 
-	const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
+	const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 		normalizedBloquinhoTitle && navigate(normalizedBloquinhoTitle);
 	};
@@ -83,14 +82,12 @@ export function HomePage() {
 					/>
 					<Button type={'submit'}>Criar bloquinho</Button>
 				</Form>
-				{
-					(trimmedTitle !== normalizedBloquinhoTitle) && (
-						<InfoSpan>
-							{ 'Será criado como: ' }
-							<strong>{ normalizedBloquinhoTitle }</strong>
-						</InfoSpan>
-					)
-				}
+				{trimmedTitle !== normalizedBloquinhoTitle && (
+					<InfoSpan>
+						{'Será criado como: '}
+						<strong>{normalizedBloquinhoTitle}</strong>
+					</InfoSpan>
+				)}
 			</FormWithInfoSpan>
 		</Page>
 	);

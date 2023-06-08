@@ -1,6 +1,5 @@
 import { styled } from '../themes/theme';
 
-
 const Textarea = styled('textarea', {
 	border: 0,
 	borderRadius: 0,
@@ -22,11 +21,5 @@ type BloquinhoEditorProps = {
 export function BloquinhoEditor(props: BloquinhoEditorProps) {
 	const { content, onContentChange, autoFocus } = props;
 
-	return (
-		<Textarea
-			value={content}
-			onChange={e => onContentChange(e.target.value)}
-			autoFocus={autoFocus}
-		/>
-	);
+	return <Textarea value={content} onChange={(e) => onContentChange(e.target.value)} autoFocus={autoFocus} />;
 }
