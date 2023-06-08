@@ -14,7 +14,7 @@ async function main() {
 			host: config.serverHost,
 		});
 
-		console.info(`✅ App running on port ${config.serverPort}`);
+		console.info(`App: ✅ Running at ${config.serverHost}:${config.serverPort}`);
 	} catch (e) {
 		console.error('🛑 Stopping application due to error');
 		console.error(e);

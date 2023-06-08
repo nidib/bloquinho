@@ -16,15 +16,17 @@ const Textarea = styled('textarea', {
 type BloquinhoEditorProps = {
 	content: string;
 	onContentChange: (content: string) => void;
+	autoFocus: boolean;
 };
 
 export function BloquinhoEditor(props: BloquinhoEditorProps) {
-	const { content, onContentChange } = props;
+	const { content, onContentChange, autoFocus } = props;
 
 	return (
 		<Textarea
 			value={content}
 			onChange={e => onContentChange(e.target.value)}
+			autoFocus={autoFocus}
 		/>
 	);
 }

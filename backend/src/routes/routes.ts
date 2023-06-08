@@ -8,6 +8,7 @@ export function routes(fastify: FastifyInstance, _opts: FastifyPluginOptions, do
 	for (const schema of bloquinhoSchemas) {
 		fastify.addSchema(schema);
 	}
+
 	fastify.get('/bloquinho/:title', {
 		schema: {
 			params: $bloquinho('getBloquinhoRequestSchema'),
@@ -15,23 +16,17 @@ export function routes(fastify: FastifyInstance, _opts: FastifyPluginOptions, do
 				200: $bloquinho('getBloquinhoResponseSchema'),
 			},
 		},
-	}, BloquinhoRoutes.get);
+	}, BloquinhoRoutes.retrieve);
+
 	fastify.post('/bloquinho', {
 		schema: {
-			body: $bloquinho('createBloquinhoRequestSchema'),
+			body: $bloquinho('createOrUpdateBloquinhoRequestSchema'),
 			response: {
-				201: $bloquinho('createBloquinhoResponseSchema'),
+				201: $bloquinho('createOrUpdateBloquinhoResponseSchema'),
+				200: $bloquinho('createOrUpdateBloquinhoResponseSchema'),
 			},
 		},
-	}, BloquinhoRoutes.create);
-	fastify.put('/bloquinho', {
-		schema: {
-			body: $bloquinho('updateBloquinhoRequestSchema'),
-			response: {
-				200: $bloquinho('updateBloquinhoResponseSchema'),
-			},
-		},
-	}, BloquinhoRoutes.update);
+	}, BloquinhoRoutes.createOrUpdate);
 
 	done();
 }
