@@ -18,6 +18,7 @@ const LoadingIndicator = styled('div', {
 	right: '$1',
 	width: '15px',
 	height: '15px',
+	zIndex: 200,
 	borderRadius: '10px',
 	backgroundColor: '$outline',
 
@@ -58,7 +59,20 @@ export function BloquinhoEditorPage() {
 		await lazyCreateOrUpdateBloquinho(bloquinho.title, content);
 	};
 
+	const handleSavingFromKeyboard = (e: KeyboardEvent) => {
+		const isCtrlOrCmdPressed = e.ctrlKey || e.metaKey;
+		const isSPressed = e.key === 's';
+
+		if (!isCtrlOrCmdPressed || !isSPressed) {
+			return;
+		}
+
+		e.preventDefault();
+	};
+
 	useEffect(() => {
+		document.addEventListener('keydown', handleSavingFromKeyboard);
+
 		const handleBloquinhoInicialization = async () => {
 			const bloquinhoExistente = await retrieveBloquinhoIgnoringNotFound(title);
 
@@ -71,6 +85,10 @@ export function BloquinhoEditorPage() {
 		};
 
 		void handleBloquinhoInicialization();
+
+		return () => {
+			document.removeEventListener('keydown', handleSavingFromKeyboard);
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
