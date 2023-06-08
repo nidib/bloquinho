@@ -1,7 +1,6 @@
 import { Optional } from '../../utils/types';
 import { CreatedBloquinho, bloquinhoApi } from './bloquinho-api';
 
-
 export async function retrieveBloquinho(title: string): Promise<Optional<CreatedBloquinho>> {
 	const response = await bloquinhoApi.get<Optional<CreatedBloquinho>>(`/bloquinho/${title}`);
 

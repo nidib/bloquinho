@@ -1,7 +1,6 @@
 import { ChangeEventHandler } from 'react';
 import { styled } from '../../themes/theme';
 
-
 const Input = styled('input', {
 	backgroundColor: '$fullWhite',
 	color: '$textRegular',
@@ -12,7 +11,7 @@ const Input = styled('input', {
 	borderRadius: '$rounded',
 	boxShadow: '$shadow',
 	outline: 'none',
-	
+
 	'&:focus-visible': {
 		outline: '1px solid $border',
 	},
@@ -33,7 +32,7 @@ type TextInputProps = {
 export function TextInput(props: TextInputProps) {
 	const { value, onChange, placeholder, autoFocus } = props;
 
-	const handleValueChange: ChangeEventHandler<HTMLInputElement> = e => {
+	const handleValueChange: ChangeEventHandler<HTMLInputElement> = (e) => {
 		onChange(e.target.value);
 	};
 

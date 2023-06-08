@@ -1,12 +1,5 @@
-import {
-	sand,
-	amber,
-	gray,
-	grayDark,
-	grass,
-} from '@radix-ui/colors';
+import { sand, amber, gray, grayDark, grass } from '@radix-ui/colors';
 import { createStitches } from '@stitches/react';
-
 
 export const { styled, css } = createStitches({
 	theme: {

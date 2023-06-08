@@ -6,14 +6,19 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
-		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"compile": "tsc --noEmit",
+		"lint": "eslint ./src --max-warnings 0 --report-unused-disable-directives",
+		"format": "prettier --check ./src",
 		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@radix-ui/colors": "^0.1.8",
 		"@stitches/react": "^1.2.8",
 		"axios": "^1.4.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-react": "^7.32.2",
 		"lodash": "^4.17.21",
+		"prettier": "^2.8.8",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.11.2",
