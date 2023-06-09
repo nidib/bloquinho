@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 
-import { BloquinhoModel, bloquinhoModel } from './bloquinho-model';
+import { BloquinhoModel, SupportedExtensions, bloquinhoModel } from './bloquinho-model';
 import { Database } from '../../database/connection';
 import { Optional } from '../../utils/types';
 
@@ -25,18 +25,24 @@ export class BloquinhoRepository {
 		return bloquinhos[0];
 	}
 
-	public static async upsertByTitle(title: string, content: string): Promise<BloquinhoModel> {
+	public static async upsertByTitle(
+		title: string,
+		content: string,
+		extension: SupportedExtensions
+	): Promise<BloquinhoModel> {
 		const now = new Date().toISOString();
 		const bloquinhos = await Database.connection
 			.insert(bloquinhoModel)
 			.values({
 				title,
 				content,
+				extension,
 			})
 			.onConflictDoUpdate({
 				target: bloquinhoModel.title,
 				set: {
 					content,
+					extension,
 					lastViewedAt: now,
 					updatedAt: now,
 				},

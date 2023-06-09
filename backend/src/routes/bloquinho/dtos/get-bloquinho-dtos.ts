@@ -8,6 +8,7 @@ export const getBloquinhoResponseSchema = z.object({
 	id: z.string(),
 	title: z.string(),
 	content: z.string(),
+	extension: z.string(),
 	lastViewedAt: z.string(),
 	updatedAt: z.string(),
 });
