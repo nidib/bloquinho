@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from '../themes/theme';
 import { TextInput } from '../components/core/text-input';
 import { Button } from '../components/core/button';
-import { removeAccents, replaceWhiteSpacesByDashes } from '../utils/text-utils';
+import { normalizeBloquinhoTitle } from '../utils/text-utils';
 
 const Page = styled('div', {
 	display: 'flex',
@@ -58,7 +58,7 @@ export function HomePage() {
 	const [bloquinhoTitle, setBloquinhoTitle] = useState('');
 	const navigate = useNavigate();
 	const trimmedTitle = bloquinhoTitle.trim();
-	const normalizedBloquinhoTitle = replaceWhiteSpacesByDashes(removeAccents(bloquinhoTitle)).toLowerCase();
+	const normalizedBloquinhoTitle = normalizeBloquinhoTitle(bloquinhoTitle);
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();

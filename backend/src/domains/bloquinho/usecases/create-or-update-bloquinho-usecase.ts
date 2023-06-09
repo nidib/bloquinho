@@ -1,4 +1,4 @@
-import { removeAccents, replaceWhiteSpacesByDashes } from '../../../utils/string-normalization-utils';
+import { normalizeBloquinhoTitle } from '../../../utils/string-normalization-utils';
 import { BloquinhoModel, SupportedExtensions } from '../bloquinho-model';
 import { BloquinhoRepository } from '../bloquinho-repository';
 
@@ -8,7 +8,7 @@ export class CreateOrUpdateBloquinhoUsecase {
 		content: string,
 		extension: SupportedExtensions
 	): Promise<BloquinhoModel> {
-		const normalizedTitle = replaceWhiteSpacesByDashes(removeAccents(title)).toLowerCase();
+		const normalizedTitle = normalizeBloquinhoTitle(title);
 
 		if (!normalizedTitle) {
 			throw new Error('A bloquinho must have at least one character in its title');
