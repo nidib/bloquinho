@@ -30,10 +30,10 @@ export class BloquinhoRoutes {
 		request: FastifyRequest<{ Body: CreateOrUpdateBloquinhoRequest; Reply: CreateOrUpdateBloquinhoResponse }>,
 		reply: FastifyReply
 	) {
-		const { title, content } = request.body;
+		const { title, content, extension } = request.body;
 
 		const isUpdating = await CheckIfBloquinhoExistsByTitleUsecase.execute(title);
-		const bloquinho = await CreateOrUpdateBloquinhoUsecase.execute(title, content);
+		const bloquinho = await CreateOrUpdateBloquinhoUsecase.execute(title, content, extension);
 		const statusCode = isUpdating ? OK : CREATED;
 
 		return reply.code(statusCode).send(bloquinho);
