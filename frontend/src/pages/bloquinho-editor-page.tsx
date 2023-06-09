@@ -30,6 +30,9 @@ const LoadingIndicator = styled('div', {
 			saved: {
 				backgroundColor: '$green',
 			},
+			error: {
+				backgroundColor: '$error',
+			},
 		},
 	},
 });
@@ -41,22 +44,23 @@ export function BloquinhoEditorPage() {
 	const { bloquinhoTitle: title } = useParams() as BloquinhoEditorPageParams;
 	const initialBloquinho = { title, content: '' };
 	const [bloquinho, setBloquinho] = useState<InitialBloquinhoProperties | CreatedBloquinho>(initialBloquinho);
-	const [status, setStatus] = useState<'saving' | 'saved' | null>(null);
+	const [status, setStatus] = useState<'saving' | 'saved' | 'error' | null>(null);
 
 	const lazyCreateOrUpdateBloquinho = useMemo(() => {
-		return debounce(async (title: string, content: string) => {
-			await createOrUpdateBloquinho(title, content);
-			setStatus('saved');
+		return debounce((title: string, content: string) => {
+			createOrUpdateBloquinho(title, content)
+				.then(() => setStatus('saved'))
+				.catch(() => setStatus('error'));
 		}, 800);
 	}, []);
 
-	const handleContentChange = async (content: string) => {
+	const handleContentChange = (content: string) => {
 		setStatus('saving');
 		setBloquinho((current) => ({
 			...current,
 			content,
 		}));
-		await lazyCreateOrUpdateBloquinho(bloquinho.title, content);
+		lazyCreateOrUpdateBloquinho(bloquinho.title, content);
 	};
 
 	const handleSavingFromKeyboard = (e: KeyboardEvent) => {
