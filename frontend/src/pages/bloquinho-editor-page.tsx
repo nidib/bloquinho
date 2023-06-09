@@ -6,35 +6,16 @@ import { CreatedBloquinho } from '../apis/bloquinho/bloquinho-api';
 import { createOrUpdateBloquinho, retrieveBloquinhoIgnoringNotFound } from '../apis/bloquinho/bloquinho-gateways';
 import { BloquinhoEditor } from '../components/bloquinho-editor';
 import { styled } from '../themes/theme';
+import { BloquinhoEditorStatusBar } from '../components/bloquinho-editor-status-bar';
 
 const Box = styled('div', {
 	height: '100%',
 	position: 'relative',
 });
 
-const LoadingIndicator = styled('div', {
-	position: 'absolute',
-	top: '$1',
-	right: '$1',
-	width: '15px',
-	height: '15px',
-	zIndex: 200,
-	borderRadius: '10px',
-	backgroundColor: '$outline',
-
-	variants: {
-		status: {
-			saving: {
-				backgroundColor: '$warning',
-			},
-			saved: {
-				backgroundColor: '$green',
-			},
-			error: {
-				backgroundColor: '$error',
-			},
-		},
-	},
+const BloquinhoEditorBox = styled('div', {
+	height: '100%',
+	paddingBottom: 36,
 });
 
 type BloquinhoEditorPageParams = { bloquinhoTitle: string };
@@ -98,8 +79,10 @@ export function BloquinhoEditorPage() {
 
 	return (
 		<Box>
-			{status !== null ? <LoadingIndicator status={status} /> : null}
-			<BloquinhoEditor content={bloquinho.content} onContentChange={handleContentChange} autoFocus />
+			<BloquinhoEditorBox>
+				<BloquinhoEditor content={bloquinho.content} onContentChange={handleContentChange} autoFocus />
+			</BloquinhoEditorBox>
+			<BloquinhoEditorStatusBar status={status} />
 		</Box>
 	);
 }
