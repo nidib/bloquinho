@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 
-import { CreatedBloquinho } from '../apis/bloquinho/bloquinho-api';
+import { CreatedBloquinho, SupportedExtensions } from '../apis/bloquinho/bloquinho-api';
 import { createOrUpdateBloquinho, retrieveBloquinhoIgnoringNotFound } from '../apis/bloquinho/bloquinho-gateways';
 import { BloquinhoEditor } from '../components/bloquinho-editor';
 import { styled } from '../themes/theme';
-import { BloquinhoEditorStatusBar } from '../components/bloquinho-editor-status-bar';
+import { BloquinhoEditorStatusBar, Status } from '../components/bloquinho-editor-status-bar';
 
 const Box = styled('div', {
 	height: '100%',
@@ -19,29 +19,37 @@ const BloquinhoEditorBox = styled('div', {
 });
 
 type BloquinhoEditorPageParams = { bloquinhoTitle: string };
-type InitialBloquinhoProperties = Pick<CreatedBloquinho, 'title' | 'content'>;
+type InitialBloquinhoProperties = Pick<CreatedBloquinho, 'title' | 'content' | 'extension'>;
 
 export function BloquinhoEditorPage() {
 	const { bloquinhoTitle: title } = useParams() as BloquinhoEditorPageParams;
-	const initialBloquinho = { title, content: '' };
-	const [bloquinho, setBloquinho] = useState<InitialBloquinhoProperties | CreatedBloquinho>(initialBloquinho);
-	const [status, setStatus] = useState<'saving' | 'saved' | 'error' | null>(null);
+	const [bloquinho, setBloquinho] = useState<InitialBloquinhoProperties | CreatedBloquinho>({
+		title,
+		content: '',
+		extension: 'txt',
+	} satisfies InitialBloquinhoProperties);
+	const [status, setStatus] = useState<Status>('loading');
 
 	const lazyCreateOrUpdateBloquinho = useMemo(() => {
-		return debounce((title: string, content: string) => {
-			createOrUpdateBloquinho(title, content)
-				.then(() => setStatus('saved'))
+		return debounce((title: string, content: string, extension: SupportedExtensions) => {
+			createOrUpdateBloquinho(title, content, extension)
+				.then(() => setStatus('done'))
 				.catch(() => setStatus('error'));
 		}, 800);
 	}, []);
 
+	const handleExtensionChange = (extension: SupportedExtensions) => {
+		setBloquinho((current) => ({
+			...current,
+			extension,
+		}));
+	};
+
 	const handleContentChange = (content: string) => {
-		setStatus('saving');
 		setBloquinho((current) => ({
 			...current,
 			content,
 		}));
-		lazyCreateOrUpdateBloquinho(bloquinho.title, content);
 	};
 
 	const handleSavingFromKeyboard = (e: KeyboardEvent) => {
@@ -56,6 +64,11 @@ export function BloquinhoEditorPage() {
 	};
 
 	useEffect(() => {
+		setStatus('loading');
+		lazyCreateOrUpdateBloquinho(bloquinho.title, bloquinho.content, bloquinho.extension);
+	}, [bloquinho, lazyCreateOrUpdateBloquinho]);
+
+	useEffect(() => {
 		document.addEventListener('keydown', handleSavingFromKeyboard);
 
 		const handleBloquinhoInicialization = async () => {
@@ -65,7 +78,6 @@ export function BloquinhoEditorPage() {
 				return;
 			}
 
-			setStatus('saved');
 			setBloquinho(bloquinhoExistente);
 		};
 
@@ -80,9 +92,18 @@ export function BloquinhoEditorPage() {
 	return (
 		<Box>
 			<BloquinhoEditorBox>
-				<BloquinhoEditor content={bloquinho.content} onContentChange={handleContentChange} autoFocus />
+				<BloquinhoEditor
+					extension={bloquinho.extension}
+					content={bloquinho.content}
+					onContentChange={handleContentChange}
+					autoFocus
+				/>
 			</BloquinhoEditorBox>
-			<BloquinhoEditorStatusBar status={status} />
+			<BloquinhoEditorStatusBar
+				status={status}
+				extension={bloquinho.extension}
+				onExtensionChange={handleExtensionChange}
+			/>
 		</Box>
 	);
 }
