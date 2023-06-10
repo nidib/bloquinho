@@ -29,7 +29,6 @@ export function BloquinhoEditorPage() {
 		extension: 'txt',
 	} satisfies InitialBloquinhoProperties);
 	const [status, setStatus] = useState<Status>('loading');
-	console.log(bloquinho);
 
 	const lazyCreateOrUpdateBloquinho = useMemo(() => {
 		return debounce((title: string, content: string, extension: SupportedExtensions) => {
@@ -79,9 +78,6 @@ export function BloquinhoEditorPage() {
 				return;
 			}
 
-			if ('idx' in bloquinho) {
-				bloquinho.
-			}
 			setBloquinho(bloquinhoExistente);
 		};
 
