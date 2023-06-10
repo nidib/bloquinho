@@ -1,4 +1,6 @@
+import { SupportedExtensions, supportedExtensions } from '../apis/bloquinho/bloquinho-api';
 import { styled } from '../themes/theme';
+import { Select } from './core/select';
 
 const LoadingIndicator = styled('div', {
 	width: '15px',
@@ -9,10 +11,10 @@ const LoadingIndicator = styled('div', {
 
 	variants: {
 		status: {
-			saving: {
+			loading: {
 				backgroundColor: '$warning',
 			},
-			saved: {
+			done: {
 				backgroundColor: '$green',
 			},
 			error: {
@@ -32,17 +34,48 @@ const StatusBarBox = styled('div', {
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-end',
+	gap: '$1',
 	backgroundColor: '#f5f5f5',
 	color: '#6c6c6c',
 	borderTop: '1px solid #ddd',
+	'> div:not(:last-child)': {
+		'&:after': {
+			content: '|',
+			color: '#ddd',
+			paddingLeft: '$1',
+		},
+	},
 });
 
+export type Status = 'loading' | 'done' | 'error';
+
 type Props = {
-	status: 'saving' | 'saved' | 'error' | null;
+	status: Status;
+	extension: SupportedExtensions;
+	onExtensionChange: (extension: SupportedExtensions) => void;
+};
+
+const options = [...supportedExtensions];
+const titleByStatus: Record<Status, string> = {
+	loading: 'Carregando bloquinho...',
+	done: 'Bloquinho atualizado!',
+	error: 'Algo deu errado!',
 };
 
 export function BloquinhoEditorStatusBar(props: Props) {
-	const { status } = props;
+	const { status, extension, onExtensionChange } = props;
+	const title = titleByStatus[status];
 
-	return <StatusBarBox>{status !== null ? <LoadingIndicator status={status} /> : null}</StatusBarBox>;
+	return (
+		<StatusBarBox>
+			<Select
+				id={'extension'}
+				title={'Extension: '}
+				values={options}
+				onChange={onExtensionChange}
+				selectedValue={extension}
+			/>
+			{status !== null ? <LoadingIndicator title={title} status={status} /> : null}
+		</StatusBarBox>
+	);
 }

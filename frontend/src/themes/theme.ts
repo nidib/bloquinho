@@ -29,7 +29,11 @@ export const { styled, css } = createStitches({
 			5: '1.75rem',
 			10: '4rem',
 		},
+		fonts: {
+			mono: 'monospace',
+		},
 		fontSizes: {
+			textSmall: '0.8rem',
 			0: '1rem',
 			3: '1.25rem',
 			4: '1.875rem',
