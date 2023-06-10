@@ -18,14 +18,15 @@ const HeadingGroup = styled('div', {
 	maxWidth: '100%',
 	margin: '0 auto',
 	display: 'flex',
-	alignItems: 'flex-start',
+	alignItems: 'center',
+	textAlign: 'center',
 	flexDirection: 'column',
-	padding: '80px 0px 140px 0px',
+	padding: '140px 0px 80px 0px',
 });
 
 const Heading1 = styled('h1', {
 	color: '$textRegular',
-	fontSize: '$5',
+	fontSize: '$8',
 	lineHeight: '64px',
 	fontWeight: 1000,
 });
@@ -38,7 +39,12 @@ const Heading2 = styled('h2', {
 
 const Form = styled('form', {
 	display: 'flex',
+	flexDirection: 'column',
 	gap: '$1',
+
+	'@sm': {
+		flexDirection: 'row',
+	},
 });
 
 const FormWithInfoSpan = styled('div', {

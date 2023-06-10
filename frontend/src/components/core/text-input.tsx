@@ -4,7 +4,8 @@ import { styled } from '../../themes/theme';
 const Input = styled('input', {
 	backgroundColor: '$fullWhite',
 	color: '$textRegular',
-	minWidth: '300px',
+	width: '300px',
+	maxWidth: '100%',
 	padding: '$1 $2',
 	fontSize: '$0',
 	border: '1px solid $border',
