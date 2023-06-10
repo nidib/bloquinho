@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
+import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 
 import { CreatedBloquinho, SupportedExtensions } from '../apis/bloquinho/bloquinho-api';
 import { createOrUpdateBloquinho, retrieveBloquinhoIgnoringNotFound } from '../apis/bloquinho/bloquinho-gateways';
@@ -15,7 +16,32 @@ const Box = styled('div', {
 
 const BloquinhoEditorBox = styled('div', {
 	height: '100%',
-	paddingBottom: 36,
+});
+
+const StyledHandle = styled(PanelResizeHandle, {
+	height: 5,
+	backgroundColor: 'lightgray',
+	margin: '2px auto',
+	borderRadius: 999,
+	width: '10%',
+	transition: 'all 100ms ease',
+	'&:hover, &:active': {
+		width: '15%',
+		backgroundColor: 'gray',
+	},
+});
+
+const StyledHandleV = styled(PanelResizeHandle, {
+	width: 5,
+	backgroundColor: 'lightgray',
+	margin: 'auto 2px',
+	borderRadius: 999,
+	height: '10%',
+	transition: 'all 100ms ease',
+	'&:hover, &:active': {
+		width: '15%',
+		backgroundColor: 'gray',
+	},
 });
 
 type BloquinhoEditorPageParams = { bloquinhoTitle: string };
@@ -92,18 +118,36 @@ export function BloquinhoEditorPage() {
 	return (
 		<Box>
 			<BloquinhoEditorBox>
-				<BloquinhoEditor
-					extension={bloquinho.extension}
-					content={bloquinho.content}
-					onContentChange={handleContentChange}
-					autoFocus
-				/>
+				<PanelGroup direction="vertical">
+					<Panel style={{ position: 'relative', borderBottom: '1px solid lightgray' }}>
+						<BloquinhoEditor
+							extension={bloquinho.extension}
+							content={bloquinho.content}
+							onContentChange={handleContentChange}
+							autoFocus
+						/>
+						<BloquinhoEditorStatusBar
+							status={status}
+							extension={bloquinho.extension}
+							onExtensionChange={handleExtensionChange}
+						/>
+					</Panel>
+					<StyledHandle />
+					<Panel style={{ position: 'relative', borderTop: '1px solid lightgray' }}>
+						<BloquinhoEditor
+							extension={bloquinho.extension}
+							content={bloquinho.content}
+							onContentChange={handleContentChange}
+							autoFocus
+						/>
+						<BloquinhoEditorStatusBar
+							status={status}
+							extension={bloquinho.extension}
+							onExtensionChange={handleExtensionChange}
+						/>
+					</Panel>
+				</PanelGroup>
 			</BloquinhoEditorBox>
-			<BloquinhoEditorStatusBar
-				status={status}
-				extension={bloquinho.extension}
-				onExtensionChange={handleExtensionChange}
-			/>
 		</Box>
 	);
 }

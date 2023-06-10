@@ -25,7 +25,7 @@ const LoadingIndicator = styled('div', {
 });
 
 const StatusBarBox = styled('div', {
-	position: 'fixed',
+	position: 'absolute',
 	bottom: 0,
 	left: 0,
 	width: '100%',
