@@ -47,7 +47,13 @@ const StatusBarBox = styled('div', {
 	},
 });
 
-export type Status = 'loading' | 'done' | 'error';
+export const StatusEnum = {
+	LOADING: 'loading',
+	DONE: 'done',
+	ERROR: 'error',
+} as const;
+
+export type Status = (typeof StatusEnum)[keyof typeof StatusEnum];
 
 type Props = {
 	status: Status;
@@ -57,9 +63,9 @@ type Props = {
 
 const options = [...supportedExtensions];
 const titleByStatus: Record<Status, string> = {
-	loading: 'Carregando bloquinho...',
-	done: 'Bloquinho atualizado!',
-	error: 'Algo deu errado!',
+	[StatusEnum.LOADING]: 'Carregando bloquinho...',
+	[StatusEnum.DONE]: 'Bloquinho atualizado!',
+	[StatusEnum.ERROR]: 'Algo deu errado!',
 };
 
 export function BloquinhoEditorStatusBar(props: Props) {

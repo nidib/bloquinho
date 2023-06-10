@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 
-import { CreatedBloquinho, SupportedExtensions } from '../apis/bloquinho/bloquinho-api';
+import { styled } from '../themes/theme';
+import { PersistedBloquinho, NewBloquinho, SupportedExtensions } from '../apis/bloquinho/bloquinho-api';
 import { createOrUpdateBloquinho, retrieveBloquinhoIgnoringNotFound } from '../apis/bloquinho/bloquinho-gateways';
 import { BloquinhoEditor } from '../components/bloquinho-editor';
-import { styled } from '../themes/theme';
-import { BloquinhoEditorStatusBar, Status } from '../components/bloquinho-editor-status-bar';
+import { BloquinhoEditorStatusBar, Status, StatusEnum } from '../components/bloquinho-editor-status-bar';
 
 const Box = styled('div', {
 	height: '100%',
@@ -19,22 +19,21 @@ const BloquinhoEditorBox = styled('div', {
 });
 
 type BloquinhoEditorPageParams = { bloquinhoTitle: string };
-type InitialBloquinhoProperties = Pick<CreatedBloquinho, 'title' | 'content' | 'extension'>;
 
 export function BloquinhoEditorPage() {
 	const { bloquinhoTitle: title } = useParams() as BloquinhoEditorPageParams;
-	const [bloquinho, setBloquinho] = useState<InitialBloquinhoProperties | CreatedBloquinho>({
+	const [bloquinho, setBloquinho] = useState<NewBloquinho | PersistedBloquinho>({
 		title,
 		content: '',
 		extension: 'txt',
-	} satisfies InitialBloquinhoProperties);
-	const [status, setStatus] = useState<Status>('loading');
+	});
+	const [status, setStatus] = useState<Status>(StatusEnum.LOADING);
 
 	const lazyCreateOrUpdateBloquinho = useMemo(() => {
 		return debounce((title: string, content: string, extension: SupportedExtensions) => {
 			createOrUpdateBloquinho(title, content, extension)
-				.then(() => setStatus('done'))
-				.catch(() => setStatus('error'));
+				.then(() => setStatus(StatusEnum.DONE))
+				.catch(() => setStatus(StatusEnum.ERROR));
 		}, 800);
 	}, []);
 
@@ -64,14 +63,14 @@ export function BloquinhoEditorPage() {
 	};
 
 	useEffect(() => {
-		setStatus('loading');
+		setStatus(StatusEnum.LOADING);
 		lazyCreateOrUpdateBloquinho(bloquinho.title, bloquinho.content, bloquinho.extension);
 	}, [bloquinho, lazyCreateOrUpdateBloquinho]);
 
 	useEffect(() => {
 		document.addEventListener('keydown', handleSavingFromKeyboard);
 
-		const handleBloquinhoInicialization = async () => {
+		const fetchBloquinho = async () => {
 			const bloquinhoExistente = await retrieveBloquinhoIgnoringNotFound(title);
 
 			if (!bloquinhoExistente) {
@@ -81,7 +80,7 @@ export function BloquinhoEditorPage() {
 			setBloquinho(bloquinhoExistente);
 		};
 
-		void handleBloquinhoInicialization();
+		void fetchBloquinho();
 
 		return () => {
 			document.removeEventListener('keydown', handleSavingFromKeyboard);

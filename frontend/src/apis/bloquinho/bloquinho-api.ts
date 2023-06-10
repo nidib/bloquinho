@@ -8,9 +8,13 @@ export const supportedExtensions = ['java', 'js', 'jsx', 'ts', 'tsx', 'txt'] as 
 
 export type SupportedExtensions = (typeof supportedExtensions)[number];
 
-export type CreatedBloquinho = {
+export type PersistedBloquinho = {
 	id: string;
 	title: string;
 	content: string;
 	extension: SupportedExtensions;
+	lastViewedAt: string;
+	updatedAt: string;
 };
+
+export type NewBloquinho = Omit<PersistedBloquinho, 'id' | 'lastViewedAt' | 'updatedAt'>;
