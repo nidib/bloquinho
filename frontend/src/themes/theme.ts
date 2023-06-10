@@ -2,6 +2,11 @@ import { sand, amber, gray, grayDark, grass, tomato } from '@radix-ui/colors';
 import { createStitches } from '@stitches/react';
 
 export const { styled, css } = createStitches({
+	media: {
+		sm: '(min-width: 480px)',
+		md: '(min-width: 768px)',
+		lg: '(min-width: 1024px)',
+	},
 	theme: {
 		colors: {
 			green: grass.grass9,
@@ -37,7 +42,11 @@ export const { styled, css } = createStitches({
 			0: '1rem',
 			3: '1.25rem',
 			4: '1.875rem',
-			5: '4.5rem',
+			5: '2rem',
+			6: '2.5rem',
+			7: '3rem',
+			8: '4rem',
+			9: '4.5rem',
 		},
 	},
 });
