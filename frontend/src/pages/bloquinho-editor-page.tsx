@@ -70,7 +70,7 @@ export function BloquinhoEditorPage() {
 	useEffect(() => {
 		document.addEventListener('keydown', handleSavingFromKeyboard);
 
-		const fetchBloquinho = async () => {
+		void (async function fetchBloquinho() {
 			const bloquinhoExistente = await retrieveBloquinhoIgnoringNotFound(title);
 
 			if (!bloquinhoExistente) {
@@ -78,9 +78,7 @@ export function BloquinhoEditorPage() {
 			}
 
 			setBloquinho(bloquinhoExistente);
-		};
-
-		void fetchBloquinho();
+		})();
 
 		return () => {
 			document.removeEventListener('keydown', handleSavingFromKeyboard);
