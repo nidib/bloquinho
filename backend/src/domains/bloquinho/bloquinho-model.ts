@@ -3,7 +3,19 @@ import { boolean, varchar } from 'drizzle-orm/pg-core';
 
 import { baseColumns, schema, timestamp } from '../../database/models/defaults';
 
-export const supportedExtensions = ['txt', 'java', 'js', 'jsx', 'ts', 'tsx'] as const;
+export const supportedExtensions = [
+	'java',
+	'js',
+	'jsx',
+	'ts',
+	'tsx',
+	'txt',
+	'sql',
+	'html',
+	'pyton',
+	'markdown',
+	'css',
+] as const;
 
 export const bloquinhoModel = schema.table('bloquinho', {
 	...baseColumns,

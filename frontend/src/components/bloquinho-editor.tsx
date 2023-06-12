@@ -2,6 +2,11 @@ import CodeMirror, { BasicSetupOptions } from '@uiw/react-codemirror';
 import { Extension } from '@codemirror/state';
 import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
+import { sql } from '@codemirror/lang-sql';
+import { html } from '@codemirror/lang-html';
+import { python } from '@codemirror/lang-python';
+import { markdown } from '@codemirror/lang-markdown';
+import { css } from '@codemirror/lang-css';
 
 import { styled } from '../themes/theme';
 import { SupportedExtensions } from '../apis/bloquinho/bloquinho-api';
@@ -25,6 +30,11 @@ const languages: Record<SupportedExtensions, Extension | null> = {
 	ts: javascript({ jsx: false, typescript: true }),
 	tsx: javascript({ jsx: true, typescript: true }),
 	java: java(),
+	sql: sql(),
+	html: html(),
+	pyton: python(),
+	markdown: markdown(),
+	css: css(),
 	txt: null,
 };
 
