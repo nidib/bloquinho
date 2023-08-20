@@ -9,20 +9,6 @@ export async function retrieveBloquinho(title: string): Promise<Optional<Persist
 	return response.data;
 }
 
-export async function retrieveBloquinhoIgnoringNotFound(title: string): Promise<Optional<PersistedBloquinho>> {
-	try {
-		const bloquinhoExistente = await retrieveBloquinho(title);
-
-		return bloquinhoExistente;
-	} catch (e) {
-		if (e instanceof AxiosError && e.response?.status === 404) {
-			return null;
-		}
-
-		throw e;
-	}
-}
-
 export async function createOrUpdateBloquinho(
 	title: string,
 	content: string,
@@ -35,4 +21,18 @@ export async function createOrUpdateBloquinho(
 	});
 
 	return response.data;
+}
+
+export async function retrieveOrCreateBloquinho(title: string): Promise<Optional<PersistedBloquinho>> {
+	try {
+		const existingBloquinho = await retrieveBloquinho(title);
+
+		return existingBloquinho;
+	} catch (e) {
+		if (e instanceof AxiosError && e.response?.status === 404) {
+			return createOrUpdateBloquinho(title, '', 'txt');
+		}
+
+		throw e;
+	}
 }
