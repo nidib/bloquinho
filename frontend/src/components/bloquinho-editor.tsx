@@ -11,7 +11,7 @@ import { css } from '@codemirror/lang-css';
 import { styled } from '../themes/theme';
 import type { Extension } from '../utils/constants/extensions';
 
-type BloquinhoEditorProps = {
+type Props = {
 	content: string;
 	onContentChange: (content: string) => void;
 	extension: Extension;
@@ -43,7 +43,7 @@ const preferences: BasicSetupOptions = {
 	tabSize: 4,
 };
 
-export function BloquinhoEditor(props: BloquinhoEditorProps) {
+export function BloquinhoEditor(props: Props) {
 	const { content, onContentChange, autoFocus, extension } = props;
 	const languageExtension = languages[extension];
 	const extensions = languageExtension ? [languageExtension] : undefined;

@@ -17,12 +17,12 @@ const StyledButton = styled('button', {
 	},
 });
 
-type ButtonProps = {
+type Props = {
 	children?: ReactNode;
 	type?: 'button' | 'submit';
 };
 
-export function Button(props: ButtonProps) {
+export function Button(props: Props) {
 	const { type = 'submit', children } = props;
 
 	return <StyledButton type={type}>{children}</StyledButton>;

@@ -75,7 +75,7 @@ export function BloquinhoEditorStatusBar(props: Props) {
 
 	return (
 		<StatusBarBox>
-			<Select id={'extension'} title={'Extension: '} onChange={onExtensionChange} selectedValue={extension}>
+			<Select id={'extension'} title={'Extensão: '} onChange={onExtensionChange} selectedValue={extension}>
 				{extensionsList.map((ext) => (
 					<Select.Option key={ext.value} value={ext.value}>
 						{ext.displayName}

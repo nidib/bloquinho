@@ -39,7 +39,6 @@ export function BloquinhoEditorPage() {
 	}, []);
 
 	const handleExtensionChange = (extension: Extension) => {
-		console.log(extension);
 		setBloquinho((current) => ({
 			...current,
 			extension,
@@ -67,8 +66,6 @@ export function BloquinhoEditorPage() {
 	useEffect(() => {
 		document.addEventListener('keydown', handleSavingFromKeyboard);
 
-		console.log('busca mount');
-
 		retrieveBloquinhoIgnoringNotFound(title)
 			.then((bloquinhoExistente) => {
 				if (!bloquinhoExistente) {
@@ -87,7 +84,6 @@ export function BloquinhoEditorPage() {
 
 	useEffect(() => {
 		setStatus(StatusEnum.LOADING);
-		console.log('busca update');
 
 		lazyCreateOrUpdateBloquinho(bloquinho.title, bloquinho.content, bloquinho.extension);
 	}, [bloquinho, lazyCreateOrUpdateBloquinho]);
