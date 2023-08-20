@@ -1,5 +1,5 @@
 import CodeMirror, { BasicSetupOptions } from '@uiw/react-codemirror';
-import { Extension } from '@codemirror/state';
+import { Extension as CodeMirrorExtension } from '@codemirror/state';
 import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
 import { sql } from '@codemirror/lang-sql';
@@ -9,12 +9,12 @@ import { markdown } from '@codemirror/lang-markdown';
 import { css } from '@codemirror/lang-css';
 
 import { styled } from '../themes/theme';
-import { SupportedExtensions } from '../apis/bloquinho/bloquinho-api';
+import type { Extension } from '../utils/constants/extensions';
 
 type BloquinhoEditorProps = {
 	content: string;
 	onContentChange: (content: string) => void;
-	extension: SupportedExtensions;
+	extension: Extension;
 	autoFocus: boolean;
 };
 
@@ -24,7 +24,7 @@ const StyledCodeMirror = styled(CodeMirror, {
 	fontSize: '$3',
 });
 
-const languages: Record<SupportedExtensions, Extension | null> = {
+const languages: Record<Extension, CodeMirrorExtension | null> = {
 	js: javascript({ jsx: false, typescript: false }),
 	jsx: javascript({ jsx: true, typescript: false }),
 	ts: javascript({ jsx: false, typescript: true }),
@@ -32,8 +32,8 @@ const languages: Record<SupportedExtensions, Extension | null> = {
 	java: java(),
 	sql: sql(),
 	html: html(),
-	pyton: python(),
-	markdown: markdown(),
+	py: python(),
+	md: markdown(),
 	css: css(),
 	txt: null,
 };

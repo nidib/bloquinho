@@ -1,30 +1,16 @@
 import axios from 'axios';
 
+import { Extension } from '../../utils/constants/extensions';
+
 export const bloquinhoApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080/api',
 });
-
-export const supportedExtensions = [
-	'java',
-	'js',
-	'jsx',
-	'ts',
-	'tsx',
-	'txt',
-	'sql',
-	'html',
-	'pyton',
-	'markdown',
-	'css',
-] as const;
-
-export type SupportedExtensions = (typeof supportedExtensions)[number];
 
 export type PersistedBloquinho = {
 	id: string;
 	title: string;
 	content: string;
-	extension: SupportedExtensions;
+	extension: Extension;
 	lastViewedAt: string;
 	updatedAt: string;
 };
