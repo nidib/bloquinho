@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { Optional } from '../../utils/types';
-import { PersistedBloquinho, SupportedExtensions, bloquinhoApi } from './bloquinho-api';
+import { PersistedBloquinho, bloquinhoApi } from './bloquinho-api';
+import { Extension } from '../../utils/constants/extensions';
 
 export async function retrieveBloquinho(title: string): Promise<Optional<PersistedBloquinho>> {
 	const response = await bloquinhoApi.get<Optional<PersistedBloquinho>>(`/bloquinho/${title}`);
@@ -25,7 +26,7 @@ export async function retrieveBloquinhoIgnoringNotFound(title: string): Promise<
 export async function createOrUpdateBloquinho(
 	title: string,
 	content: string,
-	extension: SupportedExtensions
+	extension: Extension
 ): Promise<PersistedBloquinho> {
 	const response = await bloquinhoApi.post<PersistedBloquinho>('/bloquinho', {
 		title,

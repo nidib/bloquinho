@@ -1,5 +1,5 @@
-import { SupportedExtensions, supportedExtensions } from '../apis/bloquinho/bloquinho-api';
 import { styled } from '../themes/theme';
+import { Extension, extensions } from '../utils/constants/extensions';
 import { Select } from './core/select';
 
 const LoadingIndicator = styled('div', {
@@ -57,16 +57,17 @@ export type Status = (typeof StatusEnum)[keyof typeof StatusEnum];
 
 type Props = {
 	status: Status;
-	extension: SupportedExtensions;
-	onExtensionChange: (extension: SupportedExtensions) => void;
+	extension: Extension;
+	onExtensionChange: (extension: Extension) => void;
 };
 
-const options = [...supportedExtensions];
 const titleByStatus: Record<Status, string> = {
 	[StatusEnum.LOADING]: 'Carregando bloquinho...',
 	[StatusEnum.DONE]: 'Bloquinho atualizado!',
 	[StatusEnum.ERROR]: 'Algo deu errado!',
 };
+
+const extensionsList = Object.values(extensions);
 
 export function BloquinhoEditorStatusBar(props: Props) {
 	const { status, extension, onExtensionChange } = props;
@@ -74,13 +75,13 @@ export function BloquinhoEditorStatusBar(props: Props) {
 
 	return (
 		<StatusBarBox>
-			<Select
-				id={'extension'}
-				title={'Extension: '}
-				values={options}
-				onChange={onExtensionChange}
-				selectedValue={extension}
-			/>
+			<Select id={'extension'} title={'Extension: '} onChange={onExtensionChange} selectedValue={extension}>
+				{extensionsList.map((ext) => (
+					<Select.Option key={ext.value} value={ext.value}>
+						{ext.displayName}
+					</Select.Option>
+				))}
+			</Select>
 			{status !== null ? <LoadingIndicator title={title} status={status} /> : null}
 		</StatusBarBox>
 	);

@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 
 import { styled } from '../themes/theme';
-import { PersistedBloquinho, NewBloquinho, SupportedExtensions } from '../apis/bloquinho/bloquinho-api';
+import { PersistedBloquinho, NewBloquinho } from '../apis/bloquinho/bloquinho-api';
 import { createOrUpdateBloquinho, retrieveBloquinhoIgnoringNotFound } from '../apis/bloquinho/bloquinho-gateways';
 import { BloquinhoEditor } from '../components/bloquinho-editor';
 import { BloquinhoEditorStatusBar, Status, StatusEnum } from '../components/bloquinho-editor-status-bar';
+import { Extension } from '../utils/constants/extensions';
 
 const Box = styled('div', {
 	height: '100%',
@@ -30,14 +31,15 @@ export function BloquinhoEditorPage() {
 	const [status, setStatus] = useState<Status>(StatusEnum.LOADING);
 
 	const lazyCreateOrUpdateBloquinho = useMemo(() => {
-		return debounce((title: string, content: string, extension: SupportedExtensions) => {
+		return debounce((title: string, content: string, extension: Extension) => {
 			createOrUpdateBloquinho(title, content, extension)
 				.then(() => setStatus(StatusEnum.DONE))
 				.catch(() => setStatus(StatusEnum.ERROR));
 		}, 800);
 	}, []);
 
-	const handleExtensionChange = (extension: SupportedExtensions) => {
+	const handleExtensionChange = (extension: Extension) => {
+		console.log(extension);
 		setBloquinho((current) => ({
 			...current,
 			extension,
@@ -63,28 +65,32 @@ export function BloquinhoEditorPage() {
 	};
 
 	useEffect(() => {
-		setStatus(StatusEnum.LOADING);
-		lazyCreateOrUpdateBloquinho(bloquinho.title, bloquinho.content, bloquinho.extension);
-	}, [bloquinho, lazyCreateOrUpdateBloquinho]);
-
-	useEffect(() => {
 		document.addEventListener('keydown', handleSavingFromKeyboard);
 
-		void (async function fetchBloquinho() {
-			const bloquinhoExistente = await retrieveBloquinhoIgnoringNotFound(title);
+		console.log('busca mount');
 
-			if (!bloquinhoExistente) {
-				return;
-			}
+		retrieveBloquinhoIgnoringNotFound(title)
+			.then((bloquinhoExistente) => {
+				if (!bloquinhoExistente) {
+					return;
+				}
 
-			setBloquinho(bloquinhoExistente);
-		})();
+				setBloquinho(bloquinhoExistente);
+			})
+			.catch(() => setStatus(StatusEnum.ERROR));
 
 		return () => {
 			document.removeEventListener('keydown', handleSavingFromKeyboard);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		setStatus(StatusEnum.LOADING);
+		console.log('busca update');
+
+		lazyCreateOrUpdateBloquinho(bloquinho.title, bloquinho.content, bloquinho.extension);
+	}, [bloquinho, lazyCreateOrUpdateBloquinho]);
 
 	return (
 		<Box>

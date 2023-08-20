@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { styled } from '../../themes/theme';
 
 const StyledSelect = styled('select', {
@@ -26,25 +27,29 @@ const StyledLabel = styled('label', {
 type Props<T extends string> = {
 	id: string;
 	title: string;
-	values: T[];
+	children: ReactNode;
 	selectedValue: T | null;
 	defaultValue?: T;
 	onChange: (value: T) => void;
 };
 
 export function Select<T extends string>(props: Props<T>) {
-	const { id, title, values, defaultValue, selectedValue, onChange } = props;
+	const { id, title, defaultValue, selectedValue, onChange, children } = props;
 
 	return (
 		<div>
 			<StyledLabel htmlFor={id}>{title}</StyledLabel>
 			<StyledSelect id={id} value={selectedValue ?? defaultValue} onChange={(e) => onChange(e.target.value as T)}>
-				{values.map((value) => (
-					<option key={value} value={value}>
-						{value}
-					</option>
-				))}
+				{children}
 			</StyledSelect>
 		</div>
 	);
+}
+
+Select.Option = Option;
+
+function Option(props: { children: ReactNode; value: string }) {
+	const { value, children } = props;
+
+	return <option value={value}>{children}</option>;
 }
