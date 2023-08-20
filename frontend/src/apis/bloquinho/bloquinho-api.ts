@@ -15,4 +15,11 @@ export type PersistedBloquinho = {
 	updatedAt: string;
 };
 
-export type NewBloquinho = Omit<PersistedBloquinho, 'id' | 'lastViewedAt' | 'updatedAt'>;
+export type NewBloquinho = {
+	id?: undefined;
+	title: string;
+	content: string;
+	extension: Extension;
+	lastViewedAt?: undefined;
+	updatedAt?: undefined;
+};

@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { BloquinhoEditorPage } from './pages/bloquinho-editor-page';
+import { BloquinhoEditorPage } from './pages/bloquinho-editor-page/bloquinho-editor-page';
 import { HomePage } from './pages/home-page';
 
 const router = createBrowserRouter([
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
 		element: <HomePage />,
 	},
 	{
-		path: '/:bloquinhoTitle',
+		path: '/:title',
 		element: <BloquinhoEditorPage />,
 	},
 	{

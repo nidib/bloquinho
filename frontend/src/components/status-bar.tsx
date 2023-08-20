@@ -69,7 +69,7 @@ const titleByStatus: Record<Status, string> = {
 
 const extensionsList = Object.values(extensions);
 
-export function BloquinhoEditorStatusBar(props: Props) {
+export function StatusBar(props: Props) {
 	const { status, extension, onExtensionChange } = props;
 	const title = titleByStatus[status];
 

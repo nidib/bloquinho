@@ -1,63 +1,50 @@
-import CodeMirror, { BasicSetupOptions } from '@uiw/react-codemirror';
-import { Extension as CodeMirrorExtension } from '@codemirror/state';
-import { javascript } from '@codemirror/lang-javascript';
-import { java } from '@codemirror/lang-java';
-import { sql } from '@codemirror/lang-sql';
-import { html } from '@codemirror/lang-html';
-import { python } from '@codemirror/lang-python';
-import { markdown } from '@codemirror/lang-markdown';
-import { css } from '@codemirror/lang-css';
-
+import { PersistedBloquinho } from '../apis/bloquinho/bloquinho-api';
 import { styled } from '../themes/theme';
-import type { Extension } from '../utils/constants/extensions';
+import { Extension } from '../utils/constants/extensions';
+import { BloquinhoContentEditor } from './bloquinho-content-editor';
+import { Status, StatusBar } from './status-bar';
 
 type Props = {
+	title: string;
 	content: string;
-	onContentChange: (content: string) => void;
 	extension: Extension;
-	autoFocus: boolean;
-};
-
-const StyledCodeMirror = styled(CodeMirror, {
-	zIndex: 100,
-	height: '100%',
-	fontSize: '$3',
-});
-
-const languages: Record<Extension, CodeMirrorExtension | null> = {
-	js: javascript({ jsx: false, typescript: false }),
-	jsx: javascript({ jsx: true, typescript: false }),
-	ts: javascript({ jsx: false, typescript: true }),
-	tsx: javascript({ jsx: true, typescript: true }),
-	java: java(),
-	sql: sql(),
-	html: html(),
-	py: python(),
-	md: markdown(),
-	css: css(),
-	txt: null,
-};
-
-const preferences: BasicSetupOptions = {
-	autocompletion: false,
-	tabSize: 4,
+	status: Status;
+	onSave: (bloquinho: Partial<PersistedBloquinho>) => void;
 };
 
 export function BloquinhoEditor(props: Props) {
-	const { content, onContentChange, autoFocus, extension } = props;
-	const languageExtension = languages[extension];
-	const extensions = languageExtension ? [languageExtension] : undefined;
+	const { content, extension, status, onSave } = props;
+
+	const handleContentChange = (content: string) => {
+		onSave({ content });
+	};
+
+	const handleExtensionChange = (extension: Extension) => {
+		onSave({ extension });
+	};
 
 	return (
-		<StyledCodeMirror
-			value={content}
-			height={'100%'}
-			theme={'light'}
-			basicSetup={preferences}
-			extensions={extensions}
-			onChange={onContentChange}
-			autoFocus={autoFocus}
-			indentWithTab
-		/>
+		<Box>
+			<BloquinhoEditorBox>
+				<BloquinhoContentEditor
+					extension={extension}
+					content={content}
+					onContentChange={handleContentChange}
+					autoFocus
+				/>
+			</BloquinhoEditorBox>
+			<StatusBar status={status} extension={extension} onExtensionChange={handleExtensionChange} />
+		</Box>
 	);
 }
+
+const Box = styled('div', {
+	height: '100%',
+	flex: 1,
+	position: 'relative',
+});
+
+const BloquinhoEditorBox = styled('div', {
+	height: '100%',
+	paddingBottom: 36,
+});
