@@ -1,64 +1,9 @@
 import { FormEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { styled } from '../themes/theme';
 import { TextInput } from '../components/core/text-input';
 import { Button } from '../components/core/button';
 import { normalizeBloquinhoTitle } from '../utils/text-utils';
-
-const Page = styled('div', {
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
-	height: '100%',
-});
-
-const HeadingGroup = styled('div', {
-	width: '700px',
-	maxWidth: '100%',
-	margin: '0 auto',
-	display: 'flex',
-	alignItems: 'center',
-	textAlign: 'center',
-	flexDirection: 'column',
-	padding: '140px 0px 80px 0px',
-});
-
-const Heading1 = styled('h1', {
-	color: '$textRegular',
-	fontSize: '$8',
-	lineHeight: '64px',
-	fontWeight: 1000,
-});
-
-const Heading2 = styled('h2', {
-	color: '$textRegular',
-	fontSize: '$4',
-	fontWeight: 700,
-});
-
-const Form = styled('form', {
-	display: 'flex',
-	flexDirection: 'column',
-	gap: '$1',
-
-	'@sm': {
-		flexDirection: 'row',
-	},
-});
-
-const FormWithInfoSpan = styled('div', {
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'flex-start',
-	gap: '$1',
-});
-
-const InfoSpan = styled('span', {
-	fontSize: '$0',
-	marginLeft: '$1',
-	color: '$warning',
-});
 
 export function HomePage() {
 	const [bloquinhoTitle, setBloquinhoTitle] = useState('');
@@ -72,13 +17,13 @@ export function HomePage() {
 	};
 
 	return (
-		<Page>
-			<HeadingGroup>
-				<Heading1>Bloquinho</Heading1>
-				<Heading2>Compartilhando suas notas de forma fácil.</Heading2>
-			</HeadingGroup>
-			<FormWithInfoSpan>
-				<Form onSubmit={handleSubmit}>
+		<div className="flex flex-col items-center h-full">
+			<div className="mt-0 mx-auto flex flex-col items-center text-center pt-[140px] px-[20px] pb-[80px]">
+				<h1 className="text-zinc-700 text-7xl font-black">Bloquinho</h1>
+				<h2 className="text-zinc-600 text-4xl font-bold">Compartilhando suas notas de forma fácil.</h2>
+			</div>
+			<div className="flex flex-col items-start gap-3">
+				<form className="flex flex-col gap-3 sm:flex-row" onSubmit={handleSubmit}>
 					<TextInput
 						value={bloquinhoTitle}
 						info={'Alguma info'}
@@ -87,14 +32,14 @@ export function HomePage() {
 						autoFocus
 					/>
 					<Button type={'submit'}>Criar bloquinho</Button>
-				</Form>
+				</form>
 				{trimmedTitle !== normalizedBloquinhoTitle && (
-					<InfoSpan>
+					<span className="text-amber-500">
 						{'Será criado como: '}
 						<strong>{normalizedBloquinhoTitle}</strong>
-					</InfoSpan>
+					</span>
 				)}
-			</FormWithInfoSpan>
-		</Page>
+			</div>
+		</div>
 	);
 }

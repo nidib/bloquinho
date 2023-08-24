@@ -1,15 +1,14 @@
 import { debounce, merge } from 'lodash';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { NewBloquinho, PersistedBloquinho } from '../../apis/bloquinho/bloquinho-api';
-import { Status, StatusEnum } from '../../components/status-bar';
-import { BloquinhoEditor } from '../../components/bloquinho-editor';
-import { useCommandS } from '../../utils/hooks/use-command-s';
-import { createOrUpdateBloquinho, retrieveOrCreateBloquinho } from '../../apis/bloquinho/bloquinho-gateways';
-import { Extension } from '../../utils/constants/extensions';
-import { styled } from '../../themes/theme';
-import loading from '../../assets/loading.svg';
+import { NewBloquinho, PersistedBloquinho } from '../apis/bloquinho/bloquinho-api';
+import { Status, StatusEnum } from '../components/status-bar';
+import { BloquinhoEditor } from '../components/bloquinho-editor';
+import { useCommandS } from '../utils/hooks/use-command-s';
+import { createOrUpdateBloquinho, retrieveOrCreateBloquinho } from '../apis/bloquinho/bloquinho-gateways';
+import { Extension } from '../utils/constants/extensions';
+import loading from '../assets/loading.svg';
 
 const useBloquinhoEditorPageParams = () => useParams() as { title: string };
 
@@ -77,7 +76,7 @@ export function BloquinhoEditorPage() {
 
 	if (!bloquinho.id) {
 		return (
-			<Main style={{}}>
+			<Main>
 				<img src={loading} width={40} />
 			</Main>
 		);
@@ -96,9 +95,6 @@ export function BloquinhoEditorPage() {
 	);
 }
 
-const Main = styled('main', {
-	height: '100%',
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-});
+const Main = (props: PropsWithChildren) => {
+	return <main className="h-[100dvh] flex justify-center items-center">{props.children}</main>;
+};

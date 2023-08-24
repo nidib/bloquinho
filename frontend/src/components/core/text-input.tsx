@@ -1,26 +1,4 @@
 import { ChangeEventHandler } from 'react';
-import { styled } from '../../themes/theme';
-
-const Input = styled('input', {
-	backgroundColor: '$fullWhite',
-	color: '$textRegular',
-	width: '300px',
-	maxWidth: '100%',
-	padding: '$1 $2',
-	fontSize: '$0',
-	border: '1px solid $border',
-	borderRadius: '$rounded',
-	boxShadow: '$shadow',
-	outline: 'none',
-
-	'&:focus-visible': {
-		outline: '1px solid $border',
-	},
-
-	'&::placeholder': {
-		color: '$placeholder',
-	},
-});
 
 type TextInputProps = {
 	value: string;
@@ -38,12 +16,13 @@ export function TextInput(props: TextInputProps) {
 	};
 
 	return (
-		<Input
+		<input
 			type={'text'}
 			placeholder={placeholder}
 			value={value}
 			onChange={handleValueChange}
 			autoFocus={autoFocus}
+			className="bg-white text-zinc-800 px-4 py-3 min-w-[300px] max-w-full border border-zinc-200 rounded focus:outline-1 focus:outline-zinc-200 shadow-sm placeholder-zinc-400"
 		/>
 	);
 }
