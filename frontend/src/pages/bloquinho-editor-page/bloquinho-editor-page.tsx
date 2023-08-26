@@ -84,7 +84,7 @@ export function BloquinhoEditorPage() {
 	}
 
 	return (
-		<Main>
+		<div style={{ height: '100%' }}>
 			<BloquinhoEditor
 				title={bloquinho.title}
 				content={bloquinho.content}
@@ -92,7 +92,7 @@ export function BloquinhoEditorPage() {
 				status={status}
 				onSave={updateBloquinho}
 			/>
-		</Main>
+		</div>
 	);
 }
 
