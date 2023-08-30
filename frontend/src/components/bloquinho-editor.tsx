@@ -1,5 +1,4 @@
 import { PersistedBloquinho } from '../apis/bloquinho/bloquinho-api';
-import { styled } from '../themes/theme';
 import { Extension } from '../utils/constants/extensions';
 import { BloquinhoContentEditor } from './bloquinho-content-editor';
 import { Status, StatusBar } from './status-bar';
