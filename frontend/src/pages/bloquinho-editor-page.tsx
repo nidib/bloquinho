@@ -1,5 +1,5 @@
 import { debounce, merge } from 'lodash';
-import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { NewBloquinho, PersistedBloquinho } from '../apis/bloquinho/bloquinho-api';
@@ -74,27 +74,19 @@ export function BloquinhoEditorPage() {
 		void getOrCreateBloquinho();
 	}, [getOrCreateBloquinho]);
 
-	if (!bloquinho.id) {
-		return (
-			<Main>
-				<img src={loading} width={40} />
-			</Main>
-		);
-	}
-
 	return (
-		<Main>
-			<BloquinhoEditor
-				title={bloquinho.title}
-				content={bloquinho.content}
-				extension={bloquinho.extension}
-				status={status}
-				onSave={updateBloquinho}
-			/>
-		</Main>
+		<div className="h-[100svh] flex justify-center">
+			{!bloquinho.id ? (
+				<img src={loading} width={40} />
+			) : (
+				<BloquinhoEditor
+					title={bloquinho.title}
+					content={bloquinho.content}
+					extension={bloquinho.extension}
+					status={status}
+					onSave={updateBloquinho}
+				/>
+			)}
+		</div>
 	);
 }
-
-const Main = (props: PropsWithChildren) => {
-	return <main className="h-[100dvh] flex justify-center items-center">{props.children}</main>;
-};

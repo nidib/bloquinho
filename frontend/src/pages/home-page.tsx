@@ -26,8 +26,8 @@ export function HomePage() {
 				<form className="flex flex-col gap-3 sm:flex-row" onSubmit={handleSubmit}>
 					<TextInput
 						value={bloquinhoTitle}
-						info={'Alguma info'}
-						placeholder={'nome-do-seu-bloquinho'}
+						info="Alguma info"
+						placeholder="nome-do-seu-bloquinho"
 						onChange={setBloquinhoTitle}
 						autoFocus
 					/>
