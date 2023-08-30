@@ -8,7 +8,6 @@ import { python } from '@codemirror/lang-python';
 import { markdown } from '@codemirror/lang-markdown';
 import { css } from '@codemirror/lang-css';
 
-import { styled } from '../themes/theme';
 import type { Extension } from '../utils/constants/extensions';
 
 type Props = {
@@ -43,7 +42,8 @@ export function BloquinhoContentEditor(props: Props) {
 	const extensions = languageExtension ? [languageExtension] : undefined;
 
 	return (
-		<StyledCodeMirror
+		<CodeMirror
+			className="z-[100] h-full text-xl"
 			value={content}
 			height={'100%'}
 			theme={'light'}
@@ -55,9 +55,3 @@ export function BloquinhoContentEditor(props: Props) {
 		/>
 	);
 }
-
-const StyledCodeMirror = styled(CodeMirror, {
-	zIndex: 100,
-	height: '100%',
-	fontSize: '$3',
-});
