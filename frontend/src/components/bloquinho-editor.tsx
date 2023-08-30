@@ -24,7 +24,7 @@ export function BloquinhoEditor(props: Props) {
 
 	return (
 		<div className="w-full flex flex-col">
-			<div className="bg-red-300 h-full max-h-[calc(100%-36px)]">
+			<div className="h-full max-h-[calc(100%-36px)]">
 				<BloquinhoContentEditor
 					extension={extension}
 					content={content}
