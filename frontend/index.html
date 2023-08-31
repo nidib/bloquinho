@@ -16,35 +16,9 @@
 		rel="stylesheet"
 	/>
 	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		html {
-			height: 100vh;
-			background-color: var(--colors-sand);
-			font-family: 'Nunito', sans-serif;
-		}
-
-		input,
-		textarea,
-		button {
-			font-family: inherit;
-		}
-
-		body,
-		#root {
-			height: 100%;
-		}
-
-		img,
-		input,
-		textarea,
-		button {
-			display: block;
-		}
+		@tailwind base;
+		@tailwind components;
+		@tailwind utilities;
 	</style>
 	<body>
 		<div id="root"></div>

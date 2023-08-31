@@ -1,5 +1,4 @@
 import { PersistedBloquinho } from '../apis/bloquinho/bloquinho-api';
-import { styled } from '../themes/theme';
 import { Extension } from '../utils/constants/extensions';
 import { BloquinhoContentEditor } from './bloquinho-content-editor';
 import { Status, StatusBar } from './status-bar';
@@ -24,27 +23,16 @@ export function BloquinhoEditor(props: Props) {
 	};
 
 	return (
-		<Box>
-			<BloquinhoEditorBox>
+		<div className="w-full flex flex-col">
+			<div className="h-full max-h-[calc(100%-36px)]">
 				<BloquinhoContentEditor
 					extension={extension}
 					content={content}
 					onContentChange={handleContentChange}
 					autoFocus
 				/>
-			</BloquinhoEditorBox>
+			</div>
 			<StatusBar status={status} extension={extension} onExtensionChange={handleExtensionChange} />
-		</Box>
+		</div>
 	);
 }
-
-const Box = styled('div', {
-	height: '100%',
-	flex: 1,
-	position: 'relative',
-});
-
-const BloquinhoEditorBox = styled('div', {
-	height: '100%',
-	paddingBottom: 36,
-});

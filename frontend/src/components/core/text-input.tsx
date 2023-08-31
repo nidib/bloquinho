@@ -1,26 +1,5 @@
+import clsx from 'clsx';
 import { ChangeEventHandler } from 'react';
-import { styled } from '../../themes/theme';
-
-const Input = styled('input', {
-	backgroundColor: '$fullWhite',
-	color: '$textRegular',
-	width: '300px',
-	maxWidth: '100%',
-	padding: '$1 $2',
-	fontSize: '$0',
-	border: '1px solid $border',
-	borderRadius: '$rounded',
-	boxShadow: '$shadow',
-	outline: 'none',
-
-	'&:focus-visible': {
-		outline: '1px solid $border',
-	},
-
-	'&::placeholder': {
-		color: '$placeholder',
-	},
-});
 
 type TextInputProps = {
 	value: string;
@@ -38,12 +17,28 @@ export function TextInput(props: TextInputProps) {
 	};
 
 	return (
-		<Input
+		<input
 			type={'text'}
 			placeholder={placeholder}
 			value={value}
 			onChange={handleValueChange}
 			autoFocus={autoFocus}
+			className={clsx([
+				'bg-white',
+				'text-zinc-700',
+				'px-4',
+				'py-3',
+				'min-w-[300px]',
+				'max-w-full',
+				'rounded',
+				'outline-none',
+				'ring-1',
+				'ring-zinc-200',
+				'focus-visible:ring-zinc-300',
+				'shadow-sm',
+				'placeholder-zinc-400',
+				'transition-all',
+			])}
 		/>
 	);
 }

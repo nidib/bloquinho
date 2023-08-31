@@ -1,21 +1,5 @@
 import { ReactNode } from 'react';
-import { styled } from '../../themes/theme';
-
-const StyledButton = styled('button', {
-	padding: '$1 $3',
-	fontSize: '$0',
-	backgroundColor: '$fullWhite',
-	color: '$textRegular',
-	border: '1px solid $border',
-	borderRadius: '$rounded',
-	cursor: 'pointer',
-	boxShadow: '$shadow',
-	transition: 'all ease 100ms',
-
-	'&:hover': {
-		backgroundColor: '$border',
-	},
-});
+import clsx from 'clsx';
 
 type Props = {
 	children?: ReactNode;
@@ -25,5 +9,28 @@ type Props = {
 export function Button(props: Props) {
 	const { type = 'submit', children } = props;
 
-	return <StyledButton type={type}>{children}</StyledButton>;
+	return (
+		<button
+			className={clsx([
+				'ring-1',
+				'ring-zinc-200',
+				'bg-zinc-200',
+				'py-3',
+				'px-4',
+				'text-zinc-700',
+				'rounded',
+				'outline-none',
+				'focus-visible:ring-zinc-300',
+				'focus-visible:bg-zinc-300',
+				'hover:ring-zinc-300',
+				'hover:bg-zinc-300',
+				'hover:bg-zinc-200',
+				'transition-all',
+				'shadow-sm',
+			])}
+			type={type}
+		>
+			{children}
+		</button>
+	);
 }
