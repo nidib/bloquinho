@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ChangeEventHandler } from 'react';
 
 type TextInputProps = {
@@ -22,7 +23,22 @@ export function TextInput(props: TextInputProps) {
 			value={value}
 			onChange={handleValueChange}
 			autoFocus={autoFocus}
-			className="bg-white text-zinc-800 px-4 py-3 min-w-[300px] max-w-full border border-zinc-200 rounded focus:outline-1 focus:outline-zinc-200 shadow-sm placeholder-zinc-400"
+			className={clsx([
+				'bg-white',
+				'text-zinc-700',
+				'px-4',
+				'py-3',
+				'min-w-[300px]',
+				'max-w-full',
+				'rounded',
+				'outline-none',
+				'ring-1',
+				'ring-zinc-200',
+				'focus-visible:ring-zinc-300',
+				'shadow-sm',
+				'placeholder-zinc-400',
+				'transition-all',
+			])}
 		/>
 	);
 }
