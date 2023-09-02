@@ -15,7 +15,7 @@ jobs:
               uses: cloudposse/github-action-docker-build-push@1.13.0
               with:
                   build-args:
-                      COMMIT_HASH: teste
+                      - COMMIT_HASH: teste
                   workdir: ./backend
                   registry: registry.hub.docker.com
                   organization: nidib
