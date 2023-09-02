@@ -14,6 +14,8 @@ jobs:
             - name: Docker build and push
               uses: cloudposse/github-action-docker-build-push@1.13.0
               with:
+                  build-args:
+                      COMMIT_HASH: $(git rev-parse --short "$GITHUB_SHA")
                   workdir: ./backend
                   registry: registry.hub.docker.com
                   organization: nidib

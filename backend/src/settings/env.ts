@@ -16,4 +16,5 @@ export const config = {
 	databaseUrl: getEnvOrThrow('DB_URL'),
 	serverPort: 8080,
 	serverHost: '0.0.0.0',
+	commitHash: getEnv('COMMIT_HASH', ''),
 };
