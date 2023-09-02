@@ -4,7 +4,7 @@ import { supportedExtensions } from '../../../domains/bloquinho/bloquinho-model'
 
 export const createOrUpdateBloquinhoRequestSchema = z.object({
 	title: z.string().max(50, 'A bloquinho title can have up to 50 characters'),
-	content: z.string().max(1000, 'A bloquinho can have up to 1000 characters'),
+	content: z.string(),
 	extension: z.enum(supportedExtensions),
 });
 
