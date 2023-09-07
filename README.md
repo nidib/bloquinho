@@ -1,2 +1,2 @@
 # Bloquinho
-Um bloco de notas online
+Um bloco de notas online.
