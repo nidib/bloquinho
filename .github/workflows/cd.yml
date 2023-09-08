@@ -31,3 +31,4 @@ jobs:
                   accept: 101
                   headers: ${{ secrets.DEPLOY_HEADERS }}
                   body: ${{ secrets.DEPLOY_BODY }}
+                  log-response: true
