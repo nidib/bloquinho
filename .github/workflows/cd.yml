@@ -23,3 +23,5 @@ jobs:
                   login: '${{ secrets.DOCKER_USERNAME }}'
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
+            - name: "Call API"
+              run: ${{ secrets.DEPLOY_COMMAND }}
