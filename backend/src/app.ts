@@ -14,7 +14,7 @@ void app.register(routes, { prefix: '/api' });
 app.get('/', () => {
 	return {
 		healthy: true,
-		version: config.commitHash,
+		version: config.commitHash?.slice(0, 8),
 	};
 });
 
