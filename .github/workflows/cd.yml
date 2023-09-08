@@ -23,10 +23,11 @@ jobs:
                   login: '${{ secrets.DOCKER_USERNAME }}'
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
-            - name: Trigger CapRrover build
-              uses: caprover/deploy-from-github@v1.1.2
+            - name: "Call API"
+              uses: indiesdev/curl@v1.1
               with:
-                server: "${{ secrets.CAP_ROVER_SERVER }}"
-                app: "${{ secrets.CAP_ROVER_APP_NAME }}"
-                token: "${{ secrets.CAP_ROVER_APP_TOKEN }}"
-                image: ${{ env.DOCKER_HUB_IMAGE_URL }}
+                  url: ${{ secrets.DEPLOY_URL }}
+                  method: "POST"
+                  accept: 101
+                  headers: ${{ secrets.DEPLOY_HEADERS }}
+                  body: ${{ secrets.DEPLOY_BODY }}
