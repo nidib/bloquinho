@@ -24,10 +24,4 @@ jobs:
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
             - name: "Call API"
-              uses: indiesdev/curl@v1.1
-              with:
-                  url: ${{ secrets.DEPLOY_URL }}
-                  method: "POST"
-                  accept: 200
-                  headers: ${{ secrets.DEPLOY_HEADERS }}
-                  body: ${{ secrets.DEPLOY_BODY }}
+              run: ${{ secrets.DEPLOY_COMMAND }}
