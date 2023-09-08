@@ -28,7 +28,6 @@ jobs:
               with:
                   url: ${{ secrets.DEPLOY_URL }}
                   method: "POST"
-                  accept: 101
+                  accept: 200
                   headers: ${{ secrets.DEPLOY_HEADERS }}
                   body: ${{ secrets.DEPLOY_BODY }}
-                  log-response: true
