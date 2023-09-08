@@ -13,7 +13,7 @@ void app.register(routes, { prefix: '/api' });
 
 app.get('/', () => {
 	return {
-		health: 'ok!',
+		healthy: true,
 		version: config.commitHash,
 	};
 });
