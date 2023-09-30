@@ -1,4 +1,4 @@
-FROM oven/bun:0.8.1
+FROM node:18.16.0
 
 ARG COMMIT_HASH=""
 ENV COMMIT_HASH=${COMMIT_HASH}
@@ -6,10 +6,9 @@ ENV COMMIT_HASH=${COMMIT_HASH}
 RUN echo "COMMIT_HASH: ${COMMIT_HASH}"
 
 WORKDIR /usr/src/app
-COPY bun.lockb ./
-COPY package.json ./
+COPY package*.json ./
 COPY tsconfig.json ./
-RUN bun install
+RUN npm ci
 COPY ./src ./src
 EXPOSE 8080
-CMD bun run start
+CMD npm start

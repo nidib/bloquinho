@@ -2,11 +2,14 @@
 	"name": "bloquinho-backend",
 	"version": "1.0.0",
 	"description": "Um bloco de notas online",
-	"main": "./src/index.js",
+	"main": "./dist/index.js",
 	"scripts": {
+		"compile": "tsc --noEmit",
 		"lint": "eslint ./src --max-warnings 0 --report-unused-disable-directives",
 		"format": "prettier --check ./src",
-		"start": "bun ./src/index.ts"
+		"prestart": "npm run compile",
+		"start": "tsx -r dotenv/config ./src/index.ts",
+		"dev": "tsx --inspect -r dotenv/config --watch ./src/index.ts"
 	},
 	"repository": {
 		"type": "git",
@@ -34,6 +37,7 @@
 		"postgres": "^3.3.5",
 		"prettier": "^2.8.8",
 		"prexit": "^2.2.0",
+		"tsx": "^3.12.7",
 		"typescript": "^5.1.3",
 		"zod": "^3.21.4"
 	}
