@@ -1,4 +1,4 @@
-FROM oven/bun:1.0.3
+FROM oven/bun:0.8.1
 
 ARG COMMIT_HASH=""
 ENV COMMIT_HASH=${COMMIT_HASH}
