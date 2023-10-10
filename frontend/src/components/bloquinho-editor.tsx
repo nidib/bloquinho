@@ -1,3 +1,4 @@
+import { useLocalStorage } from 'usehooks-ts';
 import { PersistedBloquinho } from '../apis/bloquinho/bloquinho-api';
 import { Extension } from '../utils/constants/extensions';
 import { BloquinhoContentEditor } from './bloquinho-content-editor';
@@ -13,6 +14,11 @@ type Props = {
 
 export function BloquinhoEditor(props: Props) {
 	const { content, extension, status, onSave } = props;
+	const [lineWrap, setLineWrap] = useLocalStorage('lineWrap', true);
+
+	const handleLineWrapChange = (lineWrap: boolean) => {
+		setLineWrap(lineWrap);
+	};
 
 	const handleContentChange = (content: string) => {
 		onSave({ content });
@@ -27,12 +33,19 @@ export function BloquinhoEditor(props: Props) {
 			<div className="h-full max-h-[calc(100%-36px)]">
 				<BloquinhoContentEditor
 					extension={extension}
+					lineWrap={lineWrap}
 					content={content}
 					onContentChange={handleContentChange}
 					autoFocus
 				/>
 			</div>
-			<StatusBar status={status} extension={extension} onExtensionChange={handleExtensionChange} />
+			<StatusBar
+				lineWrap={lineWrap}
+				onLineWrapChange={handleLineWrapChange}
+				status={status}
+				extension={extension}
+				onExtensionChange={handleExtensionChange}
+			/>
 		</div>
 	);
 }

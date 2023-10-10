@@ -9,12 +9,15 @@ import { markdown } from '@codemirror/lang-markdown';
 import { css } from '@codemirror/lang-css';
 
 import type { Extension } from '../utils/constants/extensions';
+import { EditorView } from '@codemirror/view';
+import { useMemo } from 'react';
 
 type Props = {
 	content: string;
 	onContentChange: (content: string) => void;
 	extension: Extension;
 	autoFocus: boolean;
+	lineWrap: boolean;
 };
 
 const languages: Record<Extension, CodeMirrorExtension | null> = {
@@ -37,9 +40,22 @@ const preferences: BasicSetupOptions = {
 };
 
 export function BloquinhoContentEditor(props: Props) {
-	const { content, onContentChange, autoFocus, extension } = props;
-	const languageExtension = languages[extension];
-	const extensions = languageExtension ? [languageExtension] : undefined;
+	const { content, onContentChange, autoFocus, extension, lineWrap } = props;
+	const extensions = useMemo(() => {
+		const extensions: CodeMirrorExtension[] = [];
+
+		if (lineWrap) {
+			extensions.push(EditorView.lineWrapping);
+		}
+
+		const language = languages[extension];
+
+		if (language) {
+			extensions.push(language);
+		}
+
+		return extensions;
+	}, [extension, lineWrap]);
 
 	return (
 		<CodeMirror

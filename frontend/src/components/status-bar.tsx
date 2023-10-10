@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority';
 
 import { Extension, extensions } from '../utils/constants/extensions';
 import { Select } from './core/select';
+import { Checkbox } from './core/checkbox';
 
 const loadingIndicator = cva(['w-[15px] h-[15px] z-[200] rounded-full'], {
 	variants: {
@@ -24,8 +25,10 @@ export type Status = (typeof StatusEnum)[keyof typeof StatusEnum];
 
 type Props = {
 	status: Status;
+	lineWrap: boolean;
 	extension: Extension;
 	onExtensionChange: (extension: Extension) => void;
+	onLineWrapChange: (lineWrap: boolean) => void;
 };
 
 const titleByStatus: Record<Status, string> = {
@@ -37,7 +40,7 @@ const titleByStatus: Record<Status, string> = {
 const extensionsList = Object.values(extensions);
 
 export function StatusBar(props: Props) {
-	const { status, extension, onExtensionChange } = props;
+	const { status, lineWrap, extension, onExtensionChange, onLineWrapChange } = props;
 	const title = titleByStatus[status];
 
 	return (
@@ -55,6 +58,8 @@ export function StatusBar(props: Props) {
 				'border-[#ddd]',
 			])}
 		>
+			<Checkbox id="lineWrap" title="Quebra de linha: " value={lineWrap} onChange={onLineWrapChange} />
+			<Separator />
 			<Select id={'extension'} title={'Extensão: '} onChange={onExtensionChange} selectedValue={extension}>
 				{extensionsList.map((ext) => (
 					<Select.Option key={ext.value} value={ext.value}>
