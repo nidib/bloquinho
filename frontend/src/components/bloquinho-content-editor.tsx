@@ -57,7 +57,7 @@ export function BloquinhoContentEditor(props: Props) {
 			options={{
 				wordWrap: lineWrap ? 'on' : 'off',
 				acceptSuggestionOnCommitCharacter: false,
-				fontSize: 20,
+				fontSize: 18,
 				tabSize: 4,
 				insertSpaces: false,
 				renderWhitespace: 'all',
