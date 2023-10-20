@@ -1,7 +1,7 @@
 import { Editor } from '@monaco-editor/react';
 
 import type { Extension } from '../utils/constants/extensions';
-import React, { useCallback } from 'react';
+import React from 'react';
 
 type Props = {
 	content: string;
