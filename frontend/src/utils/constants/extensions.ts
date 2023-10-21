@@ -1,4 +1,4 @@
-export type Extension = 'txt' | 'java' | 'js' | 'jsx' | 'ts' | 'tsx' | 'sql' | 'html' | 'py' | 'md' | 'css';
+export type Extension = 'txt' | 'java' | 'js' | 'ts' | 'sql' | 'html' | 'py' | 'md' | 'css';
 
 type ExtensionContent = {
 	value: Extension;
@@ -18,17 +18,9 @@ export const extensions: Record<Extension, ExtensionContent> = {
 		value: 'js',
 		displayName: 'JavaScript',
 	},
-	jsx: {
-		value: 'jsx',
-		displayName: 'Javascript (JSX)',
-	},
 	ts: {
 		value: 'ts',
-		displayName: 'Typescript',
-	},
-	tsx: {
-		value: 'tsx',
-		displayName: 'Typescript (TSX)',
+		displayName: 'TypeScript',
 	},
 	sql: {
 		value: 'sql',
