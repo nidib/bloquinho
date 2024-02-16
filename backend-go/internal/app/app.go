@@ -1,15 +1,15 @@
 package app
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/nidib/bloquinho/backend/internal/handlers"
+)
 
-func MakeAppAndRun() error {
+func MakeApp() *fiber.App {
 	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"henlo": "wold",
-		})
-	})
+	// Health
+	app.Get("/", handlers.PingHandler)
 
-	return app.Listen("127.0.0.1:8080")
+	return app
 }
