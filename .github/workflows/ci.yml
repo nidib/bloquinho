@@ -1,0 +1,25 @@
+name: Docker Image CD
+
+on:
+    pull_request:
+    push:
+        branches: ['main']
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./backend-go
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup Go
+              uses: actions/setup-go@v4
+              with:
+                  go-version: '1.22.0'
+            - name: Compile
+              run: make compile
+            - name: Test
+              run: make test
