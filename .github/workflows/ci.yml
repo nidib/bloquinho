@@ -22,6 +22,6 @@ jobs:
             - name: Change directory
               run: cd backend-go
             - name: Show dir
-              run: ll -a
+              run: ls
             - name: Compile
               run: make compile
