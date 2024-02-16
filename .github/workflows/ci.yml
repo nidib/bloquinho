@@ -9,6 +9,9 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./backend-go
         strategy:
             matrix:
                 go-version: ['1.22.0']
@@ -19,7 +22,6 @@ jobs:
               uses: actions/setup-go@v4
               with:
                   go-version: ${{ matrix.go-version }}
-              working-directory: ./backend-go
             - name: Show dir
               run: ls
             - name: Compile
