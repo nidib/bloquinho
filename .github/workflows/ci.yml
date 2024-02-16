@@ -21,5 +21,7 @@ jobs:
                   go-version: ${{ matrix.go-version }}
             - name: Change directory
               run: cd backend-go
+            - name: Show dir
+              run: ll -a
             - name: Compile
               run: make compile
