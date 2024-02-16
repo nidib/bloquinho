@@ -5,12 +5,17 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "Run Go server",
+			"type": "go",
+			"request": "launch",
+			"mode": "auto",
+			"program": "${workspaceFolder}/backend-go/cmd/api/main.go"
+		},
+		{
 			"type": "node",
 			"request": "attach",
 			"name": "Attach debugger",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
+			"skipFiles": ["<node_internals>/**"]
 		}
 	]
 }
