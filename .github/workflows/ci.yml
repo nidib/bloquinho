@@ -19,6 +19,7 @@ jobs:
               uses: actions/setup-go@v4
               with:
                   go-version: ${{ matrix.go-version }}
-                  workdir: ./backend-go
+            - name: Change directory
+              run: cd backend-go
             - name: Compile
               run: make compile
