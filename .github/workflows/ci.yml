@@ -26,3 +26,5 @@ jobs:
               run: ls
             - name: Compile
               run: make compile
+            - name: Test
+              run: make test
