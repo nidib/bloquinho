@@ -41,10 +41,10 @@ jobs:
                   login: '${{ secrets.DOCKER_USERNAME }}'
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
-            - name: Deploy Image to CapRrover
+            - name: Trigger deploy
               uses: caprover/deploy-from-github@v1.1.2
               with:
                   server: '${{ secrets.DEPLOY_SERVER }}'
                   app: '${{ secrets.DEPLOY_APP_NAME }}'
                   token: '${{ secrets.APP_TOKEN }}'
-                  image: bloquinho-go-api
+                  image: nidib/bloquinho-go-api:latest
