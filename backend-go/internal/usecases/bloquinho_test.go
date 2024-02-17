@@ -30,6 +30,9 @@ func makeUsecase() *usecases.BloquinhoUsecase {
 
 func TestItShouldReturnTheBloquinhoByTitleIfItExists(t *testing.T) {
 	usecase := makeUsecase()
+	t.Cleanup(func() {
+		postgres.Cleanup()
+	})
 
 	_, err := usecase.GetBloquinhoByTitleUsecase("arnold")
 
