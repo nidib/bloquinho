@@ -1,14 +1,11 @@
 package handlers
 
 import (
-	"database/sql"
-	"errors"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/nidib/bloquinho/backend/datasources/postgres"
 	"github.com/nidib/bloquinho/backend/datasources/postgres/models"
-	"github.com/nidib/bloquinho/backend/internal/appErrors"
 	"github.com/nidib/bloquinho/backend/internal/usecases"
 )
 
@@ -19,14 +16,9 @@ var bloquinhoUsecase usecases.BloquinhoUsecase = usecases.BloquinhoUsecase{
 }
 
 func GetBloquinhoByTitleHandler(c *fiber.Ctx) error {
-	b, err := bloquinhoUsecase.GetBloquinhoByTitle(c.Params("title"))
+	b, err := bloquinhoUsecase.GetBloquinhoByTitleUsecase(c.Params("title"))
 	if err != nil {
-		switch {
-		case errors.Is(err, sql.ErrNoRows):
-			return appErrors.BloquinhoDoesNotExistError
-		default:
-			return err
-		}
+		return err
 	}
 
 	return c.JSON(presentBloquinho(*b))
