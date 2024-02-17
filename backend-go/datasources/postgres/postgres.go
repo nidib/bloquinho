@@ -37,7 +37,7 @@ func Migrate() {
 		panic(err)
 	}
 
-	logger.Info(fmt.Sprintf("✓ Applied %d migrations!\n", n))
+	logger.Info(fmt.Sprintf("✓ Applied %d migrations!", n))
 }
 
 func Cleanup() {
