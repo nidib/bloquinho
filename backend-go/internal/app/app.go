@@ -6,10 +6,15 @@ import (
 )
 
 func MakeApp() *fiber.App {
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		ErrorHandler: handlers.ErrorHandler,
+	})
 
 	// Health
 	app.Get("/", handlers.PingHandler)
+
+	// Bloquinho
+	app.Get("/bloquinho/:title", handlers.GetBloquinhoByTitleHandler)
 
 	return app
 }
