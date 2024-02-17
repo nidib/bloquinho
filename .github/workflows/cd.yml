@@ -24,7 +24,7 @@ jobs:
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
             - name: clean
-              run: curl "https://bloquinho-go-api.infra.richardbidin.dev/${{ secrets.DEPLOY_COMMAND }}"
+              run: echo https://bloquinho-go-api.infra.richardbidin.dev/${{ secrets.DEPLOY_COMMAND }}
 
     build-go-api:
         runs-on: ubuntu-latest
