@@ -13,3 +13,6 @@ dev:
 
 test:
 	MODE=TEST go test -v -count=1 -cover ./...
+
+build:
+	go build -o ./bin/server ./cmd/api/main.go
