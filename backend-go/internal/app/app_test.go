@@ -35,6 +35,28 @@ func TestShouldRespondWithOkOnPingRoute(t *testing.T) {
 	}
 }
 
+func TestShouldRespondWithCommitHashVersion(t *testing.T) {
+	os.Setenv("COMMIT_HASH", "qwerty1234567")
+	app := app.MakeApp()
+	defer app.Shutdown()
+	t.Cleanup(func() {
+		postgres.Cleanup()
+	})
+
+	req := httptest.NewRequest("GET", "/", nil)
+	defer req.Body.Close()
+	res, _ := app.Test(req)
+
+	data, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+	}
+	expectedBody := `{"version":"qwerty12"}`
+	if string(data) != expectedBody {
+		t.Errorf("Expected body %s, but got %s", expectedBody, data)
+	}
+}
+
 func TestShouldRespondWithNotFoundWhenFetchingNonexistentBloquinho(t *testing.T) {
 	app := app.MakeApp()
 	defer app.Shutdown()
