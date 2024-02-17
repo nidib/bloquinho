@@ -54,7 +54,7 @@ func TestShouldRespondWithNotFoundWhenFetchingNonexistentBloquinho(t *testing.T)
 	if err != nil {
 		t.Error(err)
 	}
-	expectedBody := `{"message":"Bloquinho não encontrado"}`
+	expectedBody := `{"message":"Bloquinho não encontrado"`
 	if string(data) != expectedBody {
 		t.Errorf("Expected body %s, but got %s", expectedBody, data)
 	}
