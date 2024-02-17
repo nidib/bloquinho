@@ -1,4 +1,4 @@
-name: Backend CI
+name: CI
 
 on:
     pull_request:
@@ -7,7 +7,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    build:
+    go-api-tests:
         runs-on: ubuntu-latest
         defaults:
             run:

@@ -1,4 +1,4 @@
-name: Docker Image CD
+name: CD
 
 on:
     push:
@@ -6,25 +6,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    build-node-api:
-        runs-on: ubuntu-latest
-
-        steps:
-            - uses: actions/checkout@v3
-            - name: Docker build and push
-              uses: cloudposse/github-action-docker-build-push@1.13.0
-              with:
-                  build-args: |
-                      COMMIT_HASH=${{ github.sha }}
-                  workdir: ./backend
-                  registry: registry.hub.docker.com
-                  organization: nidib
-                  repository: bloquinho-api
-                  login: '${{ secrets.DOCKER_USERNAME }}'
-                  password: '${{ secrets.DOCKER_PASSWORD }}'
-                  platforms: linux/amd64
-
-    build-go-api:
+    go-api-deploy:
         runs-on: ubuntu-latest
 
         steps:
