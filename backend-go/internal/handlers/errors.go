@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/nidib/bloquinho/backend/internal/appErrors"
+	"github.com/nidib/bloquinho/backend/internal/logger"
 )
 
 var (
@@ -15,6 +16,8 @@ var (
 func ErrorHandler(ctx *fiber.Ctx, err error) error {
 	var message string
 	var status int
+
+	logger.Error(err.Error())
 
 	switch err := err.(type) {
 	case appErrors.AppError:
