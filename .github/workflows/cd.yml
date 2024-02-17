@@ -46,5 +46,5 @@ jobs:
               with:
                   server: '${{ secrets.DEPLOY_SERVER }}'
                   app: '${{ secrets.DEPLOY_APP_NAME }}'
-                  token: '${{ secrets.APP_TOKEN }}'
+                  token: '${{ secrets.DEPLOY_APP_TOKEN }}'
                   image: nidib/bloquinho-go-api:latest
