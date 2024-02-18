@@ -29,7 +29,6 @@ type PresentableBloquinho struct {
 	Title        string `json:"title"`
 	Content      string `json:"content"`
 	Extension    string `json:"extension"`
-	LineWrap     bool   `json:"lineWrap"`
 	LastViewedAt string `json:"lastViewedAt"`
 	UpdatedAt    string `json:"updatedAt"`
 }
