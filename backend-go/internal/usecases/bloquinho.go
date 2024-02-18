@@ -9,15 +9,19 @@ import (
 )
 
 type BloquinhoUsecase struct {
-	*models.BloquinhoRepository
+	Repository *models.BloquinhoRepository
 }
 
-func (s *BloquinhoUsecase) GetBloquinhoByTitleUsecase(title string) (*models.Bloquinho, error) {
-	bloquinho, err := s.BloquinhoRepository.GetBloquinhoByTitle(title)
+func (s *BloquinhoUsecase) GetBloquinhoByTitle(title string) (*models.Bloquinho, error) {
+	bloquinho, err := s.Repository.GetBloquinhoByTitle(title)
 
 	if err != nil && errors.Is(err, sql.ErrNoRows) {
 		return &models.Bloquinho{}, appErrors.BloquinhoDoesNotExistError
 	}
 
 	return bloquinho, err
+}
+
+func (s *BloquinhoUsecase) CreateOrUpdateBloquinhoByTitle(bloquinho *models.Bloquinho) (bool, error) {
+	return s.Repository.UpsertByTitle(bloquinho)
 }

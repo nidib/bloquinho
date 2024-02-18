@@ -21,6 +21,7 @@ func MakeApp() *fiber.App {
 
 	// Bloquinho
 	app.Get("/bloquinho/:title", handlers.GetBloquinhoByTitleHandler)
+	app.Post("/bloquinho", handlers.CreateOrUpdateBloquinhoByTitle)
 
 	// Not Found
 	app.Use(handlers.NotFoundHandler)
