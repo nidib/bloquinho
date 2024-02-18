@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,7 +14,7 @@ var (
 	defaultStatus  = http.StatusInternalServerError
 )
 
-func ErrorHandler(ctx *fiber.Ctx, err error) error {
+func ErrorHandler(c *fiber.Ctx, err error) error {
 	var message string
 	var status int
 
@@ -28,7 +29,15 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 		status = defaultStatus
 	}
 
-	return ctx.Status(status).JSON(fiber.Map{
+	return c.Status(status).JSON(fiber.Map{
+		"message": message,
+	})
+}
+
+func NotFoundHandler(c *fiber.Ctx) error {
+	message := fmt.Sprintf("Rota %s não econtrada", c.Path())
+
+	return c.Status(http.StatusNotFound).JSON(fiber.Map{
 		"message": message,
 	})
 }

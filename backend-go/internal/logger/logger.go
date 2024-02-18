@@ -27,13 +27,13 @@ func Error(msg string, args ...any) {
 
 func getLogger() *slog.Logger {
 	once.Do(func() {
-		l = slog.New(slog.NewTextHandler(*getLoggerHandler(), nil))
+		l = slog.New(slog.NewTextHandler(*GetLoggerHandler(), nil))
 	})
 
 	return l
 }
 
-func getLoggerHandler() *io.Writer {
+func GetLoggerHandler() *io.Writer {
 	var handler io.Writer
 
 	if os.Getenv("MODE") == "TEST" {
