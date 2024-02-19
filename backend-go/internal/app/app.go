@@ -15,6 +15,7 @@ func MakeApp() *fiber.App {
 	// Middlewares
 	app.Use(middlewares.Recover())
 	app.Use(middlewares.Logger())
+	app.Use(middlewares.Cors())
 
 	// Health
 	app.Get("/", handlers.PingHandler)

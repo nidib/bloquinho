@@ -6,6 +6,7 @@ import (
 	appLogger "github.com/nidib/bloquinho/backend/internal/logger"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
@@ -22,5 +23,11 @@ func Logger() func(*fiber.Ctx) error {
 		DisableColors: true,
 		Format:        format,
 		Output:        *appLogger.GetLoggerHandler(),
+	})
+}
+
+func Cors() func(*fiber.Ctx) error {
+	return cors.New(cors.Config{
+		AllowOrigins: "*",
 	})
 }
