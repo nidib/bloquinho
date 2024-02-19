@@ -68,7 +68,6 @@ func TestShouldRespondWithCreatedStatusWhenDidNotExist(t *testing.T) {
 	bloquinhoTitle := "typescripto"
 	body := fmt.Sprintf(`{"title": "%s", "content": "type Num = number;", "extension": "ts"}`, bloquinhoTitle)
 
-	// req := httptest.NewRequest("GET", fmt.Sprintf("/bloquinho/%s", bloquinhoTitle), nil)
 	req := httptest.NewRequest("POST", "/bloquinho", strings.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	defer req.Body.Close()
@@ -92,7 +91,6 @@ func TestShouldRespondWithOkStatusWhenDidExist(t *testing.T) {
 	defer req1.Body.Close()
 	app.Test(req1)
 
-	// req := httptest.NewRequest("GET", fmt.Sprintf("/bloquinho/%s", bloquinhoTitle), nil)
 	req2 := httptest.NewRequest("POST", "/bloquinho", strings.NewReader(body))
 	req2.Header.Set("Content-Type", "application/json")
 	defer req2.Body.Close()
