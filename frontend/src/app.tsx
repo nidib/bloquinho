@@ -11,9 +11,9 @@ function App() {
 	return <RouterProvider router={router} />;
 }
 
-const isUnderMaintenance = import.meta.env.MAINTENANCE ?? false;
-
 function getRoutes(): RouteObject[] {
+	const isUnderMaintenance = import.meta.env.VITE_MAINTENANCE === 'true';
+
 	if (isUnderMaintenance) {
 		return [{ path: '*', element: <MaintenancePage /> }];
 	}
