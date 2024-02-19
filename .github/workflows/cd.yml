@@ -12,6 +12,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Docker build and push
+              id: build
               uses: cloudposse/github-action-docker-build-push@1.13.0
               with:
                   build-args: |
@@ -23,6 +24,8 @@ jobs:
                   login: '${{ secrets.DOCKER_USERNAME }}'
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
+            - name: Show image tag
+              run: echo '${{ steps.build.outputs.tag }}'
             - name: Trigger deploy
               uses: caprover/deploy-from-github@v1.1.2
               with:
