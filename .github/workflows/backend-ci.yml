@@ -1,13 +1,16 @@
-name: CI
+name: Backend CI
 
 on:
     pull_request:
     push:
+        paths:
+            - '.github/**'
+            - 'backend/**'
         branches: ['main']
     workflow_dispatch:
 
 jobs:
-    go-api-tests:
+    tests:
         runs-on: ubuntu-latest
         defaults:
             run:
@@ -34,6 +37,7 @@ jobs:
               uses: actions/setup-go@v4
               with:
                   go-version: '1.22.0'
+                  cache-dependency-path: backend/go.sum
             - name: Compile
               run: make compile
             - name: Test

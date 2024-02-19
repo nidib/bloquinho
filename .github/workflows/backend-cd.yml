@@ -1,12 +1,15 @@
-name: CD
+name: Backend CD
 
 on:
     push:
+        paths:
+            - '.github/**'
+            - 'backend/**'
         branches: ['main']
     workflow_dispatch:
 
 jobs:
-    go-api-deploy:
+    deploy:
         runs-on: ubuntu-latest
 
         steps:
