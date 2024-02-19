@@ -18,8 +18,7 @@ jobs:
                       COMMIT_HASH=${{ github.sha }}
                   workdir: ./backend
                   registry: registry.hub.docker.com
-                  organization: nidib
-                  repository: bloquinho-go-api:${{ github.sha }}
+                  image_name: nidib/bloquinho-go-api:${{ github.sha }}
                   login: '${{ secrets.DOCKER_USERNAME }}'
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
