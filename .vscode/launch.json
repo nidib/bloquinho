@@ -9,8 +9,8 @@
 			"type": "go",
 			"request": "launch",
 			"mode": "auto",
-			"program": "${workspaceFolder}/backend-go/cmd/api/main.go",
-			"envFile": "${workspaceFolder}/backend-go/.env"
+			"program": "${workspaceFolder}/backend/cmd/api/main.go",
+			"envFile": "${workspaceFolder}/backend/.env"
 		},
 		{
 			"type": "node",
