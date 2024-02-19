@@ -22,8 +22,8 @@ func TestMain(m *testing.M) {
 
 func makeUsecase() *usecases.BloquinhoUsecase {
 	return &usecases.BloquinhoUsecase{
-		BloquinhoRepository: &models.BloquinhoRepository{
-			DB: postgres.GetConnection(),
+		Repository: &models.BloquinhoRepository{
+			Datasource: postgres.GetConnection(),
 		},
 	}
 }
@@ -34,7 +34,7 @@ func TestItShouldReturnTheBloquinhoByTitleIfItExists(t *testing.T) {
 		postgres.Cleanup()
 	})
 
-	_, err := usecase.GetBloquinhoByTitleUsecase("arnold")
+	_, err := usecase.GetBloquinhoByTitle("arnold")
 
 	expectedError := appErrors.BloquinhoDoesNotExistError.Error()
 	if err != nil && err.Error() != expectedError {

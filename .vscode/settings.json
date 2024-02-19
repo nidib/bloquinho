@@ -3,5 +3,6 @@
 		"source.fixAll": "explicit"
 	},
 	"editor.formatOnSave": true,
-	"editor.rulers": [120]
+	"editor.rulers": [120],
+	"go.testEnvFile": "${workspaceFolder}/backend-go/.env"
 }

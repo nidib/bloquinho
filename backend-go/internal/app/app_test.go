@@ -1,10 +1,12 @@
 package app_test
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/nidib/bloquinho/backend/datasources/postgres"
@@ -57,6 +59,48 @@ func TestShouldRespondWithCommitHashVersion(t *testing.T) {
 	}
 }
 
+func TestShouldRespondWithCreatedStatusWhenDidNotExist(t *testing.T) {
+	app := app.MakeApp()
+	defer app.Shutdown()
+	t.Cleanup(func() {
+		postgres.Cleanup()
+	})
+	bloquinhoTitle := "typescripto"
+	body := fmt.Sprintf(`{"title": "%s", "content": "type Num = number;", "extension": "ts"}`, bloquinhoTitle)
+
+	req := httptest.NewRequest("POST", "/bloquinho", strings.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+	defer req.Body.Close()
+	res, _ := app.Test(req)
+
+	if res.StatusCode != http.StatusCreated {
+		t.Errorf("Expected status %d, but got %d", http.StatusCreated, res.StatusCode)
+	}
+}
+
+func TestShouldRespondWithOkStatusWhenDidExist(t *testing.T) {
+	app := app.MakeApp()
+	defer app.Shutdown()
+	t.Cleanup(func() {
+		postgres.Cleanup()
+	})
+	bloquinhoTitle := "typescripto"
+	body := fmt.Sprintf(`{"title": "%s", "content": "type Num = number;", "extension": "ts"}`, bloquinhoTitle)
+	req1 := httptest.NewRequest("POST", "/bloquinho", strings.NewReader(body))
+	req1.Header.Set("Content-Type", "application/json")
+	defer req1.Body.Close()
+	app.Test(req1)
+
+	req2 := httptest.NewRequest("POST", "/bloquinho", strings.NewReader(body))
+	req2.Header.Set("Content-Type", "application/json")
+	defer req2.Body.Close()
+	res2, _ := app.Test(req2)
+
+	if res2.StatusCode != http.StatusOK {
+		t.Errorf("Expected status %d, but got %d", http.StatusOK, res2.StatusCode)
+	}
+}
+
 func TestShouldRespondWithNotFoundWhenFetchingNonexistentBloquinho(t *testing.T) {
 	app := app.MakeApp()
 	defer app.Shutdown()
@@ -76,7 +120,7 @@ func TestShouldRespondWithNotFoundWhenFetchingNonexistentBloquinho(t *testing.T)
 	if err != nil {
 		t.Error(err)
 	}
-	expectedBody := `{"message":"Bloquinho não encontrado"}`
+	expectedBody := `{"errors":null,"message":"Bloquinho não encontrado"}`
 	if string(data) != expectedBody {
 		t.Errorf("Expected body %s, but got %s", expectedBody, data)
 	}

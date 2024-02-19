@@ -17,6 +17,7 @@ var (
 func ErrorHandler(c *fiber.Ctx, err error) error {
 	var message string
 	var status int
+	var errors map[string][]string
 
 	logger.Error(err.Error())
 
@@ -24,13 +25,16 @@ func ErrorHandler(c *fiber.Ctx, err error) error {
 	case appErrors.AppError:
 		message = err.Error()
 		status = err.Code
+		errors = err.Details
 	default:
 		message = defaultMessage
 		status = defaultStatus
+		errors = nil
 	}
 
 	return c.Status(status).JSON(fiber.Map{
 		"message": message,
+		"errors":  errors,
 	})
 }
 
