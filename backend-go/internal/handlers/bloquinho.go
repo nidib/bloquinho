@@ -56,8 +56,6 @@ func (s *CreateOrUpdateReq) validate() error {
 
 func CreateOrUpdateBloquinhoByTitle(c *fiber.Ctx) error {
 	bloquinhoFromReq := CreateOrUpdateReq{}
-	raw := string(c.BodyRaw())
-	_ = raw
 	if err := c.BodyParser(&bloquinhoFromReq); err != nil {
 		return err
 	}
