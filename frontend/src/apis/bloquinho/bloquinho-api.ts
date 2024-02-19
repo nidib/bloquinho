@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Extension } from '../../utils/constants/extensions';
 
 export const bloquinhoApi = axios.create({
-	baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080/api',
+	baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080/',
 });
 
 export type PersistedBloquinho = {
