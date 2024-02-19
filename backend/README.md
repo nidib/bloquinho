@@ -1,4 +1,6 @@
-### Bloquinho REST API
+# Backend
 
--   Linguagem: Go
--   Banco de dados: PostgreSQL
+## Tecnologias
+
+-   Go v1.22.0
+-   PostgreSQL v14.7
