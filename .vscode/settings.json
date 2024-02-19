@@ -4,7 +4,7 @@
 	},
 	"editor.formatOnSave": true,
 	"editor.rulers": [120],
-	"go.testEnvFile": "${workspaceFolder}/backend-go/.env",
+	"go.testEnvFile": "${workspaceFolder}/backend/.env",
 	"go.testEnvVars": {
 		"MODE": "TEST"
 	}
