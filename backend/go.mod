@@ -3,7 +3,7 @@ module github.com/nidib/bloquinho/backend
 go 1.22.0
 
 require (
-	github.com/gofiber/fiber/v2 v2.52.0
+	github.com/gofiber/fiber/v2 v2.52.1
 	github.com/jackc/pgx/v5 v5.5.3
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/rubenv/sql-migrate v1.6.1
