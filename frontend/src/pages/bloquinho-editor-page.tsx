@@ -1,8 +1,8 @@
-import { debounce, merge } from 'lodash';
+import { debounce, merge, throttle } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { NewBloquinho, PersistedBloquinho } from '../apis/bloquinho/bloquinho-api';
+import { NewBloquinho, PersistedBloquinho, webSocketURL } from '../apis/bloquinho/bloquinho-api';
 import { Status, StatusEnum } from '../components/status-bar';
 import { BloquinhoEditor } from '../components/bloquinho-editor';
 import { useCommandS } from '../utils/hooks/use-command-s';
@@ -64,9 +64,53 @@ const useBloquinho = (title: string) => {
 	] as const;
 };
 
+type WSClient = {
+	id: string;
+	coord: {
+		x: number;
+		y: number;
+	};
+};
+
+const useClientsWithCoords = (title: string) => {
+	const [clients, setClients] = useState<WSClient[]>([]);
+
+	useEffect(() => {
+		const clientId = crypto.randomUUID();
+		const ws = new WebSocket(`${webSocketURL}/${title}/${clientId}`);
+
+		const onMouseMove = throttle((e: MouseEvent) => {
+			ws.send(JSON.stringify({ coord: { x: e.clientX, y: e.clientY } }));
+		}, 1000);
+
+		ws.addEventListener('open', () => {
+			ws.send(JSON.stringify({ coord: { x: 0, y: 0 } }));
+			document.addEventListener('mousemove', onMouseMove);
+		});
+		ws.addEventListener('error', (e) => {
+			console.error(e);
+		});
+		ws.addEventListener('message', (e) => {
+			const data = JSON.parse(e.data as string) as WSClient[];
+
+			setClients(data);
+		});
+
+		return () => {
+			ws.close();
+			document.removeEventListener('mousemove', onMouseMove);
+		};
+	}, [title]);
+
+	return {
+		clients,
+	};
+};
+
 export function BloquinhoEditorPage() {
 	const { title } = useBloquinhoEditorPageParams();
 	const [{ bloquinho, status }, { getOrCreateBloquinho, updateBloquinho }] = useBloquinho(title);
+	const { clients } = useClientsWithCoords(title);
 
 	useCommandS(updateBloquinho);
 
@@ -84,6 +128,7 @@ export function BloquinhoEditorPage() {
 					content={bloquinho.content}
 					extension={bloquinho.extension}
 					status={status}
+					watchers={clients.length}
 					onSave={updateBloquinho}
 				/>
 			)}

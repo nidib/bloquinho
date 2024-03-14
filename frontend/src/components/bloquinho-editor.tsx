@@ -9,11 +9,12 @@ type Props = {
 	content: string;
 	extension: Extension;
 	status: Status;
+	watchers: number;
 	onSave: (bloquinho: Partial<PersistedBloquinho>) => void;
 };
 
 export function BloquinhoEditor(props: Props) {
-	const { content, extension, status, onSave } = props;
+	const { content, extension, status, watchers, onSave } = props;
 	const [lineWrap, setLineWrap] = useLocalStorage('lineWrap', true);
 
 	const handleLineWrapChange = (lineWrap: boolean) => {
@@ -44,6 +45,7 @@ export function BloquinhoEditor(props: Props) {
 				onLineWrapChange={handleLineWrapChange}
 				status={status}
 				extension={extension}
+				watchers={watchers}
 				onExtensionChange={handleExtensionChange}
 			/>
 		</div>

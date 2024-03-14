@@ -23,14 +23,6 @@ export const StatusEnum = {
 
 export type Status = (typeof StatusEnum)[keyof typeof StatusEnum];
 
-type Props = {
-	status: Status;
-	lineWrap: boolean;
-	extension: Extension;
-	onExtensionChange: (extension: Extension) => void;
-	onLineWrapChange: (lineWrap: boolean) => void;
-};
-
 const titleByStatus: Record<Status, string> = {
 	[StatusEnum.LOADING]: 'Carregando bloquinho...',
 	[StatusEnum.DONE]: 'Bloquinho atualizado!',
@@ -39,8 +31,17 @@ const titleByStatus: Record<Status, string> = {
 
 const extensionsList = Object.values(extensions);
 
+type Props = {
+	status: Status;
+	lineWrap: boolean;
+	extension: Extension;
+	watchers: number;
+	onExtensionChange: (extension: Extension) => void;
+	onLineWrapChange: (lineWrap: boolean) => void;
+};
+
 export function StatusBar(props: Props) {
-	const { status, lineWrap, extension, onExtensionChange, onLineWrapChange } = props;
+	const { status, lineWrap, extension, watchers, onExtensionChange, onLineWrapChange } = props;
 	const title = titleByStatus[status];
 
 	return (
@@ -58,6 +59,12 @@ export function StatusBar(props: Props) {
 				'border-[#ddd]',
 			])}
 		>
+			{watchers > 0 && (
+				<div title={`${watchers} pessoas estão olhando esse bloquinho`} className="select-none">
+					{watchers} 👁️
+				</div>
+			)}
+			<Separator />
 			<Checkbox id="lineWrap" title="Quebra de linha: " value={lineWrap} onChange={onLineWrapChange} />
 			<Separator />
 			<Select id={'extension'} title={'Extensão: '} onChange={onExtensionChange} selectedValue={extension}>
