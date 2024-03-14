@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/nidib/bloquinho/backend/internal/handlers"
@@ -23,6 +24,10 @@ func MakeApp() *fiber.App {
 	// Bloquinho
 	app.Get("/bloquinho/:title", handlers.GetBloquinhoByTitleHandler)
 	app.Post("/bloquinho", handlers.CreateOrUpdateBloquinhoByTitle)
+
+	// WebSocket
+	app.Use("/ws", handlers.WsRequestUpgrade)
+	app.Get("/ws/:room/:clientId", websocket.New(handlers.WsCoord))
 
 	// Not Found
 	app.Use(handlers.NotFoundHandler)
