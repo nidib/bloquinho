@@ -60,7 +60,14 @@ export function StatusBar(props: Props) {
 			])}
 		>
 			{watchers > 0 && (
-				<div title={`${watchers} pessoas estão olhando esse bloquinho`} className="select-none">
+				<div
+					title={
+						watchers === 1
+							? 'Apenas você está olhando esse bloquinho'
+							: `${watchers} pessoas estão olhando esse bloquinho`
+					}
+					className="select-none"
+				>
 					{watchers} 👁️
 				</div>
 			)}
