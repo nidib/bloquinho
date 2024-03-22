@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { Extension } from '../../utils/constants/extensions';
 
-export const webSocketURL = import.meta.env.VITE_WEB_SOCKET_URL ?? 'http://localhost:8080/ws';
+export const webSocketURL = import.meta.env.VITE_WEB_SOCKET_URL ?? 'ws://localhost:8080/ws';
 
 export const bloquinhoApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080/',
