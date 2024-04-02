@@ -21,9 +21,9 @@ Um bloco de notas online.
 ## Variáveis de ambiente
 O projeto depende, atualmente, das seguintes variáveis de ambiente que precisam estar definidas de alguma forma. Seja através do arquivo .env ou diretamente no sistema operacional.
 
-- POSTGRES_URL=postgres://{nome_do_user_postgres}:{senha_do_user_postgres}@127.0.0.1:5432/bloquinho?sslmode=disable&application_name=go-api
-- TEST_POSTGRES_URL=postgres://{nome_do_user_postgres}:{senha_do_user_postgres}@127.0.0.1:5432/bloquinho_tests?sslmode=disable&application_name=go-api-tests
-- LOGS_FILE_PATH={caminho_absoluto_até_a_raiz_do_projeto}/backend/.log/bloquinho.log
+- `POSTGRES_URL=postgres://{nome_do_user_postgres}:{senha_do_user_postgres}@127.0.0.1:5432/bloquinho?sslmode=disable&application_name=go-api`
+- `TEST_POSTGRES_URL=postgres://{nome_do_user_postgres}:{senha_do_user_postgres}@127.0.0.1:5432/bloquinho_tests?sslmode=disable&application_name=go-api-tests`
+- `LOGS_FILE_PATH={caminho_absoluto_até_a_raiz_do_projeto}/backend/.log/bloquinho.log`
 
 PS: O projeto possui um exemplo de arquivo .env, se optar por definir as variáveis de ambiente dessa forma, pode basear-se nele. Rodando `cp .env.example .env` no terminal, você pode copiá-lo em um arquivo .env, onde poderá preencher os placeholders das variáveis de exemplo.
 
