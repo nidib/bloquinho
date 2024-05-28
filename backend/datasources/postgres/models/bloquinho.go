@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql"
 	"fmt"
 	"time"
 
@@ -8,14 +9,15 @@ import (
 )
 
 type Bloquinho struct {
-	Id           string    `db:"id"`
-	Title        string    `db:"title"`
-	Content      string    `db:"content"`
-	Extension    string    `db:"extension"`
-	IsPublic     bool      `db:"is_public"`
-	LastViewedAt time.Time `db:"last_viewed_at"`
-	CreatedAt    time.Time `db:"created_at"`
-	UpdatedAt    time.Time `db:"updated_at"`
+	Id           string         `db:"id"`
+	Title        string         `db:"title"`
+	Content      string         `db:"content"`
+	Extension    string         `db:"extension"`
+	IsPublic     bool           `db:"is_public"`
+	EditKey      sql.NullString `db:"edit_key"`
+	LastViewedAt time.Time      `db:"last_viewed_at"`
+	CreatedAt    time.Time      `db:"created_at"`
+	UpdatedAt    time.Time      `db:"updated_at"`
 }
 
 type BloquinhoRepository struct {
