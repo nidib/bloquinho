@@ -28,9 +28,12 @@ jobs:
                   password: '${{ secrets.DOCKER_PASSWORD }}'
                   platforms: linux/amd64
             - name: Trigger deploy
-              uses: caprover/deploy-from-github@v1.1.2
-              with:
-                  server: '${{ secrets.DEPLOY_SERVER }}'
-                  app: '${{ secrets.DEPLOY_APP_NAME }}'
-                  token: '${{ secrets.DEPLOY_APP_TOKEN }}'
-                  image: nidib/bloquinho-api:${{ steps.build.outputs.tag }}
+              run: |
+                curl -X 'POST' \
+                '${{ secrets.DEPLOY_URL }}' \
+                -H 'accept: application/json' \
+                -H 'Content-Type: application/json' \
+                -H 'Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}' \
+                -d '{
+                    "applicationId": "${{ secrets.DEPLOY_APP_ID }}"
+                }'
