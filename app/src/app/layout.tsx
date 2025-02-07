@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
+import { App } from 'src/utils/constants/app-constants';
 
 const nunito = Nunito({
 	variable: '--font-nunito',
@@ -8,8 +9,11 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-	title: 'Bloquinho',
-	description: 'Compartilhando suas notas e snippets de forma fácil.',
+	title: App.TITLE,
+	description: App.DESCRIPTION,
+	icons: [
+		'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🗒</text></svg>',
+	],
 };
 
 type Props = Readonly<{
