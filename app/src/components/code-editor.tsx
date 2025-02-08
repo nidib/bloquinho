@@ -45,7 +45,7 @@ export function CodeEditor({ lineWrap = true, ...props }: Props) {
 	);
 }
 
-type Language =
+export type Language =
 	| 'javascript'
 	| 'typescript'
 	| 'markdown'
