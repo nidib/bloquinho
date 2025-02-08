@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import { App } from 'src/utils/constants/app-constants';
+import { cn } from 'src/utils/classes';
 import './globals.css';
 
 const nunito = Nunito({
@@ -22,7 +23,7 @@ type Props = Readonly<{
 
 export default function RootLayout({ children }: Props) {
 	return (
-		<html lang="pt-BR" className={nunito.variable}>
+		<html lang="pt-BR" className={cn(nunito.variable)}>
 			<body className="antialiased">{children}</body>
 		</html>
 	);
