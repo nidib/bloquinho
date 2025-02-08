@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
+		"infra:start": "docker compose up",
 		"build": "next build",
 		"start": "next start",
 		"lint": "biome check .",
@@ -11,10 +12,12 @@
 	},
 	"dependencies": {
 		"clsx": "^2.1.1",
+		"mongodb": "^6.13.0",
 		"next": "15.1.6",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"tailwind-merge": "^3.0.1"
+		"tailwind-merge": "^3.0.1",
+		"zod": "^3.24.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
