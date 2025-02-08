@@ -1,4 +1,6 @@
-import { mongoCollections } from 'src/lib/infra/mongo';
+import { redirect } from 'next/navigation';
+import { getOrCreateBloquinhoByTitle } from 'src/lib/infra/mongo/services';
+import { normalizeBloquinhoTitle } from 'src/utils/text';
 
 type Props = {
 	params: Promise<{
@@ -8,11 +10,13 @@ type Props = {
 
 export default async function BloquinhoPage({ params }: Props) {
 	const title = (await params).title;
-	const bloquinho = await mongoCollections.bloquinho.findOne({ title });
+	const decodedTitle = normalizeBloquinhoTitle(decodeURIComponent(title));
 
-	if (!bloquinho) {
-		return null;
+	if (title !== decodedTitle) {
+		redirect(`/${decodedTitle}`);
 	}
+
+	const bloquinho = await getOrCreateBloquinhoByTitle(decodedTitle);
 
 	return (
 		<ul>
