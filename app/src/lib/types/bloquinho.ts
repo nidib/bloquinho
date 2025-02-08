@@ -23,3 +23,5 @@ export type Bloquinho = {
 	created_at: Date;
 	updated_at: Date;
 };
+
+export type EditableBloquinhoFields = Pick<Bloquinho, 'content' | 'extension'>;
