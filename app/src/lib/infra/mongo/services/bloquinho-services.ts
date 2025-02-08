@@ -1,11 +1,8 @@
 import { randomUUID } from 'node:crypto';
+import { type BloquinhoDocument, mongo } from 'src/lib/infra/mongo/client';
 import {
-	type BloquinhoDocument,
-	mongoCollections,
-} from 'src/lib/infra/mongo/client';
-import {
-	extensions,
 	type EditableBloquinhoFields,
+	extensions,
 } from 'src/lib/types/bloquinho';
 import { z } from 'zod';
 
@@ -13,10 +10,10 @@ import { z } from 'zod';
  * If the title already exists, it updates `last_viewed_at` and returns it.
  * If the title does not exist, it creates and returns it.
  */
-export async function getOrCreateBloquinhoByTitle(
+async function getOrCreateBloquinhoByTitle(
 	title: string,
 ): Promise<BloquinhoDocument> {
-	const bloquinho = await mongoCollections.bloquinho.findOneAndUpdate(
+	const bloquinho = await mongo.Bloquinho.findOneAndUpdate(
 		{ title },
 		{
 			$set: {
@@ -47,12 +44,12 @@ const editableBloquinhoSchema = z.object({
 	extension: z.enum(extensions),
 });
 
-export async function updateBloquinhoByTitle(
+async function updateBloquinhoByTitle(
 	title: string,
 	data: EditableBloquinhoFields,
 ): Promise<BloquinhoDocument> {
 	const parsedData = editableBloquinhoSchema.parse(data);
-	const updatedBloquinho = await mongoCollections.bloquinho.findOneAndUpdate(
+	const updatedBloquinho = await mongo.Bloquinho.findOneAndUpdate(
 		{ title },
 		{
 			$set: {
@@ -71,3 +68,8 @@ export async function updateBloquinhoByTitle(
 
 	return updatedBloquinho;
 }
+
+export const BloquinhoServices = {
+	getOrCreateBloquinhoByTitle,
+	updateBloquinhoByTitle,
+};
