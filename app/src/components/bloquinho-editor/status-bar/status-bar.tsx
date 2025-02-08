@@ -18,7 +18,7 @@ import { cn } from 'src/utils/classes';
 type Status = 'pending' | 'success' | 'error';
 
 const titleByStatus: Record<Status, string> = {
-	pending: 'Carregando bloquinho...',
+	pending: 'Salvando bloquinho...',
 	success: 'Bloquinho atualizado!',
 	error: 'Algo deu errado!',
 };

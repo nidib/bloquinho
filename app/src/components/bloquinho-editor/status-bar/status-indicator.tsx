@@ -1,3 +1,11 @@
+'use client';
+
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from 'src/components/tooltip';
 import { cva } from 'src/utils/classes';
 
 type Status = 'pending' | 'success' | 'error';
@@ -18,5 +26,14 @@ type Props = {
 };
 
 export function StatusIndicator({ title, status }: Props) {
-	return <div title={title} className={statusIndicatorVariants({ status })} />;
+	return (
+		<TooltipProvider delayDuration={400}>
+			<Tooltip>
+				<TooltipTrigger className="outline-none focus-visible:ring-offset-2 focus-visible:ring-zinc-700 focus-visible:ring-2 rounded-full">
+					<div className={statusIndicatorVariants({ status })} />
+				</TooltipTrigger>
+				<TooltipContent>{title}</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	);
 }
