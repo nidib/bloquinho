@@ -6,7 +6,6 @@ const envSchema = z.object({
 			required_error: 'Missing required env: MONGO_DB_URL',
 		})
 		.nonempty('Missing required env: MONGO_DB_URL'),
-	MAINTENANCE: z.preprocess((val) => val === 'true', z.boolean()),
 });
 
 export const Envs = envSchema.parse(process.env);
