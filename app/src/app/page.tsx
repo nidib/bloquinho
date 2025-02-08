@@ -1,13 +1,7 @@
 import { CreateBloquinhoForm } from 'src/components/create-bloquinho-form';
-import { MaintenancePage } from 'src/components/maintenance';
 import { App } from 'src/utils/constants/app-constants';
-import { Envs } from 'src/utils/constants/envs';
 
 export default function Home() {
-	if (Envs.MAINTENANCE) {
-		return <MaintenancePage />;
-	}
-
 	return (
 		<div className="flex flex-col items-center h-full">
 			<div className="mt-0 mx-auto flex flex-col items-center text-center pt-[140px] px-[20px] pb-[80px]">

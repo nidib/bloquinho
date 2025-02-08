@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
+import { MaintenancePage } from 'src/components/maintenance';
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
+import { Envs } from 'src/utils/constants/envs';
 import './globals.css';
 
 const nunito = Nunito({
@@ -24,7 +26,9 @@ type Props = Readonly<{
 export default function RootLayout({ children }: Props) {
 	return (
 		<html lang="pt-BR" className={cn(nunito.variable)}>
-			<body className="antialiased">{children}</body>
+			<body className="antialiased">
+				{Envs.MAINTENANCE ? <MaintenancePage /> : children}
+			</body>
 		</html>
 	);
 }
