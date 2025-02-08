@@ -1,4 +1,4 @@
-import { updateBloquinhoByTitle } from 'src/lib/infra/mongo/services';
+import { BloquinhoServices } from 'src/lib/infra/mongo/services/bloquinho-services';
 import { extensions } from 'src/lib/types/bloquinho';
 import { z } from 'zod';
 const responseSchema = z.object({
@@ -15,7 +15,10 @@ export async function PUT(request: Request, options: Options) {
 	const params = await options.params;
 	const body = await request.json();
 
-	const updatedBloquinho = await updateBloquinhoByTitle(params.title, body);
+	const updatedBloquinho = await BloquinhoServices.updateBloquinhoByTitle(
+		params.title,
+		body,
+	);
 	const responseBody = responseSchema.parse(updatedBloquinho);
 
 	return Response.json(responseBody, {
