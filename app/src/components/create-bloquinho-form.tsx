@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, type FormEventHandler } from 'react';
+import { type FormEventHandler, useState } from 'react';
 import { Button } from 'src/components/form/button';
 import { TextInput } from 'src/components/form/text-input';
 import { normalizeBloquinhoTitle } from 'src/utils/text';

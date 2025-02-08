@@ -1,4 +1,4 @@
 export const App = {
 	TITLE: 'Bloquinho',
-	DESCRIPTION: 'Compartilhando seus snippets de forma fácil.'
-} as const
+	DESCRIPTION: 'Compartilhando seus snippets de forma fácil.',
+} as const;
