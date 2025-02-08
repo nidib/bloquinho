@@ -1,4 +1,4 @@
-const extensions = [
+export const extensions = [
 	'txt',
 	'java',
 	'js',
