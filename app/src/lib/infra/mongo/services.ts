@@ -3,6 +3,7 @@ import {
 	type BloquinhoDocument,
 	mongoCollections,
 } from 'src/lib/infra/mongo/client';
+import type { EditableBloquinhoFields } from 'src/lib/types/bloquinho';
 
 /**
  * If the title already exists, it updates `last_viewed_at` and returns it.
@@ -35,4 +36,28 @@ export async function getOrCreateBloquinhoByTitle(
 	}
 
 	return bloquinho;
+}
+
+export async function updateBloquinhoByTitle(
+	title: string,
+	data: EditableBloquinhoFields,
+): Promise<BloquinhoDocument> {
+	const updatedBloquinho = await mongoCollections.bloquinho.findOneAndUpdate(
+		{ title },
+		{
+			$set: {
+				content: data.content,
+				extension: data.extension,
+				last_viewed_at: new Date(),
+				updated_at: new Date(),
+			},
+		},
+		{ returnDocument: 'after' },
+	);
+
+	if (!updatedBloquinho) {
+		throw new Error('Could not update bloquinho');
+	}
+
+	return updatedBloquinho;
 }
