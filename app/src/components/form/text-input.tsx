@@ -1,3 +1,5 @@
+'use client';
+
 import type { ChangeEventHandler } from 'react';
 import { cn } from 'src/utils/classes';
 
