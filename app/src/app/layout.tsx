@@ -5,6 +5,7 @@ import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
 import { Envs } from 'src/utils/constants/envs';
 import './globals.css';
+import { ReactQueryProvider } from 'src/components/providers/react-query-provider';
 
 const nunito = Nunito({
 	variable: '--font-nunito',
@@ -27,7 +28,11 @@ export default function RootLayout({ children }: Props) {
 	return (
 		<html lang="pt-BR" className={cn(nunito.variable)}>
 			<body className="antialiased">
-				{Envs.MAINTENANCE ? <MaintenancePage /> : children}
+				{Envs.MAINTENANCE ? (
+					<MaintenancePage />
+				) : (
+					<ReactQueryProvider>{children}</ReactQueryProvider>
+				)}
 			</body>
 		</html>
 	);
