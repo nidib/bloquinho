@@ -5,7 +5,7 @@ import {
 	type EditableBloquinho,
 	useBloquinhoEditorContext,
 } from 'src/components/bloquinho-editor/context';
-import { StatusBar } from 'src/components/bloquinho-editor/status-bar';
+import { StatusBar } from 'src/components/bloquinho-editor/status-bar/status-bar';
 import { ClientOnly } from 'src/components/client-only';
 import { CodeEditor, type Language } from 'src/components/code-editor';
 
