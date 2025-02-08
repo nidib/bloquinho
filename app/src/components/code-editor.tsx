@@ -37,7 +37,7 @@ export function CodeEditor({ lineWrap = true, ...props }: Props) {
 		<Editor
 			theme="light"
 			onMount={focus}
-			value={props.value}
+			defaultValue={props.value}
 			language={props.language}
 			onChange={handleChange}
 			options={options}
