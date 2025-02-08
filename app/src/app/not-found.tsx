@@ -1,7 +1,8 @@
 import { MaintenancePage } from 'src/components/maintenance';
+import { Envs } from 'src/utils/constants/envs';
 
 export default function NotFound() {
-	if (process.env.MAINTENANCE === 'true') {
+	if (Envs.MAINTENANCE) {
 		return <MaintenancePage />;
 	}
 

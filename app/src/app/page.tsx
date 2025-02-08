@@ -1,9 +1,10 @@
 import { CreateBloquinhoForm } from 'src/components/create-bloquinho-form';
 import { MaintenancePage } from 'src/components/maintenance';
 import { App } from 'src/utils/constants/app-constants';
+import { Envs } from 'src/utils/constants/envs';
 
 export default function Home() {
-	if (process.env.MAINTENANCE === 'true') {
+	if (Envs.MAINTENANCE) {
 		return <MaintenancePage />;
 	}
 
