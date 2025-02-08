@@ -1,12 +1,12 @@
 import { cva } from 'src/utils/classes';
 
-type Status = 'loading' | 'done' | 'error';
+type Status = 'pending' | 'success' | 'error';
 
 const statusIndicatorVariants = cva('w-[15px] h-[15px] z-[200] rounded-full', {
 	variants: {
 		status: {
-			loading: ['bg-yellow-600'],
-			done: ['bg-green-600'],
+			pending: ['bg-yellow-600'],
+			success: ['bg-green-600'],
 			error: ['bg-red-600'],
 		},
 	},

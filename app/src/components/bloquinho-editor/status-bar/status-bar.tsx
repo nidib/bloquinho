@@ -6,11 +6,11 @@ import { Checkbox } from 'src/components/form/checkbox';
 import type { Extension } from 'src/lib/types/bloquinho';
 import { cn } from 'src/utils/classes';
 
-type Status = 'loading' | 'done' | 'error';
+type Status = 'pending' | 'success' | 'error';
 
 const titleByStatus: Record<Status, string> = {
-	loading: 'Carregando bloquinho...',
-	done: 'Bloquinho atualizado!',
+	pending: 'Carregando bloquinho...',
+	success: 'Bloquinho atualizado!',
 	error: 'Algo deu errado!',
 };
 

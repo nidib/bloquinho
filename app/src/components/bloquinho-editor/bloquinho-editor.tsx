@@ -2,14 +2,19 @@
 
 import {
 	BloquinhoEditorContextProvider,
-	type EditableBloquinho,
 	useBloquinhoEditorContext,
-} from 'src/components/bloquinho-editor/context';
+} from 'src/components/providers/bloquinho-editor-provider';
 import { StatusBar } from 'src/components/bloquinho-editor/status-bar/status-bar';
 import { ClientOnly } from 'src/components/client-only';
 import { CodeEditor, type Language } from 'src/components/code-editor';
+import type {
+	EditableBloquinhoFields,
+	Extension,
+} from 'src/lib/types/bloquinho';
 
-type Props = EditableBloquinho & {};
+type Props = EditableBloquinhoFields & {
+	title: string;
+};
 
 export function BloquinhoEditor(props: Props) {
 	const bloquinho = {
@@ -33,18 +38,17 @@ export function BloquinhoEditor(props: Props) {
 function BloquinhoCodeEditor() {
 	const { content, setContent, lineWrap, extension } =
 		useBloquinhoEditorContext();
-	const languageByExtension: Record<EditableBloquinho['extension'], Language> =
-		{
-			js: 'javascript',
-			ts: 'typescript',
-			md: 'markdown',
-			html: 'html',
-			css: 'css',
-			java: 'java',
-			py: 'python',
-			sql: 'sql',
-			txt: 'plaintext',
-		};
+	const languageByExtension: Record<Extension, Language> = {
+		js: 'javascript',
+		ts: 'typescript',
+		md: 'markdown',
+		html: 'html',
+		css: 'css',
+		java: 'java',
+		py: 'python',
+		sql: 'sql',
+		txt: 'plaintext',
+	};
 
 	return (
 		<CodeEditor
@@ -57,12 +61,18 @@ function BloquinhoCodeEditor() {
 }
 
 function BloquinhoStatusBar() {
-	const { lineWrap, enableLineWrap, disableLineWrap, extension, setExtension } =
-		useBloquinhoEditorContext();
+	const {
+		status,
+		lineWrap,
+		enableLineWrap,
+		disableLineWrap,
+		extension,
+		setExtension,
+	} = useBloquinhoEditorContext();
 
 	return (
 		<StatusBar
-			status="error"
+			status={status}
 			lineWrap={lineWrap}
 			onLineWrapChange={(wrap) => (wrap ? enableLineWrap() : disableLineWrap())}
 			extension={extension}
