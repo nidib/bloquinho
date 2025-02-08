@@ -1,12 +1,12 @@
 'use client';
 
+import { StatusBar } from 'src/components/bloquinho-editor/status-bar/status-bar';
+import { ClientOnly } from 'src/components/client-only';
+import { CodeEditor, type Language } from 'src/components/code-editor';
 import {
 	BloquinhoEditorContextProvider,
 	useBloquinhoEditorContext,
 } from 'src/components/providers/bloquinho-editor-provider';
-import { StatusBar } from 'src/components/bloquinho-editor/status-bar/status-bar';
-import { ClientOnly } from 'src/components/client-only';
-import { CodeEditor, type Language } from 'src/components/code-editor';
 import type {
 	EditableBloquinhoFields,
 	Extension,

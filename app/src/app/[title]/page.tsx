@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { BloquinhoEditor } from 'src/components/bloquinho-editor/bloquinho-editor';
-import { getOrCreateBloquinhoByTitle } from 'src/lib/infra/mongo/services';
+import { BloquinhoServices } from 'src/lib/infra/mongo/services/bloquinho-services';
 import { normalizeBloquinhoTitle } from 'src/utils/text';
 
 type Props = {
@@ -17,7 +17,8 @@ export default async function BloquinhoPage({ params }: Props) {
 		redirect(`/${decodedTitle}`);
 	}
 
-	const bloquinho = await getOrCreateBloquinhoByTitle(decodedTitle);
+	const bloquinho =
+		await BloquinhoServices.getOrCreateBloquinhoByTitle(decodedTitle);
 
 	return (
 		<BloquinhoEditor

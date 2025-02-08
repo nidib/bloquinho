@@ -1,6 +1,6 @@
 import {
-	extensions,
 	type EditableBloquinhoFields,
+	extensions,
 } from 'src/lib/types/bloquinho';
 import { z } from 'zod';
 
