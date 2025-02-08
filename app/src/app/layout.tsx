@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import { MaintenancePage } from 'src/components/maintenance';
+import { ReactQueryProvider } from 'src/components/providers/react-query-provider';
+import { FeatureFlagsService } from 'src/lib/infra/mongo/services/feature-flag-services';
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
-import { Envs } from 'src/utils/constants/envs';
 import './globals.css';
-import { ReactQueryProvider } from 'src/components/providers/react-query-provider';
 
 const nunito = Nunito({
 	variable: '--font-nunito',
@@ -24,11 +24,14 @@ type Props = Readonly<{
 	children: React.ReactNode;
 }>;
 
-export default function RootLayout({ children }: Props) {
+export default async function RootLayout({ children }: Props) {
+	const underMaintenance =
+		await FeatureFlagsService.getFeatureFlagValue('UNDER_MAINTENANCE');
+
 	return (
 		<html lang="pt-BR" className={cn(nunito.variable)}>
 			<body className="antialiased">
-				{Envs.MAINTENANCE ? (
+				{underMaintenance ? (
 					<MaintenancePage />
 				) : (
 					<ReactQueryProvider>{children}</ReactQueryProvider>
