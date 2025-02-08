@@ -1,28 +1,8 @@
 import { type Document, MongoClient } from 'mongodb';
+import type { Bloquinho } from 'src/lib/types/bloquinho';
 import { Envs } from 'src/utils/constants/envs';
 
-type BloquinhoExtension =
-	| 'txt'
-	| 'java'
-	| 'js'
-	| 'jsx'
-	| 'ts'
-	| 'tsx'
-	| 'sql'
-	| 'html'
-	| 'py'
-	| 'md'
-	| 'css';
-
-export interface BloquinhoDocument extends Document {
-	id: string;
-	title: string;
-	content: string;
-	extension: BloquinhoExtension;
-	last_viewed_at: Date;
-	created_at: Date;
-	updated_at: Date;
-}
+export interface BloquinhoDocument extends Document, Bloquinho {}
 
 const mongoClient = new MongoClient(Envs.MONGO_DB_URL).db('main');
 
