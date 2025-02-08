@@ -3,7 +3,11 @@ import {
 	type BloquinhoDocument,
 	mongoCollections,
 } from 'src/lib/infra/mongo/client';
-import type { EditableBloquinhoFields } from 'src/lib/types/bloquinho';
+import {
+	extensions,
+	type EditableBloquinhoFields,
+} from 'src/lib/types/bloquinho';
+import { z } from 'zod';
 
 /**
  * If the title already exists, it updates `last_viewed_at` and returns it.
@@ -38,16 +42,22 @@ export async function getOrCreateBloquinhoByTitle(
 	return bloquinho;
 }
 
+const editableBloquinhoSchema = z.object({
+	content: z.string(),
+	extension: z.enum(extensions),
+});
+
 export async function updateBloquinhoByTitle(
 	title: string,
 	data: EditableBloquinhoFields,
 ): Promise<BloquinhoDocument> {
+	const parsedData = editableBloquinhoSchema.parse(data);
 	const updatedBloquinho = await mongoCollections.bloquinho.findOneAndUpdate(
 		{ title },
 		{
 			$set: {
-				content: data.content,
-				extension: data.extension,
+				content: parsedData.content,
+				extension: parsedData.extension,
 				last_viewed_at: new Date(),
 				updated_at: new Date(),
 			},
