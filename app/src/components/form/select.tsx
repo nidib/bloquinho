@@ -127,7 +127,9 @@ const SelectItem = forwardRef<
 			</SelectPrimitive.ItemIndicator>
 		</span>
 
-		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+		<SelectPrimitive.ItemText asChild>
+			<span className="flex-1">{children}</span>
+		</SelectPrimitive.ItemText>
 	</SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
