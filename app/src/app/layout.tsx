@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import { MaintenancePage } from 'src/components/maintenance';
@@ -5,6 +6,8 @@ import { ReactQueryProvider } from 'src/components/providers/react-query-provide
 import { FeatureFlagsService } from 'src/lib/infra/mongo/services/feature-flag-services';
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
+import { FeatureFlagContextProvider } from 'src/providers/feature-flags-provider';
+import type { FeaturesFlags } from 'src/lib/types/feature-flags';
 import './globals.css';
 
 const nunito = Nunito({
@@ -21,12 +24,16 @@ export const metadata: Metadata = {
 };
 
 type Props = Readonly<{
-	children: React.ReactNode;
+	children: ReactNode;
 }>;
 
 export default async function RootLayout({ children }: Props) {
-	const underMaintenance =
-		await FeatureFlagsService.getFeatureFlagValue('UNDER_MAINTENANCE');
+	const featureFlags: FeaturesFlags = {
+		UNDER_MAINTENANCE:
+			await FeatureFlagsService.getFeatureFlagValue('UNDER_MAINTENANCE'),
+		PLAYGROUND: await FeatureFlagsService.getFeatureFlagValue('PLAYGROUND'),
+	};
+	const underMaintenance = featureFlags.UNDER_MAINTENANCE;
 
 	return (
 		<html lang="pt-BR" className={cn(nunito.variable)}>
@@ -34,7 +41,9 @@ export default async function RootLayout({ children }: Props) {
 				{underMaintenance ? (
 					<MaintenancePage />
 				) : (
-					<ReactQueryProvider>{children}</ReactQueryProvider>
+					<FeatureFlagContextProvider featureFlags={featureFlags}>
+						<ReactQueryProvider>{children}</ReactQueryProvider>
+					</FeatureFlagContextProvider>
 				)}
 			</body>
 		</html>

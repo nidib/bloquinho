@@ -1,5 +1,6 @@
 'use client';
 
+import { PlayCircleIcon } from 'lucide-react';
 import { useMemo } from 'react';
 import {
 	Select,
@@ -8,7 +9,9 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from 'src/components/form/select';
+import { EXECUTION_PARAM_EXTRACTOR_BY_EXTENSION } from 'src/lib/infra/api/piston-api';
 import type { Extension } from 'src/lib/types/bloquinho';
+import { useFeatureFlags } from 'src/providers/feature-flags-provider';
 
 type ExtensionsSelectProps = {
 	value: Extension;
@@ -16,20 +19,39 @@ type ExtensionsSelectProps = {
 };
 
 export function ExtensionsSelect(props: ExtensionsSelectProps) {
-	const items = useMemo(
-		() =>
-			displayedExtensions.map((ext) => (
+	const isPlaygroundFeatureEnabled = useFeatureFlags().PLAYGROUND;
+	const items = useMemo(() => {
+		return displayedExtensions.map((ext) => {
+			const extensionSupportsExecution =
+				isPlaygroundFeatureEnabled &&
+				Boolean(EXECUTION_PARAM_EXTRACTOR_BY_EXTENSION[ext.value]);
+
+			return (
 				<SelectItem key={ext.value} value={ext.value}>
-					{ext.displayName}
+					<span className="flex items-center justify-between gap-2 w-full">
+						{ext.displayName}
+						{extensionSupportsExecution && (
+							<PlayCircleIcon
+								className="w-3 h-3"
+								strokeWidth={3}
+								stroke="rgb(113, 113, 122)"
+							/>
+						)}
+					</span>
 				</SelectItem>
-			)),
-		[],
-	);
+			);
+		});
+	}, [isPlaygroundFeatureEnabled]);
 
 	return (
 		<Select value={props.value} onValueChange={props.onChange}>
 			<SelectTrigger className="w-[180px] text-xs">
-				<SelectValue />
+				<SelectValue>
+					{
+						displayedExtensions.find((d) => d.value === props.value)
+							?.displayName
+					}
+				</SelectValue>
 			</SelectTrigger>
 			<SelectContent>{items}</SelectContent>
 		</Select>
