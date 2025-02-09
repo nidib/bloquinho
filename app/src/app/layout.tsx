@@ -28,8 +28,6 @@ export default async function RootLayout({ children }: Props) {
 	const underMaintenance =
 		await FeatureFlagsService.getFeatureFlagValue('UNDER_MAINTENANCE');
 
-	console.log(process.env);
-
 	return (
 		<html lang="pt-BR" className={cn(nunito.variable)}>
 			<body className="antialiased">
