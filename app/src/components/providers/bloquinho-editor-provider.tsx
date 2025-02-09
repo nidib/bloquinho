@@ -3,14 +3,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import { type ReactNode, createContext, useContext } from 'react';
-import { Api } from 'src/lib/infra/api';
+import { BloquinhoApi } from 'src/lib/infra/api/bloquinho-api';
 import type {
 	EditableBloquinhoFields,
 	Extension,
 } from 'src/lib/types/bloquinho';
+import { useFeatureFlags } from 'src/providers/feature-flags-provider';
 import { asyncDebounce } from 'src/utils/functions';
 
-const debouncedUpdate = asyncDebounce(Api.updateBloquinhoByTitle, 800);
+const debouncedUpdate = asyncDebounce(BloquinhoApi.updateBloquinhoByTitle, 800);
 
 const BloquinhoEditorContext = createContext<{
 	status: 'error' | 'pending' | 'success';
@@ -21,6 +22,9 @@ const BloquinhoEditorContext = createContext<{
 	lineWrap: boolean;
 	enableLineWrap: VoidFunction;
 	disableLineWrap: VoidFunction;
+	showingPlayground: boolean;
+	showPlayground: VoidFunction;
+	hidePlayground: VoidFunction;
 } | null>(null);
 
 export function useBloquinhoEditorContext() {
@@ -35,12 +39,15 @@ export function useBloquinhoEditorContext() {
 	return ctx;
 }
 
-export function BloquinhoEditorContextProvider(props: {
+type Props = {
 	children: ReactNode;
 	bloquinho: EditableBloquinhoFields & {
 		title: string;
 	};
-}) {
+};
+
+export function BloquinhoEditorContextProvider(props: Props) {
+	const isPlaygroundFeatureEnabled = useFeatureFlags().PLAYGROUND;
 	const queryClient = useQueryClient();
 	const { data: bloquinho } = useQuery({
 		queryKey: ['bloquinho', props.bloquinho.title],
@@ -72,9 +79,17 @@ export function BloquinhoEditorContextProvider(props: {
 		},
 	});
 	const [lineWrap, setLineWrap] = useLocalStorage('lineWrap', true);
+	const [showPlaygroundLocal, setShowPlaygroundLocal] = useLocalStorage(
+		'showPlayground',
+		false,
+	);
+	const showingPlayground = isPlaygroundFeatureEnabled && showPlaygroundLocal;
 
 	const enableLineWrap = () => setLineWrap(true);
 	const disableLineWrap = () => setLineWrap(false);
+
+	const showPlayground = () => setShowPlaygroundLocal(true);
+	const hidePlayground = () => setShowPlaygroundLocal(false);
 
 	const context = {
 		status: mutation.status === 'idle' ? 'success' : mutation.status,
@@ -89,6 +104,9 @@ export function BloquinhoEditorContextProvider(props: {
 		lineWrap,
 		enableLineWrap,
 		disableLineWrap,
+		showingPlayground,
+		showPlayground,
+		hidePlayground,
 	};
 
 	return (

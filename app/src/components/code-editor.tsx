@@ -10,6 +10,7 @@ type Props = {
 	onChange: (value: string) => void;
 	language: Language;
 	lineWrap?: boolean;
+	width?: number | string;
 };
 
 export function CodeEditor({ lineWrap = true, ...props }: Props) {
@@ -22,11 +23,15 @@ export function CodeEditor({ lineWrap = true, ...props }: Props) {
 			insertSpaces: false,
 			renderWhitespace: 'all',
 			minimap: { enabled: false },
+			contextmenu: false,
+			automaticLayout: true,
 		}),
 		[lineWrap],
 	);
 
-	const focus = useCallback<OnMount>((editor) => editor.focus(), []);
+	const focus = useCallback<OnMount>((editor) => {
+		editor.focus();
+	}, []);
 
 	const handleChange = useCallback<OnChange>(
 		(value = '') => props.onChange(value),
@@ -36,6 +41,7 @@ export function CodeEditor({ lineWrap = true, ...props }: Props) {
 	return (
 		<Editor
 			theme="light"
+			width={props.width}
 			onMount={focus}
 			defaultValue={props.value}
 			language={props.language}

@@ -2,6 +2,7 @@
 
 import { SlidersVerticalIcon } from 'lucide-react';
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
+import { PlaygroundToggle } from 'src/components/bloquinho-editor/status-bar/playground-toggle';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
 import {
 	DropdownMenu,
@@ -13,6 +14,7 @@ import {
 	DropdownMenuTrigger,
 } from 'src/components/drop-down-menu';
 import type { Extension } from 'src/lib/types/bloquinho';
+import { useFeatureFlags } from 'src/providers/feature-flags-provider';
 import { cn } from 'src/utils/classes';
 
 type Status = 'pending' | 'success' | 'error';
@@ -29,13 +31,22 @@ type Props = {
 	extension: Extension;
 	onExtensionChange: (extension: Extension) => void;
 	status: Status;
+	showPlayground: boolean;
+	onPlaygroundClick: (showPlayground: boolean) => void;
 };
 
 export function StatusBar(props: Props) {
+	const isPlaygroundFeatureEnabled = useFeatureFlags().PLAYGROUND;
 	const title = titleByStatus[props.status];
 
 	return (
 		<footer className="font-mono border-t border-t-zinc-200 py-2 px-3 shrink-0 flex items-center justify-end gap-4">
+			{isPlaygroundFeatureEnabled && (
+				<PlaygroundToggle
+					showing={props.showPlayground}
+					onClick={props.onPlaygroundClick}
+				/>
+			)}
 			<DropdownMenu>
 				<DropdownMenuTrigger>
 					<SlidersVerticalIcon className="w-4 h-4" />
