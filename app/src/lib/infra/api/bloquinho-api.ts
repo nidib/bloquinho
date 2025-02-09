@@ -10,7 +10,7 @@ const responseSchema = z.object({
 	extension: z.enum(extensions),
 });
 
-export const Api = {
+export const BloquinhoApi = {
 	updateBloquinhoByTitle: async (
 		title: string,
 		data: EditableBloquinhoFields,
