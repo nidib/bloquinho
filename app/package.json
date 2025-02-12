@@ -7,6 +7,7 @@
 		"infra:start": "docker compose up",
 		"build": "next build",
 		"start": "next start",
+		"compile": "tsc --noEmit",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write ."
 	},
