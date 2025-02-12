@@ -58,14 +58,7 @@ async function initialize() {
 		);
 	}
 
-	const featureFlags = await mongo.FeatureFlag.find().toArray();
-	console.log(
-		'Feature flags:',
-		featureFlags.map((flag) => ({
-			key: flag.key,
-			value: flag.value,
-		})),
-	);
+	return mongo.FeatureFlag.find().toArray();
 }
 
 export const FeatureFlagsService = {
