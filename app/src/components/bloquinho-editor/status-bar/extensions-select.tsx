@@ -28,7 +28,7 @@ export function ExtensionsSelect(props: ExtensionsSelectProps) {
 
 	return (
 		<Select value={props.value} onValueChange={props.onChange}>
-			<SelectTrigger className="w-[180px] text-xs">
+			<SelectTrigger className="w-[180px] text-xs font-mono">
 				<SelectValue />
 			</SelectTrigger>
 			<SelectContent>{items}</SelectContent>
