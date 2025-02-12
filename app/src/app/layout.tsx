@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
+import type { ReactNode } from 'react';
 import { MaintenancePage } from 'src/components/maintenance';
 import { ReactQueryProvider } from 'src/components/providers/react-query-provider';
 import { FeatureFlagsService } from 'src/lib/infra/mongo/services/feature-flag-services';
+import { FeatureFlagsProvider } from 'src/providers/feature-flags-provider';
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
-import { FeatureFlagsProvider } from 'src/providers/feature-flags-provider';
 import './globals.css';
 
 const nunito = Nunito({
