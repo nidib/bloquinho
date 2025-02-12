@@ -43,7 +43,7 @@ async function getFeatureFlagsValues<T extends Flags>(
 	return map;
 }
 
-async function initialize() {
+async function seed() {
 	let key: Flags;
 	for (key in FeatureFlagsDefaultValues) {
 		const defaultValue = FeatureFlagsDefaultValues[key];
@@ -68,6 +68,6 @@ export const FeatureFlagsService = {
 		/**
 		 * Only used to initialize the app to have the initial values created if they don't exist yet.
 		 */
-		initialize,
+		seed,
 	},
 };

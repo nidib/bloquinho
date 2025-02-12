@@ -12,7 +12,7 @@ export async function register() {
 		const { FeatureFlagsService } = await import(
 			'src/lib/infra/mongo/services/feature-flag-services'
 		);
-		const featureFlags = await FeatureFlagsService.MIGRATION_ONLY.initialize();
+		const featureFlags = await FeatureFlagsService.MIGRATION_ONLY.seed();
 
 		console.group('Feature flags:');
 		console.table(
