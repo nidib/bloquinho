@@ -6,6 +6,10 @@ const envSchema = z.object({
 			required_error: 'Missing required env: MONGO_DB_URL',
 		})
 		.nonempty('Missing required env: MONGO_DB_URL'),
+	VERCEL_GIT_COMMIT_SHA: z
+		.string()
+		.transform((sha) => sha.substring(0, 8))
+		.optional(),
 });
 
 export const Envs = envSchema.parse(process.env);

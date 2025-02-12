@@ -5,8 +5,13 @@ import { MaintenancePage } from 'src/components/maintenance';
 import { ReactQueryProvider } from 'src/components/providers/react-query-provider';
 import { FeatureFlagsService } from 'src/lib/infra/mongo/services/feature-flag-services';
 import { FeatureFlagsProvider } from 'src/providers/feature-flags-provider';
+import {
+	type PublicServerInfo,
+	PublicServerInfoProvider,
+} from 'src/providers/public-server-info-provider';
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
+import { Envs } from 'src/utils/constants/envs';
 import './globals.css';
 
 const nunito = Nunito({
@@ -27,6 +32,9 @@ type Props = Readonly<{
 }>;
 
 export default async function RootLayout({ children }: Props) {
+	const publicServerInfo: PublicServerInfo = {
+		appVersion: Envs.VERCEL_GIT_COMMIT_SHA ?? null,
+	};
 	const featureFlags = await FeatureFlagsService.getFeatureFlagsValues([
 		'UNDER_MAINTENANCE',
 	]);
@@ -37,9 +45,11 @@ export default async function RootLayout({ children }: Props) {
 				{featureFlags.UNDER_MAINTENANCE ? (
 					<MaintenancePage />
 				) : (
-					<FeatureFlagsProvider featureFlags={featureFlags}>
-						<ReactQueryProvider>{children}</ReactQueryProvider>
-					</FeatureFlagsProvider>
+					<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
+						<FeatureFlagsProvider featureFlags={featureFlags}>
+							<ReactQueryProvider>{children}</ReactQueryProvider>
+						</FeatureFlagsProvider>
+					</PublicServerInfoProvider>
 				)}
 			</body>
 		</html>
