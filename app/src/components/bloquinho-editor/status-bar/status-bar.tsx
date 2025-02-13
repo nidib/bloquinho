@@ -12,6 +12,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from 'src/components/drop-down-menu';
+import { Button } from 'src/components/form/button';
 import type { Extension } from 'src/lib/types/bloquinho';
 import { usePublicServerInfo } from 'src/providers/public-server-info-provider';
 import { cn } from 'src/utils/classes';
@@ -38,7 +39,7 @@ export function StatusBar(props: Props) {
 	const title = titleByStatus[props.status];
 
 	return (
-		<footer className="border-t border-t-zinc-200 py-2 px-3 shrink-0 flex gap-8 items-center justify-between">
+		<footer className="border-t border-t-zinc-200 py-2 px-[--monaco-scrollbar-width] shrink-0 flex gap-8 items-center justify-between">
 			{hasLeftContent && (
 				<div className="shrink-0">
 					{appVersion && (
@@ -50,8 +51,10 @@ export function StatusBar(props: Props) {
 			)}
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
 				<DropdownMenu>
-					<DropdownMenuTrigger>
-						<SlidersVerticalIcon className="w-4 h-4" />
+					<DropdownMenuTrigger asChild>
+						<Button variant="secondary">
+							<SlidersVerticalIcon className="w-4 h-4" />
+						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className="w-56">
 						<DropdownMenuLabel>Preferências</DropdownMenuLabel>
