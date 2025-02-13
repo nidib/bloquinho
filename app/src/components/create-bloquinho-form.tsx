@@ -26,13 +26,16 @@ export function CreateBloquinhoForm() {
 	return (
 		<div className="flex flex-col items-start gap-3">
 			<form className="flex flex-col gap-3 sm:flex-row" onSubmit={handleSubmit}>
-				<TextInput
-					value={bloquinhoTitle}
-					placeholder="nome-do-seu-bloquinho"
-					onChange={setBloquinhoTitle}
-					autoFocus
-				/>
-				<Button type="submit" disabled={cannotCreate}>
+				<div className="w-[300px] h-full">
+					<TextInput
+						value={bloquinhoTitle}
+						placeholder="nome-do-seu-bloquinho"
+						onChange={setBloquinhoTitle}
+						size="lg"
+						autoFocus
+					/>
+				</div>
+				<Button size="lg" type="submit" disabled={cannotCreate}>
 					Criar bloquinho
 				</Button>
 			</form>

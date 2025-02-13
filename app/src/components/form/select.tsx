@@ -24,7 +24,7 @@ function SelectTrigger({ children, className, ...props }: SelectTriggerProps) {
 	return (
 		<SelectPrimitive.Trigger
 			className={cn(
-				'transition-all flex h-8 w-full items-center justify-between rounded-md border border-zinc-200 hover:border-zinc-300 bg-white px-3 py-2 text-sm placeholder:text-zinc-400 focus-visible:outline-none focus-visible:border-zinc-700 focus-visible:ring-2 focus-visible:ring-zinc-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+				'text-sm px-3 py-2 shadow-sm transition-all flex w-full items-center justify-between rounded-md text-zinc-800 border border-zinc-200 hover:border-zinc-300 data-[state=open]:border-zinc-300 bg-white placeholder:text-zinc-400 focus-visible:outline-none focus-visible:border-zinc-700 focus-visible:ring-2 focus-visible:ring-zinc-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
 				className,
 			)}
 			{...props}

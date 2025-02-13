@@ -7,6 +7,8 @@ import { cn } from 'src/utils/classes';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
+const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 
 const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
@@ -14,20 +16,6 @@ const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
 const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 
 const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
-
-function DropdownMenuTrigger({
-	className,
-	...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>) {
-	return (
-		<DropdownMenuPrimitive.Trigger
-			className={cn(
-				'transition-all flex h-8 w-fit items-center justify-between rounded-md border border-zinc-200 hover:bg-zinc-100 hover:border-zinc-300 bg-white px-3 py-2 text-sm placeholder:text-zinc-400 focus-visible:outline-none focus-visible:border-zinc-700 focus-visible:ring-2 focus-visible:ring-zinc-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-			)}
-			{...props}
-		/>
-	);
-}
 
 const DropdownMenuSubTrigger = React.forwardRef<
 	React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,

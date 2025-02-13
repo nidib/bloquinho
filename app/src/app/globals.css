@@ -4,4 +4,6 @@
 
 :root {
 	font-family: var(--font-nunito), sans-serif;
+
+	--monaco-scrollbar-width: 14px;
 }
