@@ -10,6 +10,7 @@ const envSchema = z.object({
 		.string()
 		.transform((sha) => sha.substring(0, 8))
 		.optional(),
+	RESEND_API_KEY: z.string().optional(),
 });
 
 export const Envs = envSchema.parse(process.env);
