@@ -24,7 +24,7 @@ async function sendFeedbackEmail(content: {
 		from: 'Bloquinho <hello@feedback.bloquinho.app>',
 		to: ['richardbidin@outlook.com'],
 		subject: titleByFeedbackType[body.type],
-		html: body.message,
+		text: body.message,
 	};
 
 	if (!Envs.RESEND_API_KEY) {
