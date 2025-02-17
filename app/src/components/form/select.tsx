@@ -18,22 +18,35 @@ const SelectValue = SelectPrimitive.Value;
 
 type SelectTriggerProps = ComponentProps<typeof SelectPrimitive.Trigger> & {
 	children: ReactNode;
+	errorMessage?: string;
 };
 
-function SelectTrigger({ children, className, ...props }: SelectTriggerProps) {
+function SelectTrigger({
+	children,
+	className,
+	errorMessage,
+	...props
+}: SelectTriggerProps) {
 	return (
-		<SelectPrimitive.Trigger
-			className={cn(
-				'text-sm px-3 py-2 shadow-sm transition-all flex w-full items-center justify-between rounded-md text-zinc-800 border border-zinc-200 hover:border-zinc-300 data-[state=open]:border-zinc-300 bg-white placeholder:text-zinc-400 focus-visible:outline-none focus-visible:border-zinc-700 focus-visible:ring-2 focus-visible:ring-zinc-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-				className,
+		<div>
+			<SelectPrimitive.Trigger
+				className={cn(
+					'text-sm px-3 py-2 shadow-sm transition-all flex w-full items-center justify-between gap-3 rounded-md text-zinc-800 border border-zinc-200 hover:border-zinc-300 data-[state=open]:border-zinc-300 bg-white placeholder:text-zinc-400 focus-visible:outline-none focus-visible:border-zinc-700 focus-visible:ring-2 focus-visible:ring-zinc-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+					Boolean(errorMessage) &&
+						'border-red-200 hover:border-red-300 data-[state=open]:border-red-300 focus-visible:border-red-700 focus-visible:ring-red-700',
+					className,
+				)}
+				{...props}
+			>
+				{children}
+				<SelectPrimitive.Icon asChild>
+					<ChevronDown className="h-4 w-4 opacity-50" />
+				</SelectPrimitive.Icon>
+			</SelectPrimitive.Trigger>
+			{Boolean(errorMessage) && (
+				<span className="text-sm text-red-500">{errorMessage}</span>
 			)}
-			{...props}
-		>
-			{children}
-			<SelectPrimitive.Icon asChild>
-				<ChevronDown className="h-4 w-4 opacity-50" />
-			</SelectPrimitive.Icon>
-		</SelectPrimitive.Trigger>
+		</div>
 	);
 }
 
