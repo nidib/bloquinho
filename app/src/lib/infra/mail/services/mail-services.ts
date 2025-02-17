@@ -3,7 +3,7 @@ import { type FeedbackType, feedbackTypes } from 'src/lib/types/feedback';
 import { Envs } from 'src/utils/constants/envs';
 import { z } from 'zod';
 
-const resend = new Resend(Envs.RESEND_API_KEY ?? 're_123');
+const resend = new Resend(Envs.RESEND_API_KEY);
 
 const feedbackEmailBodySchema = z.object({
 	type: z.enum(feedbackTypes),
@@ -21,8 +21,8 @@ async function sendFeedbackEmail(content: {
 }) {
 	const body = feedbackEmailBodySchema.parse(content);
 	const email: CreateEmailOptions = {
-		from: 'Bloquinho <hello@feedback.bloquinho.app>',
-		to: ['richardbidin@outlook.com'],
+		from: `Bloquinho <${Envs.RESEND_FEEDBACK_FROM}>`,
+		to: [Envs.RESEND_FEEDBACK_TO],
 		subject: titleByFeedbackType[body.type],
 		text: body.message,
 	};
