@@ -28,7 +28,7 @@ import {
 } from 'src/components/form/select';
 import { Textarea } from 'src/components/form/textarea';
 import { Api } from 'src/lib/infra/api';
-import type { FeedbackType } from 'src/lib/types/support-and-feedback';
+import type { FeedbackType } from 'src/lib/types/feedback';
 
 const textareaLabelByFormType: Record<
 	FeedbackType,
@@ -58,7 +58,7 @@ type Props = {
 	trigger: ReactNode;
 };
 
-export function SupportAndFeedbackForm(props: Props) {
+export function FeedbackForm(props: Props) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const methods = useForm<FormState>({
 		defaultValues: { type: null, message: '' },
@@ -120,7 +120,7 @@ export function SupportAndFeedbackForm(props: Props) {
 	);
 }
 
-SupportAndFeedbackForm.Trigger = (props: { children: ReactNode }) => {
+FeedbackForm.Trigger = (props: { children: ReactNode }) => {
 	return <DialogTrigger asChild>{props.children}</DialogTrigger>;
 };
 

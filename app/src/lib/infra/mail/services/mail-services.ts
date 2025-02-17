@@ -1,8 +1,5 @@
 import { type CreateEmailOptions, Resend } from 'resend';
-import {
-	type FeedbackType,
-	feedbackTypes,
-} from 'src/lib/types/support-and-feedback';
+import { type FeedbackType, feedbackTypes } from 'src/lib/types/feedback';
 import { Envs } from 'src/utils/constants/envs';
 import { z } from 'zod';
 

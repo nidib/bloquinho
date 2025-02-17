@@ -12,8 +12,8 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from 'src/components/drop-down-menu';
+import { FeedbackForm } from 'src/components/feedback/feedback-form';
 import { Button } from 'src/components/form/button';
-import { SupportAndFeedbackForm } from 'src/components/support-and-feedback/support-and-feedback-form';
 import {
 	Tooltip,
 	TooltipContent,
@@ -55,7 +55,7 @@ export function StatusBar(props: Props) {
 						<Separator />
 					</>
 				)}
-				<SupportAndFeedbackForm trigger={<SupportAndFeedbackButton />} />
+				<FeedbackForm trigger={<FeedbackButton />} />
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
 				<DropdownMenu>
@@ -93,17 +93,17 @@ function Separator() {
 	return <div className={cn('w-[1px] bg-zinc-200 h-[50%]')} />;
 }
 
-function SupportAndFeedbackButton() {
+function FeedbackButton() {
 	return (
 		<TooltipProvider delayDuration={200}>
 			<Tooltip>
-				<SupportAndFeedbackForm.Trigger>
+				<FeedbackForm.Trigger>
 					<TooltipTrigger asChild>
 						<Button variant="secondary">
 							<BugIcon className="w-4 h-4" />
 						</Button>
 					</TooltipTrigger>
-				</SupportAndFeedbackForm.Trigger>
+				</FeedbackForm.Trigger>
 				<TooltipContent side="top" align="start">
 					Reportar um bug ou sugestão
 				</TooltipContent>

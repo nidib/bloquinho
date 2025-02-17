@@ -2,7 +2,7 @@ import {
 	type EditableBloquinhoFields,
 	extensions,
 } from 'src/lib/types/bloquinho';
-import type { FeedbackType } from 'src/lib/types/support-and-feedback';
+import type { FeedbackType } from 'src/lib/types/feedback';
 import { z } from 'zod';
 
 const responseSchema = z.object({
