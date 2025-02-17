@@ -2,6 +2,7 @@ import {
 	type EditableBloquinhoFields,
 	extensions,
 } from 'src/lib/types/bloquinho';
+import type { FeedbackType } from 'src/lib/types/feedback';
 import { z } from 'zod';
 
 const responseSchema = z.object({
@@ -21,5 +22,15 @@ export const Api = {
 		}).then((res) => res.json());
 
 		return responseSchema.parse(responseBody);
+	},
+	Mail: {
+		sendFeedbackEmail: async (type: FeedbackType, message: string) => {
+			const response = await fetch('/api/feedback', {
+				method: 'POST',
+				body: JSON.stringify({ type, message }),
+			});
+
+			return response.ok;
+		},
 	},
 };
