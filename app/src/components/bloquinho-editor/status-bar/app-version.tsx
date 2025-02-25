@@ -101,10 +101,15 @@ function Version(props: VersionProps) {
 
 const markdownComponents: Components = {
 	h2: (props) => {
-		return <h2 {...omit(props, 'node')} className="text-lg font-bold mb-2" />;
+		return <h2 {...omit(props, 'node')} className="text-lg font-bold mb-3" />;
 	},
 	ul: (props) => {
-		return <ul {...omit(props, 'node')} className="list-disc list-inside" />;
+		return (
+			<ul
+				{...omit(props, 'node')}
+				className="list-disc list-inside space-y-2"
+			/>
+		);
 	},
 	strong: (props) => {
 		return <strong {...omit(props, 'node')} className="font-semibold" />;
