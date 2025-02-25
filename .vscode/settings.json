@@ -1,11 +1,4 @@
 {
-	"editor.codeActionsOnSave": {
-		"source.fixAll": "explicit"
-	},
-	"editor.formatOnSave": true,
-	"editor.rulers": [120],
-	"go.testEnvFile": "${workspaceFolder}/backend/.env",
-	"go.testEnvVars": {
-		"MODE": "TEST"
-	}
+	"editor.defaultFormatter": "biomejs.biome",
+	"cSpell.language": "en,pt_BR"
 }
