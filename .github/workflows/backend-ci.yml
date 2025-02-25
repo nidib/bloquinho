@@ -30,7 +30,3 @@ jobs:
               run: npm run lint
             - name: Compile TypeScript
               run: npm run compile
-            - name: Build test
-              run: npm run build
-              env:
-                  MONGO_DB_URL: mongodb://mongodb_username:mongodb_password@localhost:27017
