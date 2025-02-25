@@ -1,6 +1,7 @@
 'use client';
 
 import { BugIcon, SlidersVerticalIcon } from 'lucide-react';
+import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-version';
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
 import {
@@ -21,7 +22,6 @@ import {
 	TooltipTrigger,
 } from 'src/components/tooltip';
 import type { Extension } from 'src/lib/types/bloquinho';
-import { usePublicServerInfo } from 'src/providers/public-server-info-provider';
 import { cn } from 'src/utils/classes';
 
 type Status = 'pending' | 'success' | 'error';
@@ -41,20 +41,13 @@ type Props = {
 };
 
 export function StatusBar(props: Props) {
-	const { appVersion } = usePublicServerInfo();
 	const title = titleByStatus[props.status];
 
 	return (
 		<footer className="border-t border-t-zinc-200 py-2 px-[--monaco-scrollbar-width] shrink-0 flex gap-8 items-center justify-between">
 			<div className="h-full flex items-center justify-start gap-4">
-				{appVersion && (
-					<>
-						<span className="font-mono text-xs text-zinc-500">
-							{appVersion}
-						</span>
-						<Separator />
-					</>
-				)}
+				<AppVersion />
+				<Separator />
 				<FeedbackForm trigger={<FeedbackButton />} />
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
