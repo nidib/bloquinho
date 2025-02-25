@@ -27,7 +27,7 @@ import {
 	SelectValue,
 } from 'src/components/form/select';
 import { Textarea } from 'src/components/form/textarea';
-import { Api } from 'src/lib/infra/api';
+import { Api } from 'src/lib/client/client-api';
 import type { FeedbackType } from 'src/lib/types/feedback';
 
 const textareaLabelByFormType: Record<

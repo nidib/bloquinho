@@ -3,14 +3,17 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import { type ReactNode, createContext, useContext } from 'react';
-import { Api } from 'src/lib/infra/api';
+import { Api } from 'src/lib/client/client-api';
 import type {
 	EditableBloquinhoFields,
 	Extension,
 } from 'src/lib/types/bloquinho';
 import { asyncDebounce } from 'src/utils/functions';
 
-const debouncedUpdate = asyncDebounce(Api.updateBloquinhoByTitle, 800);
+const debouncedUpdate = asyncDebounce(
+	Api.Bloquinho.updateBloquinhoByTitle,
+	800,
+);
 
 const BloquinhoEditorContext = createContext<{
 	status: 'error' | 'pending' | 'success';
