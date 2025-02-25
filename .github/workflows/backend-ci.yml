@@ -1,11 +1,11 @@
-name: Backend CI
+name: CI
 
 on:
     pull_request:
     push:
         paths:
             - '.github/**'
-            - 'backend/**'
+            - 'app/**'
         branches: ['main']
     workflow_dispatch:
 
@@ -14,33 +14,19 @@ jobs:
         runs-on: ubuntu-latest
         defaults:
             run:
-                working-directory: ./backend
-
-        services:
-            postgres:
-                image: postgres
-                env:
-                    POSTGRES_DB: bloquinho_tests
-                    POSTGRES_USER: ci
-                    POSTGRES_PASSWORD: ci
-                ports:
-                    - 5432:5432
-                options: >-
-                    --health-cmd pg_isready
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
+                working-directory: ./app
 
         steps:
             - uses: actions/checkout@v4
-            - name: Setup Go
-              uses: actions/setup-go@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
               with:
-                  go-version: '1.22.0'
-                  cache-dependency-path: backend/go.sum
-            - name: Compile
-              run: make compile
-            - name: Test
-              run: make test
-              env:
-                  TEST_POSTGRES_URL: postgres://ci:ci@127.0.0.1:5432/bloquinho_tests?sslmode=disable&application_name=go-api-tests
+                  node-version: '22.11.0'
+                  cache: 'npm'
+                  cache-dependency-path: app/package-lock.json
+            - name: Install Dependencies
+              run: npm ci
+            - name: Lint
+              run: npm run lint
+            - name: Compile TypeScript
+              run: npm run compile
