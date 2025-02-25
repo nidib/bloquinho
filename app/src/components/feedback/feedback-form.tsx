@@ -42,6 +42,10 @@ const textareaLabelByFormType: Record<
 		label: 'No que você pensou?',
 		placeholder: 'Me conta um pouco sobre essa sua ideia.',
 	},
+	feedback: {
+		label: 'O que achou?',
+		placeholder: 'Compartilhe sua opinião ou sugestão.',
+	},
 };
 
 const defaultTextareaLabel = {
@@ -147,8 +151,11 @@ function FormTypeSelect() {
 							<SelectValue placeholder="Selecione um tipo" />
 						</SelectTrigger>
 						<SelectContent>
-							<SelectItem value="bug">Bug</SelectItem>
-							<SelectItem value="feature">Melhoria</SelectItem>
+							{Object.entries(selectOptions).map(([value, label]) => (
+								<SelectItem key={value} value={value}>
+									{label}
+								</SelectItem>
+							))}
 						</SelectContent>
 					</Select>
 				)}
@@ -156,6 +163,12 @@ function FormTypeSelect() {
 		</div>
 	);
 }
+
+const selectOptions: Record<FeedbackType, string> = {
+	bug: 'Bug',
+	feature: 'Melhoria',
+	feedback: 'Feedback',
+};
 
 function MessageField() {
 	const { control, watch } = useFormContext<FormState>();

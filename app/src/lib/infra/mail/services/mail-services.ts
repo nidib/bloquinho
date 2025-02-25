@@ -13,6 +13,7 @@ const feedbackEmailBodySchema = z.object({
 const titleByFeedbackType: Record<FeedbackType, string> = {
 	bug: 'Alguém encontrou um bug!',
 	feature: 'Alguém teve uma idea!',
+	feedback: 'Alguém deixou um feedback!',
 };
 
 async function sendFeedbackEmail(content: {
