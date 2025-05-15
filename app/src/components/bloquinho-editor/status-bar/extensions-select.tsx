@@ -20,7 +20,12 @@ export function ExtensionsSelect(props: ExtensionsSelectProps) {
 		() =>
 			displayedExtensions.map((ext) => (
 				<SelectItem key={ext.value} value={ext.value}>
+					<span className="flex gap-1 items-center">
 					{ext.displayName}
+						{ext.showNewBadge && (
+							<div className="w-1 h-1 rounded-full bg-green-500" />
+						)}
+					</span>
 				</SelectItem>
 			)),
 		[],
@@ -39,6 +44,7 @@ export function ExtensionsSelect(props: ExtensionsSelectProps) {
 type ExtensionListItem = {
 	value: Extension;
 	displayName: string;
+	showNewBadge?: boolean;
 };
 
 const displayedExtensions: ExtensionListItem[] = [
