@@ -92,14 +92,9 @@ function FeedbackButton() {
 			<Tooltip>
 				<FeedbackForm.Trigger>
 					<TooltipTrigger asChild>
-						<div className="relative">
-							<div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-green-200 border border-solid border-green-500 text-green-950 py-0.5 px-1 rounded-md text-3xs select-none opacity-90">
-								NOVO
-							</div>
-							<Button variant="secondary">
-								<BugIcon className="w-4 h-4" />
-							</Button>
-						</div>
+						<Button variant="secondary">
+							<BugIcon className="w-4 h-4" />
+						</Button>
 					</TooltipTrigger>
 				</FeedbackForm.Trigger>
 				<TooltipContent side="top" align="start">
