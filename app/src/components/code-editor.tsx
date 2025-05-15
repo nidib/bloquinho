@@ -54,4 +54,6 @@ export type Language =
 	| 'java'
 	| 'python'
 	| 'sql'
-	| 'plaintext';
+	| 'plaintext'
+	| 'php'
+	| 'go';

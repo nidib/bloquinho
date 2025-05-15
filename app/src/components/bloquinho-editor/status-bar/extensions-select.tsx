@@ -8,6 +8,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from 'src/components/form/select';
+import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
 import type { Extension } from 'src/lib/types/bloquinho';
 
 type ExtensionsSelectProps = {
@@ -21,7 +22,7 @@ export function ExtensionsSelect(props: ExtensionsSelectProps) {
 			displayedExtensions.map((ext) => (
 				<SelectItem key={ext.value} value={ext.value}>
 					<span className="flex gap-1 items-center">
-					{ext.displayName}
+						{ext.displayName}
 						{ext.showNewBadge && (
 							<div className="w-1 h-1 rounded-full bg-green-500" />
 						)}
@@ -32,12 +33,15 @@ export function ExtensionsSelect(props: ExtensionsSelectProps) {
 	);
 
 	return (
-		<Select value={props.value} onValueChange={props.onChange}>
-			<SelectTrigger className="w-[180px] text-xs font-mono">
-				<SelectValue />
-			</SelectTrigger>
-			<SelectContent>{items}</SelectContent>
-		</Select>
+		<div className="relative">
+			<NewBadgeIcon />
+			<Select value={props.value} onValueChange={props.onChange}>
+				<SelectTrigger className="w-[180px] text-xs font-mono">
+					<SelectValue />
+				</SelectTrigger>
+				<SelectContent>{items}</SelectContent>
+			</Select>
+		</div>
 	);
 }
 
@@ -83,5 +87,15 @@ const displayedExtensions: ExtensionListItem[] = [
 	{
 		value: 'css',
 		displayName: 'CSS',
+	},
+	{
+		value: 'php',
+		displayName: 'PHP',
+		showNewBadge: true,
+	},
+	{
+		value: 'go',
+		displayName: 'Go',
+		showNewBadge: true,
 	},
 ];

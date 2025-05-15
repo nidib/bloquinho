@@ -48,6 +48,8 @@ function BloquinhoCodeEditor() {
 		py: 'python',
 		sql: 'sql',
 		txt: 'plaintext',
+		php: 'php',
+		go: 'go',
 	};
 
 	return (

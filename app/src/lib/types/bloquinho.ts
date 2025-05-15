@@ -10,6 +10,8 @@ export const extensions = [
 	'py',
 	'md',
 	'css',
+	'php',
+	'go',
 ] as const;
 
 export type Extension = (typeof extensions)[number];
