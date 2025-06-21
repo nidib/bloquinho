@@ -7,11 +7,11 @@ import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/stat
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuLabel,
+	DropdownMenuRadioGroup,
+	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from 'src/components/drop-down-menu';
@@ -26,7 +26,7 @@ import {
 } from 'src/components/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
-import { getAvailableLanguages, type Lang } from 'src/utils/i18n';
+import { type Lang, getAvailableLanguages } from 'src/utils/i18n';
 
 export function StatusBar() {
 	return (
