@@ -9,14 +9,12 @@ import {
 	SelectValue,
 } from 'src/components/form/select';
 import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
+import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import type { Extension } from 'src/lib/types/bloquinho';
 
-type ExtensionsSelectProps = {
-	value: Extension;
-	onChange: (value: Extension) => void;
-};
+export function ExtensionsSelect() {
+	const { extension, setExtension } = useBloquinhoEditorContext();
 
-export function ExtensionsSelect(props: ExtensionsSelectProps) {
 	const items = useMemo(
 		() =>
 			displayedExtensions.map((ext) => (
@@ -35,7 +33,7 @@ export function ExtensionsSelect(props: ExtensionsSelectProps) {
 	return (
 		<div className="relative">
 			<NewBadgeIcon />
-			<Select value={props.value} onValueChange={props.onChange}>
+			<Select value={extension} onValueChange={setExtension}>
 				<SelectTrigger className="w-[180px] text-xs font-mono">
 					<SelectValue />
 				</SelectTrigger>

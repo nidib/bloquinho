@@ -15,34 +15,16 @@ import {
 } from 'src/components/drop-down-menu';
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
 import { Button } from 'src/components/form/button';
+import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
 } from 'src/components/tooltip';
-import type { Extension } from 'src/lib/types/bloquinho';
 import { cn } from 'src/utils/classes';
 
-type Status = 'pending' | 'success' | 'error';
-
-const titleByStatus: Record<Status, string> = {
-	pending: 'Salvando bloquinho...',
-	success: 'Bloquinho atualizado!',
-	error: 'Algo deu errado!',
-};
-
-type Props = {
-	lineWrap: boolean;
-	onLineWrapChange: (lineWrap: boolean) => void;
-	extension: Extension;
-	onExtensionChange: (extension: Extension) => void;
-	status: Status;
-};
-
-export function StatusBar(props: Props) {
-	const title = titleByStatus[props.status];
-
+export function StatusBar() {
 	return (
 		<footer className="border-t border-t-zinc-200 py-2 px-[--monaco-scrollbar-width] shrink-0 flex gap-8 items-center justify-between">
 			<div className="h-full flex items-center justify-start gap-4">
@@ -51,32 +33,11 @@ export function StatusBar(props: Props) {
 				<FeedbackForm trigger={<FeedbackButton />} />
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="secondary">
-							<SlidersVerticalIcon className="w-4 h-4" />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent className="w-56">
-						<DropdownMenuLabel>Preferências</DropdownMenuLabel>
-						<DropdownMenuSeparator />
-						<DropdownMenuGroup>
-							<DropdownMenuCheckboxItem
-								checked={props.lineWrap}
-								onCheckedChange={props.onLineWrapChange}
-							>
-								<span>Quebra de linha</span>
-							</DropdownMenuCheckboxItem>
-						</DropdownMenuGroup>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<PreferencesDropdown />
 				<Separator />
-				<ExtensionsSelect
-					value={props.extension}
-					onChange={props.onExtensionChange}
-				/>
+				<ExtensionsSelect />
 				<Separator />
-				<StatusIndicator title={title} status={props.status} />
+				<StatusIndicator />
 			</div>
 		</footer>
 	);
@@ -102,5 +63,32 @@ function FeedbackButton() {
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
+	);
+}
+
+function PreferencesDropdown() {
+	const { lineWrap, enableLineWrap, disableLineWrap } =
+		useBloquinhoEditorContext();
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant="secondary">
+					<SlidersVerticalIcon className="w-4 h-4" />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="w-56">
+				<DropdownMenuLabel>Preferências</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuGroup>
+					<DropdownMenuCheckboxItem
+						checked={lineWrap}
+						onCheckedChange={lineWrap ? disableLineWrap : enableLineWrap}
+					>
+						<span>Quebra de linha</span>
+					</DropdownMenuCheckboxItem>
+				</DropdownMenuGroup>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }
