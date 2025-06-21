@@ -192,7 +192,7 @@ function MessageField() {
 				name="message"
 				control={control}
 				rules={{
-					required: 'Esse campo é obrigatório',
+					required: t('ThisFieldIsRequired'),
 				}}
 				render={({ field, fieldState }) => (
 					<Textarea
