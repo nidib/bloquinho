@@ -17,3 +17,13 @@ export function ClientOnly({ children }: Props) {
 	// Render children if on client side, otherwise return null
 	return isClient ? children : null;
 }
+
+export function withClientOnly<TProps extends object>(
+	WrappedComponent: React.ComponentType<TProps>,
+) {
+	return function ClientOnlyWrapper(props: TProps) {
+		const isClient = useIsClient();
+
+		return isClient ? <WrappedComponent {...props} /> : null;
+	};
+}
