@@ -22,6 +22,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from 'src/components/tooltip';
+import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
 
 export function StatusBar() {
@@ -69,6 +70,7 @@ function FeedbackButton() {
 function PreferencesDropdown() {
 	const { lineWrap, enableLineWrap, disableLineWrap } =
 		useBloquinhoEditorContext();
+	const { t } = useI18n();
 
 	return (
 		<DropdownMenu>
@@ -78,14 +80,14 @@ function PreferencesDropdown() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
-				<DropdownMenuLabel>Preferências</DropdownMenuLabel>
+				<DropdownMenuLabel>{t('Preferences')}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuCheckboxItem
 						checked={lineWrap}
 						onCheckedChange={lineWrap ? disableLineWrap : enableLineWrap}
 					>
-						<span>Quebra de linha</span>
+						<span>{t('LineWrap')}</span>
 					</DropdownMenuCheckboxItem>
 				</DropdownMenuGroup>
 			</DropdownMenuContent>

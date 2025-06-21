@@ -7,6 +7,8 @@ export const dictionary = {
 			CreateBloquinhoInputPlaceholder: 'your-bloquinho-name',
 			Version: 'Version',
 			PublishedAt: 'Published at',
+			Preferences: 'Preferences',
+			LineWrap: 'Line wrap',
 		},
 	},
 	pt: {
@@ -17,6 +19,8 @@ export const dictionary = {
 			CreateBloquinhoInputPlaceholder: 'nome-do-seu-bloquinho',
 			Version: 'Versão',
 			PublishedAt: 'Publicado em',
+			Preferences: 'Preferências',
+			LineWrap: 'Quebra de linha',
 		},
 	},
 } as const;
