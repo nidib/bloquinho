@@ -12,6 +12,7 @@ import {
 	FALLBACK_LANGUAGE,
 	type Lang,
 	type TranslationKey,
+	isLanguageAvailable,
 	t as translateKey,
 } from 'src/utils/i18n';
 
@@ -30,7 +31,9 @@ type Props = {
 export function I18nProvider({ children }: Props) {
 	const [language, setLanguage] = useLocalStorage<Lang>(
 		'language',
-		FALLBACK_LANGUAGE,
+		isLanguageAvailable(navigator.language)
+			? navigator.language
+			: FALLBACK_LANGUAGE,
 	);
 
 	const changeLanguage = useCallback(

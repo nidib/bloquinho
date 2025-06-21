@@ -1,5 +1,5 @@
 const dictionary = {
-	en: {
+	'en-US': {
 		name: 'English',
 		translations: {
 			AppDescription: 'Sharing your snippets easily',
@@ -34,7 +34,7 @@ const dictionary = {
 			Language: 'Language',
 		},
 	},
-	pt: {
+	'pt-BR': {
 		name: 'Português (Brasil)',
 		translations: {
 			AppDescription: 'Compartilhando seus snippets facilmente',
@@ -71,7 +71,7 @@ const dictionary = {
 	},
 } as const;
 
-export const FALLBACK_LANGUAGE = 'en';
+export const FALLBACK_LANGUAGE = 'en-US';
 
 export type Dictionary = typeof dictionary;
 export type Lang = keyof Dictionary;
@@ -94,6 +94,6 @@ export function getAvailableLanguages(): { name: string; code: Lang }[] {
 
 const languageSet = new Set(Object.keys(dictionary));
 
-export function isLanguageAvailable(language: string) {
+export function isLanguageAvailable(language: string): language is Lang {
 	return languageSet.has(language);
 }
