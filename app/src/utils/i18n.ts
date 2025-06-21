@@ -5,6 +5,8 @@ export const dictionary = {
 			AppDescription: 'Sharing your snippets easily',
 			CreateBloquinho: 'Create bloquinho',
 			CreateBloquinhoInputPlaceholder: 'your-bloquinho-name',
+			Version: 'Version',
+			PublishedAt: 'Published at',
 		},
 	},
 	pt: {
@@ -13,6 +15,8 @@ export const dictionary = {
 			AppDescription: 'Compartilhando seus snippets facilmente',
 			CreateBloquinho: 'Criar bloquinho',
 			CreateBloquinhoInputPlaceholder: 'nome-do-seu-bloquinho',
+			Version: 'Versão',
+			PublishedAt: 'Publicado em',
 		},
 	},
 } as const;
