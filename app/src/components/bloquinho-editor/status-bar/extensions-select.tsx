@@ -32,7 +32,7 @@ export function ExtensionsSelect() {
 
 	return (
 		<div className="relative">
-			<NewBadgeIcon />
+			{displayedExtensions.some((ext) => ext.showNewBadge) && <NewBadgeIcon />}
 			<Select value={extension} onValueChange={setExtension}>
 				<SelectTrigger className="w-[180px] text-xs font-mono">
 					<SelectValue />
@@ -89,11 +89,9 @@ const displayedExtensions: ExtensionListItem[] = [
 	{
 		value: 'php',
 		displayName: 'PHP',
-		showNewBadge: true,
 	},
 	{
 		value: 'go',
 		displayName: 'Go',
-		showNewBadge: true,
 	},
 ];
