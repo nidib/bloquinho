@@ -3,12 +3,16 @@ export const dictionary = {
 		name: 'English',
 		translations: {
 			AppDescription: 'Sharing your snippets easily',
+			CreateBloquinho: 'Create bloquinho',
+			CreateBloquinhoInputPlaceholder: 'your-bloquinho-name',
 		},
 	},
 	pt: {
 		name: 'Português (Brasil)',
 		translations: {
 			AppDescription: 'Compartilhando seus snippets facilmente',
+			CreateBloquinho: 'Criar bloquinho',
+			CreateBloquinhoInputPlaceholder: 'nome-do-seu-bloquinho',
 		},
 	},
 } as const;

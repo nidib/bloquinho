@@ -4,10 +4,12 @@ import { useRouter } from 'next/navigation';
 import { type FormEventHandler, useState } from 'react';
 import { Button } from 'src/components/form/button';
 import { TextInput } from 'src/components/form/text-input';
+import { useI18n } from 'src/providers/i18n-provider';
 import { normalizeBloquinhoTitle } from 'src/utils/text';
 
 export function CreateBloquinhoForm() {
 	const router = useRouter();
+	const { t } = useI18n();
 	const [bloquinhoTitle, setBloquinhoTitle] = useState('');
 	const trimmedTitle = bloquinhoTitle.trim();
 	const normalizedBloquinhoTitle = normalizeBloquinhoTitle(trimmedTitle);
@@ -29,14 +31,14 @@ export function CreateBloquinhoForm() {
 				<div className="w-[300px] h-full">
 					<TextInput
 						value={bloquinhoTitle}
-						placeholder="nome-do-seu-bloquinho"
+						placeholder={t('CreateBloquinhoInputPlaceholder')}
 						onChange={setBloquinhoTitle}
 						size="lg"
 						autoFocus
 					/>
 				</div>
 				<Button size="lg" type="submit" disabled={cannotCreate}>
-					Criar bloquinho
+					{t('CreateBloquinho')}
 				</Button>
 			</form>
 			{trimmedTitle !== normalizedBloquinhoTitle && (
