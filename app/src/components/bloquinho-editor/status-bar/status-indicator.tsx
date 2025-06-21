@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import {
 	Tooltip,
@@ -7,19 +8,23 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from 'src/components/tooltip';
+import { useI18n } from 'src/providers/i18n-provider';
 import { cva } from 'src/utils/classes';
 
 type Status = 'pending' | 'success' | 'error';
 
-const titleByStatus: Record<Status, string> = {
-	pending: 'Salvando bloquinho...',
-	success: 'Bloquinho atualizado!',
-	error: 'Algo deu errado!',
-};
-
 export function StatusIndicator() {
+	const { t } = useI18n();
 	const { status } = useBloquinhoEditorContext();
-	const title = titleByStatus[status];
+	const title = useMemo(() => {
+		const titleByStatus: Record<Status, string> = {
+			pending: t('SavingBloquinho'),
+			success: t('BloquinhoUpdated'),
+			error: t('SomethingWentWrong'),
+		};
+
+		return titleByStatus[status];
+	}, [status, t]);
 
 	return (
 		<TooltipProvider delayDuration={400}>

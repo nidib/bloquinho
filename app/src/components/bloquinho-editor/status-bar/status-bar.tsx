@@ -49,6 +49,8 @@ function Separator() {
 }
 
 function FeedbackButton() {
+	const { t } = useI18n();
+
 	return (
 		<TooltipProvider delayDuration={200}>
 			<Tooltip>
@@ -60,7 +62,7 @@ function FeedbackButton() {
 					</TooltipTrigger>
 				</FeedbackForm.Trigger>
 				<TooltipContent side="top" align="start">
-					Reportar um bug ou sugestão
+					<span>{t('ReportBugOrSuggestion')}</span>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 import {
 	Controller,
 	FormProvider,
@@ -29,29 +29,7 @@ import {
 import { Textarea } from 'src/components/form/textarea';
 import { Api } from 'src/lib/client/client-api';
 import type { FeedbackType } from 'src/lib/types/feedback';
-
-const textareaLabelByFormType: Record<
-	FeedbackType,
-	{ label: string; placeholder: string }
-> = {
-	bug: {
-		label: 'Como reproduzir?',
-		placeholder: 'Descreva os passos para reproduzir esse bug.',
-	},
-	feature: {
-		label: 'No que você pensou?',
-		placeholder: 'Me conta um pouco sobre essa sua ideia.',
-	},
-	feedback: {
-		label: 'O que achou?',
-		placeholder: 'Compartilhe sua opinião ou sugestão.',
-	},
-};
-
-const defaultTextareaLabel = {
-	label: 'Mensagem',
-	placeholder: 'Descreva aqui sua mensagem.',
-};
+import { useI18n } from 'src/providers/i18n-provider';
 
 type FormState = {
 	type: null | FeedbackType;
@@ -63,6 +41,7 @@ type Props = {
 };
 
 export function FeedbackForm(props: Props) {
+	const { t } = useI18n();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const methods = useForm<FormState>({
 		defaultValues: { type: null, message: '' },
@@ -78,7 +57,7 @@ export function FeedbackForm(props: Props) {
 		onSuccess: () => {
 			methods.reset();
 			setIsDialogOpen(false);
-			toast.success('Sua mensagem foi enviada! Obrigado!');
+			toast.success(t('YourMessageHasBeenSentThankYou'));
 		},
 	});
 
@@ -99,9 +78,9 @@ export function FeedbackForm(props: Props) {
 			<DialogContent className="gap-8">
 				<FormProvider {...methods}>
 					<DialogHeader>
-						<DialogTitle>Suporte & Feedback</DialogTitle>
+						<DialogTitle>{t('ReportBugOrSuggestion')}</DialogTitle>
 						<DialogDescription>
-							Encontrou um bug, ou tem uma ideia de melhoria? Me conta mais!
+							{t('ReportBugOrSuggestionDescription')}
 						</DialogDescription>
 					</DialogHeader>
 					<form
@@ -114,7 +93,7 @@ export function FeedbackForm(props: Props) {
 						<MessageField />
 						<DialogFooter>
 							<Button type="submit" disabled={isPending}>
-								{isPending ? 'Enviando...' : 'Enviar'}
+								{isPending ? t('Sending') : t('Send')}
 							</Button>
 						</DialogFooter>
 					</form>
@@ -129,18 +108,28 @@ FeedbackForm.Trigger = (props: { children: ReactNode }) => {
 };
 
 function FormTypeSelect() {
+	const { t } = useI18n();
 	const { control } = useFormContext<FormState>();
+
+	const selectOptions = useMemo(
+		() => ({
+			bug: t('Bug'),
+			feature: t('Improvement'),
+			feedback: t('Feedback'),
+		}),
+		[t],
+	);
 
 	return (
 		<div className="flex flex-col gap-1">
 			<label htmlFor="type" className="text-sm w-fit">
-				Tipo
+				{t('Type')}
 			</label>
 			<Controller
 				name="type"
 				control={control}
 				rules={{
-					required: 'Esse campo é obrigatório',
+					required: t('ThisFieldIsRequired'),
 				}}
 				render={({ field, fieldState }) => (
 					<Select
@@ -148,7 +137,7 @@ function FormTypeSelect() {
 						onValueChange={field.onChange}
 					>
 						<SelectTrigger id="type" errorMessage={fieldState.error?.message}>
-							<SelectValue placeholder="Selecione um tipo" />
+							<SelectValue placeholder={t('SelectAType')} />
 						</SelectTrigger>
 						<SelectContent>
 							{Object.entries(selectOptions).map(([value, label]) => (
@@ -164,16 +153,35 @@ function FormTypeSelect() {
 	);
 }
 
-const selectOptions: Record<FeedbackType, string> = {
-	bug: 'Bug',
-	feature: 'Melhoria',
-	feedback: 'Feedback',
-};
-
 function MessageField() {
+	const { t } = useI18n();
 	const { control, watch } = useFormContext<FormState>();
 	const type = watch('type');
-	const textarea = type ? textareaLabelByFormType[type] : defaultTextareaLabel;
+
+	const textarea = useMemo(() => {
+		switch (type) {
+			case 'bug':
+				return {
+					label: t('HowToReproduce'),
+					placeholder: t('DescribeTheStepsToReproduce'),
+				};
+			case 'feature':
+				return {
+					label: t('WhatYouThought'),
+					placeholder: t('TellMeAboutYourIdea'),
+				};
+			case 'feedback':
+				return {
+					label: t('WhatYouThought'),
+					placeholder: t('TellMeMore'),
+				};
+			default:
+				return {
+					label: t('Message'),
+					placeholder: t('TypeYourMessage'),
+				};
+		}
+	}, [t, type]);
 
 	return (
 		<div className="flex-1 flex flex-col gap-1">
