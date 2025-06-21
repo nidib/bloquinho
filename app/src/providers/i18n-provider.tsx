@@ -2,24 +2,31 @@
 
 import { useLocalStorage } from '@uidotdev/usehooks';
 import {
+	type JSX,
 	type ReactNode,
 	createContext,
 	useCallback,
 	useContext,
 	useMemo,
 } from 'react';
+import { withClientOnly } from 'src/components/client-only';
 import {
 	FALLBACK_LANGUAGE,
 	type Lang,
 	type TranslationKey,
 	isLanguageAvailable,
+	richStringF,
 	t as translateKey,
 } from 'src/utils/i18n';
 
 type I18nContext = {
 	language: Lang;
 	changeLanguage: (language: Lang) => void;
-	t: (key: TranslationKey) => string;
+	t: (key: TranslationKey, ...textReplacements: string[]) => string;
+	tt: (
+		key: TranslationKey,
+		...textReplacements: JSX.Element[]
+	) => (string | JSX.Element | undefined)[];
 };
 
 const I18Context = createContext<null | I18nContext>(null);
@@ -28,12 +35,13 @@ type Props = {
 	children: ReactNode;
 };
 
-export function I18nProvider({ children }: Props) {
+export const I18nProvider = withClientOnly(({ children }: Props) => {
+	const defaultLanguage = isLanguageAvailable(navigator.language)
+		? navigator.language
+		: FALLBACK_LANGUAGE;
 	const [language, setLanguage] = useLocalStorage<Lang>(
 		'language',
-		isLanguageAvailable(navigator.language)
-			? navigator.language
-			: FALLBACK_LANGUAGE,
+		defaultLanguage,
 	);
 
 	const changeLanguage = useCallback(
@@ -44,8 +52,15 @@ export function I18nProvider({ children }: Props) {
 	);
 
 	const t = useCallback(
-		(key: TranslationKey) => {
-			return translateKey(key, language);
+		(key: TranslationKey, ...replacements: string[]) => {
+			return translateKey(key, language, ...replacements);
+		},
+		[language],
+	);
+
+	const tt = useCallback(
+		(key: TranslationKey, ...replacements: JSX.Element[]) => {
+			return richStringF(translateKey(key, language), ...replacements);
 		},
 		[language],
 	);
@@ -55,12 +70,13 @@ export function I18nProvider({ children }: Props) {
 			language,
 			changeLanguage,
 			t,
+			tt,
 		}),
-		[language, t, changeLanguage],
+		[language, t, changeLanguage, tt],
 	);
 
 	return <I18Context.Provider value={context}>{children}</I18Context.Provider>;
-}
+});
 
 export function useI18n() {
 	const ctx = useContext(I18Context);

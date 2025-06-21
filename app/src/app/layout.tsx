@@ -46,18 +46,18 @@ export default async function RootLayout({ children }: Props) {
 	return (
 		<html lang="pt-BR" className={cn(nunito.variable)}>
 			<body className="antialiased">
-				{featureFlags.UNDER_MAINTENANCE ? (
-					<MaintenancePage />
-				) : (
-					<I18nProvider>
+				<I18nProvider>
+					{featureFlags.UNDER_MAINTENANCE ? (
+						<MaintenancePage />
+					) : (
 						<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
 							<FeatureFlagsProvider featureFlags={featureFlags}>
 								<Toaster />
 								<ReactQueryProvider>{children}</ReactQueryProvider>
 							</FeatureFlagsProvider>
 						</PublicServerInfoProvider>
-					</I18nProvider>
-				)}
+					)}
+				</I18nProvider>
 			</body>
 		</html>
 	);
