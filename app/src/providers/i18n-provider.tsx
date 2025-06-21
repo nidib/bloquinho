@@ -1,14 +1,15 @@
 'use client';
 
+import { useLocalStorage } from '@uidotdev/usehooks';
 import {
 	type ReactNode,
 	createContext,
 	useCallback,
 	useContext,
 	useMemo,
-	useState,
 } from 'react';
 import {
+	FALLBACK_LANGUAGE,
 	type Lang,
 	type TranslationKey,
 	t as translateKey,
@@ -27,11 +28,17 @@ type Props = {
 };
 
 export function I18nProvider({ children }: Props) {
-	const [language, setLanguage] = useState<Lang>('en');
+	const [language, setLanguage] = useLocalStorage<Lang>(
+		'language',
+		FALLBACK_LANGUAGE,
+	);
 
-	const changeLanguage = useCallback((language: Lang) => {
-		setLanguage(language);
-	}, []);
+	const changeLanguage = useCallback(
+		(language: Lang) => {
+			setLanguage(language);
+		},
+		[setLanguage],
+	);
 
 	const t = useCallback(
 		(key: TranslationKey) => {

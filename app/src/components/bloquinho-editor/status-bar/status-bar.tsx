@@ -1,12 +1,14 @@
 'use client';
 
-import { BugIcon, SlidersVerticalIcon } from 'lucide-react';
+import { BugIcon, LanguagesIcon, SlidersVerticalIcon } from 'lucide-react';
 import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-version';
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
+	DropdownMenuRadioGroup,
+	DropdownMenuRadioItem,
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuLabel,
@@ -24,6 +26,7 @@ import {
 } from 'src/components/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
+import { getAvailableLanguages, type Lang } from 'src/utils/i18n';
 
 export function StatusBar() {
 	return (
@@ -34,6 +37,8 @@ export function StatusBar() {
 				<FeedbackForm trigger={<FeedbackButton />} />
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
+				<LanguageDropdown />
+				<Separator />
 				<PreferencesDropdown />
 				<Separator />
 				<ExtensionsSelect />
@@ -69,10 +74,38 @@ function FeedbackButton() {
 	);
 }
 
+function LanguageDropdown() {
+	const { language, changeLanguage, t } = useI18n();
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant="secondary">
+					<LanguagesIcon className="w-4 h-4" />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="w-56">
+				<DropdownMenuLabel>{t('Language')}</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuRadioGroup
+					value={language}
+					onValueChange={(value) => changeLanguage(value as Lang)}
+				>
+					{getAvailableLanguages().map((lang) => (
+						<DropdownMenuRadioItem key={lang.code} value={lang.code}>
+							{lang.name}
+						</DropdownMenuRadioItem>
+					))}
+				</DropdownMenuRadioGroup>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+}
+
 function PreferencesDropdown() {
+	const { t } = useI18n();
 	const { lineWrap, enableLineWrap, disableLineWrap } =
 		useBloquinhoEditorContext();
-	const { t } = useI18n();
 
 	return (
 		<DropdownMenu>
@@ -89,7 +122,7 @@ function PreferencesDropdown() {
 						checked={lineWrap}
 						onCheckedChange={lineWrap ? disableLineWrap : enableLineWrap}
 					>
-						<span>{t('LineWrap')}</span>
+						{t('LineWrap')}
 					</DropdownMenuCheckboxItem>
 				</DropdownMenuGroup>
 			</DropdownMenuContent>

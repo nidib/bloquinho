@@ -31,6 +31,7 @@ const dictionary = {
 			TellMeMore: 'Tell me more',
 			Message: 'Message',
 			TypeYourMessage: 'Type your message',
+			Language: 'Language',
 		},
 	},
 	pt: {
@@ -65,16 +66,34 @@ const dictionary = {
 			TellMeMore: 'Me conta mais!',
 			Message: 'Mensagem',
 			TypeYourMessage: 'Descreva aqui sua mensagem.',
+			Language: 'Idioma',
 		},
 	},
 } as const;
+
+export const FALLBACK_LANGUAGE = 'en';
 
 export type Dictionary = typeof dictionary;
 export type Lang = keyof Dictionary;
 export type TranslationKey = keyof Dictionary[Lang]['translations'];
 
 export function t(key: TranslationKey, language: Lang) {
-	return (
-		dictionary[language].translations[key] ?? dictionary.en.translations[key]
-	);
+	if (dictionary[language]) {
+		return dictionary[language].translations[key];
+	}
+
+	return dictionary[FALLBACK_LANGUAGE].translations[key];
+}
+
+export function getAvailableLanguages(): { name: string; code: Lang }[] {
+	return Object.keys(dictionary).map((lang) => ({
+		name: dictionary[lang as Lang].name,
+		code: lang as Lang,
+	}));
+}
+
+const languageSet = new Set(Object.keys(dictionary));
+
+export function isLanguageAvailable(language: string) {
+	return languageSet.has(language);
 }
