@@ -14,7 +14,7 @@ import {
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
 import { Envs } from 'src/utils/constants/envs';
-import { t } from 'src/utils/i18n';
+import { FALLBACK_LANGUAGE, t } from 'src/utils/i18n';
 
 import './globals.css';
 
@@ -25,7 +25,7 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
 	title: App.NAME,
-	description: t('AppDescription', 'en'),
+	description: t('AppDescription', FALLBACK_LANGUAGE),
 	icons: [
 		'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🗒</text></svg>',
 	],
