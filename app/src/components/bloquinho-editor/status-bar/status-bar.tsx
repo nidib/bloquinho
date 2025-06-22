@@ -17,6 +17,7 @@ import {
 } from 'src/components/drop-down-menu';
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
 import { Button } from 'src/components/form/button';
+import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import {
 	Tooltip,
@@ -79,11 +80,14 @@ function LanguageDropdown() {
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button variant="secondary">
-					<LanguagesIcon className="w-4 h-4" />
-				</Button>
-			</DropdownMenuTrigger>
+			<div className="relative">
+				<NewBadgeIcon />
+				<DropdownMenuTrigger asChild>
+					<Button variant="secondary">
+						<LanguagesIcon className="w-4 h-4" />
+					</Button>
+				</DropdownMenuTrigger>
+			</div>
 			<DropdownMenuContent className="w-56">
 				<DropdownMenuLabel>{t('Language')}</DropdownMenuLabel>
 				<DropdownMenuSeparator />

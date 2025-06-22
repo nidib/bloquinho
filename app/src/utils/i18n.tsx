@@ -36,6 +36,7 @@ const dictionary = {
 			Language: 'Language',
 			TryAgainLater: 'Try again later.',
 			BloquinhoUnderMaintenance: '%s is under maintenance',
+			New: 'New',
 		},
 	},
 	'pt-BR': {
@@ -73,6 +74,7 @@ const dictionary = {
 			Language: 'Idioma',
 			TryAgainLater: 'Tente novamente mais tarde.',
 			BloquinhoUnderMaintenance: '%s em manutenção',
+			New: 'Novo',
 		},
 	},
 } as const;
