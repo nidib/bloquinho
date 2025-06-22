@@ -1,6 +1,6 @@
 'use client';
 
-import { BugIcon, SlidersVerticalIcon } from 'lucide-react';
+import { BugIcon, LanguagesIcon, SlidersVerticalIcon } from 'lucide-react';
 import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-version';
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
@@ -10,39 +10,25 @@ import {
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuLabel,
+	DropdownMenuRadioGroup,
+	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from 'src/components/drop-down-menu';
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
 import { Button } from 'src/components/form/button';
+import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
 } from 'src/components/tooltip';
-import type { Extension } from 'src/lib/types/bloquinho';
+import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
+import { type Lang, getAvailableLanguages } from 'src/utils/i18n';
 
-type Status = 'pending' | 'success' | 'error';
-
-const titleByStatus: Record<Status, string> = {
-	pending: 'Salvando bloquinho...',
-	success: 'Bloquinho atualizado!',
-	error: 'Algo deu errado!',
-};
-
-type Props = {
-	lineWrap: boolean;
-	onLineWrapChange: (lineWrap: boolean) => void;
-	extension: Extension;
-	onExtensionChange: (extension: Extension) => void;
-	status: Status;
-};
-
-export function StatusBar(props: Props) {
-	const title = titleByStatus[props.status];
-
+export function StatusBar() {
 	return (
 		<footer className="border-t border-t-zinc-200 py-2 px-[--monaco-scrollbar-width] shrink-0 flex gap-8 items-center justify-between">
 			<div className="h-full flex items-center justify-start gap-4">
@@ -51,32 +37,13 @@ export function StatusBar(props: Props) {
 				<FeedbackForm trigger={<FeedbackButton />} />
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="secondary">
-							<SlidersVerticalIcon className="w-4 h-4" />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent className="w-56">
-						<DropdownMenuLabel>Preferências</DropdownMenuLabel>
-						<DropdownMenuSeparator />
-						<DropdownMenuGroup>
-							<DropdownMenuCheckboxItem
-								checked={props.lineWrap}
-								onCheckedChange={props.onLineWrapChange}
-							>
-								<span>Quebra de linha</span>
-							</DropdownMenuCheckboxItem>
-						</DropdownMenuGroup>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<LanguageDropdown />
 				<Separator />
-				<ExtensionsSelect
-					value={props.extension}
-					onChange={props.onExtensionChange}
-				/>
+				<PreferencesDropdown />
 				<Separator />
-				<StatusIndicator title={title} status={props.status} />
+				<ExtensionsSelect />
+				<Separator />
+				<StatusIndicator />
 			</div>
 		</footer>
 	);
@@ -87,6 +54,8 @@ function Separator() {
 }
 
 function FeedbackButton() {
+	const { t } = useI18n();
+
 	return (
 		<TooltipProvider delayDuration={200}>
 			<Tooltip>
@@ -98,9 +67,65 @@ function FeedbackButton() {
 					</TooltipTrigger>
 				</FeedbackForm.Trigger>
 				<TooltipContent side="top" align="start">
-					Reportar um bug ou sugestão
+					<span>{t('ReportBugOrSuggestion')}</span>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
+	);
+}
+
+function LanguageDropdown() {
+	const { language, changeLanguage, t } = useI18n();
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant="secondary">
+					<LanguagesIcon className="w-4 h-4" />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="w-56">
+				<DropdownMenuLabel>{t('Language')}</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuRadioGroup
+					value={language}
+					onValueChange={(value) => changeLanguage(value as Lang)}
+				>
+					{getAvailableLanguages().map((lang) => (
+						<DropdownMenuRadioItem key={lang.code} value={lang.code}>
+							{lang.name}
+						</DropdownMenuRadioItem>
+					))}
+				</DropdownMenuRadioGroup>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+}
+
+function PreferencesDropdown() {
+	const { t } = useI18n();
+	const { lineWrap, enableLineWrap, disableLineWrap } =
+		useBloquinhoEditorContext();
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant="secondary">
+					<SlidersVerticalIcon className="w-4 h-4" />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="w-56">
+				<DropdownMenuLabel>{t('Preferences')}</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuGroup>
+					<DropdownMenuCheckboxItem
+						checked={lineWrap}
+						onCheckedChange={lineWrap ? disableLineWrap : enableLineWrap}
+					>
+						{t('LineWrap')}
+					</DropdownMenuCheckboxItem>
+				</DropdownMenuGroup>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }

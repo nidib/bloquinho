@@ -6,6 +6,7 @@ import { MaintenancePage } from 'src/components/maintenance';
 import { ReactQueryProvider } from 'src/components/providers/react-query-provider';
 import { FeatureFlagsService } from 'src/lib/infra/mongo/services/feature-flag-services';
 import { FeatureFlagsProvider } from 'src/providers/feature-flags-provider';
+import { I18nProvider } from 'src/providers/i18n-provider';
 import {
 	type PublicServerInfo,
 	PublicServerInfoProvider,
@@ -13,6 +14,8 @@ import {
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
 import { Envs } from 'src/utils/constants/envs';
+import { FALLBACK_LANGUAGE, t } from 'src/utils/i18n';
+
 import './globals.css';
 
 const nunito = Nunito({
@@ -21,8 +24,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-	title: App.TITLE,
-	description: App.DESCRIPTION,
+	title: App.NAME,
+	description: t('AppDescription', FALLBACK_LANGUAGE),
 	icons: [
 		'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🗒</text></svg>',
 	],
@@ -43,16 +46,18 @@ export default async function RootLayout({ children }: Props) {
 	return (
 		<html lang="pt-BR" className={cn(nunito.variable)}>
 			<body className="antialiased">
-				{featureFlags.UNDER_MAINTENANCE ? (
-					<MaintenancePage />
-				) : (
-					<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
-						<FeatureFlagsProvider featureFlags={featureFlags}>
-							<Toaster />
-							<ReactQueryProvider>{children}</ReactQueryProvider>
-						</FeatureFlagsProvider>
-					</PublicServerInfoProvider>
-				)}
+				<I18nProvider>
+					{featureFlags.UNDER_MAINTENANCE ? (
+						<MaintenancePage />
+					) : (
+						<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
+							<FeatureFlagsProvider featureFlags={featureFlags}>
+								<Toaster />
+								<ReactQueryProvider>{children}</ReactQueryProvider>
+							</FeatureFlagsProvider>
+						</PublicServerInfoProvider>
+					)}
+				</I18nProvider>
 			</body>
 		</html>
 	);

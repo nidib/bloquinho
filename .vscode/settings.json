@@ -1,4 +1,5 @@
 {
+	"typescript.tsdk": "app/node_modules/typescript/lib",
 	"editor.defaultFormatter": "biomejs.biome",
 	"cSpell.language": "en,pt_BR"
 }

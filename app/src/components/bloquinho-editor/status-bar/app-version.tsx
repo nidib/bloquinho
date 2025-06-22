@@ -13,6 +13,7 @@ import {
 } from 'src/components/dialog';
 import { GithubIcon } from 'src/components/icons/github-icon';
 import { Api } from 'src/lib/client/client-api';
+import { useI18n } from 'src/providers/i18n-provider';
 
 type Release = Awaited<ReturnType<typeof Api.Github.getLatestRelease>>;
 
@@ -73,6 +74,7 @@ type VersionProps = {
 
 function Version(props: VersionProps) {
 	const { version } = props;
+	const { t, language } = useI18n();
 	const markdown = useMemo(
 		() => <Markdown components={markdownComponents}>{version.body}</Markdown>,
 		[version.body],
@@ -82,13 +84,13 @@ function Version(props: VersionProps) {
 		<div>
 			<div className="flex gap-6 justify-between mb-2">
 				<p>
-					<strong className="font-bold">Versão: </strong>
+					<strong className="font-bold">{t('Version')}: </strong>
 					<span className="text-sm font-mono">{version.name}</span>
 				</p>
 				<p>
-					<strong className="font-bold">Publicação: </strong>
+					<strong className="font-bold">{t('PublishedAt')}: </strong>
 					<span className="text-sm font-mono">
-						{version.publishedAt.toLocaleDateString('pt-BR')}
+						{version.publishedAt.toLocaleDateString(language)}
 					</span>
 				</p>
 			</div>

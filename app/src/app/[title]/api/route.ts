@@ -1,6 +1,8 @@
+import { z } from 'zod';
+
 import { BloquinhoServices } from 'src/lib/infra/mongo/services/bloquinho-services';
 import { extensions } from 'src/lib/types/bloquinho';
-import { z } from 'zod';
+
 const responseSchema = z.object({
 	title: z.string(),
 	content: z.string(),

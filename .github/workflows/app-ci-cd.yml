@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
     pull_request:
@@ -10,7 +10,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    tests:
+    compile:
         runs-on: ubuntu-latest
         defaults:
             run:

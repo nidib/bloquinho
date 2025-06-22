@@ -28,7 +28,7 @@ export function BloquinhoEditor(props: Props) {
 			<ClientOnly>
 				<BloquinhoEditorContextProvider bloquinho={bloquinho}>
 					<BloquinhoCodeEditor />
-					<BloquinhoStatusBar />
+					<StatusBar />
 				</BloquinhoEditorContextProvider>
 			</ClientOnly>
 		</div>
@@ -58,27 +58,6 @@ function BloquinhoCodeEditor() {
 			onChange={setContent}
 			lineWrap={lineWrap}
 			language={languageByExtension[extension]}
-		/>
-	);
-}
-
-function BloquinhoStatusBar() {
-	const {
-		status,
-		lineWrap,
-		enableLineWrap,
-		disableLineWrap,
-		extension,
-		setExtension,
-	} = useBloquinhoEditorContext();
-
-	return (
-		<StatusBar
-			status={status}
-			lineWrap={lineWrap}
-			onLineWrapChange={(wrap) => (wrap ? enableLineWrap() : disableLineWrap())}
-			extension={extension}
-			onExtensionChange={setExtension}
 		/>
 	);
 }

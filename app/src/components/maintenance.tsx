@@ -1,10 +1,16 @@
+'use client';
+
+import { useI18n } from 'src/providers/i18n-provider';
+
 export function MaintenancePage() {
+	const { t, tt } = useI18n();
+
 	return (
 		<div className="h-screen w-full flex flex-col gap-3 items-center justify-center text-zinc-600">
 			<h1 className="text-2xl lg:text-4xl font-bold">
-				<span className="font-extrabold">Bloquinho</span> em manutenção
+				{tt('BloquinhoUnderMaintenance', <strong>Bloquinho</strong>)}
 			</h1>
-			<h2 className="text-lg lg:text-2xl">Tente novamente mais tarde.</h2>
+			<h2 className="text-lg lg:text-2xl">{t('TryAgainLater')}</h2>
 		</div>
 	);
 }
