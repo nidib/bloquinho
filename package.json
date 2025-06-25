@@ -4,7 +4,9 @@
 	"scripts": {
 		"lint": "pnpm -r --parallel lint",
 		"lint:fix": "pnpm -r --parallel lint:fix",
-		"compile": "pnpm -r --parallel compile"
+		"compile": "pnpm -r --parallel compile",
+		"build": "pnpm -r --parallel build",
+		"precommit": "pnpm lint && pnpm compile && pnpm build"
 	},
 	"license": "MIT",
 	"packageManager": "pnpm@10.12.3",

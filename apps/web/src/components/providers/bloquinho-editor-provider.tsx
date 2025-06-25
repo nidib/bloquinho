@@ -1,8 +1,8 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import { type ReactNode, createContext, useContext } from 'react';
+import { type ReactNode, createContext, useContext, useState } from 'react';
 import { Api } from 'src/lib/client/client-api';
 import type {
 	EditableBloquinhoFields,
@@ -44,14 +44,17 @@ export function BloquinhoEditorContextProvider(props: {
 		title: string;
 	};
 }) {
-	const queryClient = useQueryClient();
-	const { data: bloquinho } = useQuery({
-		queryKey: ['bloquinho', props.bloquinho.title],
-		initialData: props.bloquinho,
-	});
+	const [bloquinho, setBloquinho] = useState<
+		EditableBloquinhoFields & {
+			title: string;
+		}
+	>(props.bloquinho);
 	const mutation = useMutation({
 		mutationFn: async (data: EditableBloquinhoFields) => {
-			const updatedBloquinho = await debouncedUpdate(bloquinho.title, data);
+			const updatedBloquinho = await debouncedUpdate(
+				props.bloquinho.title,
+				data,
+			);
 			return {
 				title: updatedBloquinho.title,
 				content: updatedBloquinho.content,
@@ -59,19 +62,14 @@ export function BloquinhoEditorContextProvider(props: {
 			};
 		},
 		onMutate: (soonToBeUpdatedBloquinho) => {
-			queryClient.setQueryData(
-				['bloquinho', props.bloquinho.title],
-				(current: EditableBloquinhoFields) => ({
-					...current,
-					...soonToBeUpdatedBloquinho,
-				}),
-			);
+			setBloquinho((current) => ({
+				...current,
+				...soonToBeUpdatedBloquinho,
+			}));
 		},
 		onSuccess: (updatedBloquinho) => {
-			queryClient.setQueryData<EditableBloquinhoFields>(
-				['bloquinho', props.bloquinho.title],
-				updatedBloquinho,
-			);
+			console.log('onSuccess', updatedBloquinho);
+			setBloquinho(updatedBloquinho);
 		},
 	});
 	const [lineWrap, setLineWrap] = useLocalStorage('lineWrap', true);
