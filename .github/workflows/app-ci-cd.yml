@@ -3,6 +3,7 @@ name: CI
 on:
     pull_request:
     push:
+        branches: ['main']
     workflow_dispatch:
 
 jobs:
@@ -20,7 +21,7 @@ jobs:
                   node-version-file: .nvmrc
                   cache: 'pnpm'
             - name: Install Dependencies
-              run: pnpm ci
+              run: pnpm install
             - name: Lint
               run: pnpm lint
             - name: Compile TypeScript
