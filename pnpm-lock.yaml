@@ -16,7 +16,7 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5
 
-  apps/app:
+  apps/web:
     dependencies:
       '@monaco-editor/react':
         specifier: ^4.7.0-rc.0
