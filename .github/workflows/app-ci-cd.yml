@@ -8,10 +8,9 @@ on:
     workflow_dispatch:
 
 env:
-    MONGO_DB_USERNAME: admin
-    MONGO_DB_PASSWORD: admin
+    MONGO_DB_USERNAME: username
+    MONGO_DB_PASSWORD: password
     MONGO_DB_DATABASE: test_ci
-    MONGO_DB_URL: mongodb://${{ env.MONGO_DB_USERNAME }}:${{ env.MONGO_DB_PASSWORD }}@localhost:27017
 
 services:
     mongo:
@@ -29,6 +28,8 @@ services:
             --health-retries 5
 jobs:
     compile:
+        env:
+            MONGO_DB_URL: mongodb://username:password@localhost:27017
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
