@@ -12,25 +12,27 @@ env:
     MONGO_DB_PASSWORD: password
     MONGO_DB_DATABASE: test_ci
 
-services:
-    mongo:
-        image: mongo:latest
-        ports:
-            - 27017:27017
-        env:
-            MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGO_DB_USERNAME }}
-            MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGO_DB_PASSWORD }}
-            MONGO_INITDB_DATABASE: ${{ env.MONGO_DB_DATABASE }}
-        options: >-
-            --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'"
-            --health-interval 10s
-            --health-timeout 5s
-            --health-retries 5
 jobs:
     compile:
+        runs-on: ubuntu-latest
         env:
             MONGO_DB_URL: mongodb://username:password@localhost:27017
-        runs-on: ubuntu-latest
+
+        services:
+            mongo:
+                image: mongo:latest
+                ports:
+                    - 27017:27017
+                env:
+                    MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGO_DB_USERNAME }}
+                    MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGO_DB_PASSWORD }}
+                    MONGO_INITDB_DATABASE: ${{ env.MONGO_DB_DATABASE }}
+                options: >-
+                    --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
