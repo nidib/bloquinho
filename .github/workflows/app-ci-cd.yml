@@ -7,8 +7,6 @@ on:
             - '.github/**'
             - 'app/**'
         branches: ['main']
-    release:
-        types: [published, edited]
     workflow_dispatch:
 
 jobs:
@@ -32,16 +30,3 @@ jobs:
               run: npm run lint
             - name: Compile TypeScript
               run: npm run compile
-
-    deploy:
-        needs: compile
-        runs-on: ubuntu-latest
-        if: github.event_name == 'release'
-
-        steps:
-            - uses: actions/checkout@v4
-            - name: Deploy
-              env:
-                  DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
-              run: |
-                  curl -X POST "$DEPLOY_URL"
