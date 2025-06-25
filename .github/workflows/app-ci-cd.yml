@@ -1,54 +1,62 @@
 name: CI
 
 on:
-    pull_request:
-    push:
-        branches: ['main']
-    workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 env:
-    MONGO_DB_USERNAME: admin
-    MONGO_DB_PASSWORD: admin
-    MONGO_DB_DATABASE: test_ci
-    MONGO_DB_URL: mongodb://${{ env.MONGO_DB_USERNAME }}:${{ env.MONGO_DB_PASSWORD }}@localhost:27017
+  MONGO_DB_USERNAME: admin
+  MONGO_DB_PASSWORD: admin
+  MONGO_DB_DATABASE: test_ci
+  MONGO_DB_URL: mongodb://${{ env.MONGO_DB_USERNAME }}:${{ env.MONGO_DB_PASSWORD }}@localhost:27017
 
 jobs:
-    compile:
-        runs-on: ubuntu-latest
+  compile:
+    runs-on: ubuntu-latest
 
-        services:
-            mongo:
-                image: mongo:latest
-                ports:
-                    - 27017:27017
-                env:
-                    MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGO_DB_USERNAME }}
-                    MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGO_DB_PASSWORD }}
-                    MONGO_INITDB_DATABASE: ${{ env.MONGO_DB_DATABASE }}
-                options: >-
-                  --health-cmd mongo
-                  --health-interval 10s
-                  --health-timeout 5s
-                  --health-retries 5
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGO_DB_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGO_DB_PASSWORD }}
+          MONGO_INITDB_DATABASE: ${{ env.MONGO_DB_DATABASE }}
+        options: >-
+          --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-        steps:
-              needs: mongo
-              env:
-                  MONGO_DB_URL: ${{ env.MONGO_DB_URL }}
-            - uses: actions/checkout@v4
-            - uses: pnpm/action-setup@v4
-              with:
-                  version: 10.12.3
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version-file: .nvmrc
-                  cache: 'pnpm'
-            - name: Install Dependencies
-              run: pnpm install
-            - name: Lint
-              run: pnpm lint
-            - name: Compile TypeScript
-              run: pnpm compile
-            - name: Build test
-              run: pnpm build
+    steps:
+    needs: mongo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Lint Code
+        run: pnpm lint
+
+      - name: Compile TypeScript
+        run: pnpm compile
+
+      - name: Build Project
+        run: pnpm build
+
