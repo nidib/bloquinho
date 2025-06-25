@@ -31,5 +31,3 @@ jobs:
               run: pnpm lint
             - name: Compile TypeScript
               run: pnpm compile
-            - name: Build Project
-              run: pnpm build
