@@ -32,9 +32,9 @@ jobs:
                   --health-retries 5
 
         steps:
-            needs: mongo
-            env:
-                MONGO_DB_URL: ${{ env.MONGO_DB_URL }}
+              needs: mongo
+              env:
+                  MONGO_DB_URL: ${{ env.MONGO_DB_URL }}
             - uses: actions/checkout@v4
             - uses: pnpm/action-setup@v4
               with:
