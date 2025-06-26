@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: we need any here
 export function asyncDebounce<T extends (...args: any) => any>(
 	func: T,
 	wait: number,

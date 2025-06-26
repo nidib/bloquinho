@@ -1,32 +1,33 @@
-name: CI/CD
+name: CI
 
 on:
     pull_request:
     push:
-        paths:
-            - '.github/**'
-            - 'app/**'
-        branches: ['main']
+        branches:
+            - main
     workflow_dispatch:
 
 jobs:
     compile:
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./app
+        env:
+            MONGO_DB_URL: mongodb://username:password@localhost:27017
 
         steps:
-            - uses: actions/checkout@v4
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Setup PNPM
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.12.3
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version-file: app/.nvmrc
-                  cache: 'npm'
-                  cache-dependency-path: app/package-lock.json
+                  node-version-file: .nvmrc
+                  cache: pnpm
             - name: Install Dependencies
-              run: npm ci
-            - name: Lint
-              run: npm run lint
+              run: pnpm install
+            - name: Lint Code
+              run: pnpm lint
             - name: Compile TypeScript
-              run: npm run compile
+              run: pnpm compile
