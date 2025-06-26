@@ -5,3 +5,4 @@ node_modules/
 bin/
 **/.log/*
 !**/.log/.gitkeep
+.vercel
