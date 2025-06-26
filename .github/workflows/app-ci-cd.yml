@@ -12,6 +12,14 @@ on:
         branches:
             - main
     workflow_dispatch:
+        inputs:
+            deployment_target:
+                description: 'Deployment Target'
+                required: true
+                default: 'preview'
+                type: choice
+                options:
+                    - preview
 
 jobs:
     compile:
@@ -61,7 +69,7 @@ jobs:
             - name: Install Vercel CLI
               run: pnpm install -g vercel@latest
             - name: Build web app
-              run: cd apps/web && vercel deploy --yes --target=preview --token=${{ secrets.VERCEL_TOKEN }}
+              run: cd apps/web && vercel deploy --yes --target=${{ github.event.inputs.deployment_target }} --token=${{ secrets.VERCEL_TOKEN }}
 
     deploy-to-production:
         name: Deploy to Production
