@@ -30,12 +30,14 @@ async function sendFeedbackEmail(content: {
 	};
 
 	if (!Envs.RESEND_API_KEY) {
+		// biome-ignore lint/suspicious/noConsole: TODO: replace with a logger
 		console.log('would send the email:', email);
 		return true;
 	}
 
 	const { error } = await resend.emails.send(email);
 	if (error) {
+		// biome-ignore lint/suspicious/noConsole: TODO: replace with a logger
 		console.error({ error });
 		return false;
 	}

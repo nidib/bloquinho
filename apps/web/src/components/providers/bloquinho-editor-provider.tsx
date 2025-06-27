@@ -69,7 +69,6 @@ export function BloquinhoEditorContextProvider(props: {
 			}));
 		},
 		onSuccess: (updatedBloquinho) => {
-			console.log('onSuccess', updatedBloquinho);
 			setBloquinho(updatedBloquinho);
 		},
 	});

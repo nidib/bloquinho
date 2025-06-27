@@ -1,3 +1,5 @@
+// biome-ignore-all lint/suspicious/noConsole: this is fine
+
 export async function register() {
 	console.log('\n');
 

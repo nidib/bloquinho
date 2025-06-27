@@ -8,6 +8,7 @@ export async function POST(request: Request) {
 		await MailServices.sendFeedbackEmail(body);
 		return NextResponse.json(null, { status: 200 });
 	} catch (error: unknown) {
+		// biome-ignore lint/suspicious/noConsole: TODO: replace with a logger
 		console.error({ error });
 		return NextResponse.json(null, { status: 500 });
 	}

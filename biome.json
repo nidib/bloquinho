@@ -15,8 +15,14 @@
 	},
 	"linter": {
 		"enabled": true,
+		"domains": {
+			"react": "recommended"
+		},
 		"rules": {
 			"recommended": true,
+			"suspicious": {
+				"noConsole": "error"
+			},
 			"nursery": {
 				"useUniqueElementIds": "off"
 			}
