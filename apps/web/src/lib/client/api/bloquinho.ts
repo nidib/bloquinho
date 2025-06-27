@@ -1,8 +1,9 @@
+import { z } from 'zod';
+
 import {
 	type EditableBloquinhoFields,
 	extensions,
 } from 'src/lib/types/bloquinho';
-import { z } from 'zod';
 
 const responseSchema = z.object({
 	title: z.string(),

@@ -1,6 +1,7 @@
 'use client';
 
-import { type ReactNode, createContext, useContext } from 'react';
+import { createContext, type ReactNode, useContext } from 'react';
+
 import type { FeaturesFlags } from 'src/lib/types/feature-flags';
 
 const featureFlagsContext = createContext<null | FeaturesFlags>(null);

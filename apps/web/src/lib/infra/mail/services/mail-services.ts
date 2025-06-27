@@ -1,7 +1,8 @@
 import { type CreateEmailOptions, Resend } from 'resend';
+import { z } from 'zod';
+
 import { type FeedbackType, feedbackTypes } from 'src/lib/types/feedback';
 import { Envs } from 'src/utils/constants/envs';
-import { z } from 'zod';
 
 const resend = new Resend(Envs.RESEND_API_KEY);
 

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import { MailServices } from 'src/lib/infra/mail/services/mail-services';
 
 export async function POST(request: Request) {

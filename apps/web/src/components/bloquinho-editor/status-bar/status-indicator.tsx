@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import {
 	Tooltip,

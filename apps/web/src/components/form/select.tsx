@@ -5,9 +5,10 @@ import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import {
 	type ComponentProps,
 	type ComponentPropsWithoutRef,
-	type ReactNode,
 	forwardRef,
+	type ReactNode,
 } from 'react';
+
 import { cn } from 'src/utils/classes';
 
 const Select = SelectPrimitive.Root;
