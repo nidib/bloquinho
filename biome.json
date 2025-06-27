@@ -6,11 +6,12 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": ["**", "!node_modules"]
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab"
+		"useEditorconfig": true
 	},
 	"linter": {
 		"enabled": true,
@@ -30,7 +31,20 @@
 		"enabled": true,
 		"actions": {
 			"source": {
-				"organizeImports": "off"
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							[":NODE:"],
+							":BLANK_LINE:",
+							[":PACKAGE:", "!src/**"],
+							":BLANK_LINE:",
+							["src/**"],
+							":BLANK_LINE:",
+							[":PATH:"]
+						]
+					}
+				}
 			}
 		}
 	}
