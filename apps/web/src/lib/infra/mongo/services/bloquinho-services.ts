@@ -1,10 +1,12 @@
 import { randomUUID } from 'node:crypto';
+
+import { z } from 'zod';
+
 import { type BloquinhoDocument, mongo } from 'src/lib/infra/mongo/client';
 import {
 	type EditableBloquinhoFields,
 	extensions,
 } from 'src/lib/types/bloquinho';
-import { z } from 'zod';
 
 /**
  * If the title already exists, it updates `last_viewed_at` and returns it.

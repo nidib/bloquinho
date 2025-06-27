@@ -1,6 +1,7 @@
 'use client';
 
 import { BugIcon, LanguagesIcon, SlidersVerticalIcon } from 'lucide-react';
+
 import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-version';
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
@@ -27,7 +28,7 @@ import {
 } from 'src/components/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
-import { type Lang, getAvailableLanguages } from 'src/utils/i18n';
+import { getAvailableLanguages, type Lang } from 'src/utils/i18n';
 
 export function StatusBar() {
 	return (

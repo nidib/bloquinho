@@ -2,6 +2,7 @@
 
 import type { VariantProps } from 'class-variance-authority';
 import type { ChangeEventHandler } from 'react';
+
 import { cn, cva } from 'src/utils/classes';
 
 const inputVariants = cva(

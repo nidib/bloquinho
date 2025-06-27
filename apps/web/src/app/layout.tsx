@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { Toaster } from 'sonner';
+
 import { MaintenancePage } from 'src/components/maintenance';
 import { ReactQueryProvider } from 'src/components/providers/react-query-provider';
 import { FeatureFlagsService } from 'src/lib/infra/mongo/services/feature-flag-services';
