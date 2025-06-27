@@ -1,8 +1,18 @@
 {
+	// Uses the typescript version used in the project
 	"typescript.tsdk": "./node_modules/typescript/lib",
 
-	"editor.defaultFormatter": "biomejs.biome",
-	"biome.lsp.bin": "./node_modules/.bin/biome",
+	// Spell checker
+	"cSpell.language": "en,pt_BR",
 
-	"cSpell.language": "en,pt_BR"
+	// Disable the default formatter, use eslint instead
+	"prettier.enable": false,
+	"editor.formatOnSave": false,
+	"editor.tabSize": 4,
+
+	// Auto fix
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.organizeImports": "never"
+	}
 }
