@@ -1,17 +1,18 @@
 'use client';
 
-import { createContext, type ReactNode, useContext } from 'react';
+import { createContext, useContext } from 'react';
+import type { ReactNode } from 'react';
 
 export type PublicServerInfo = {
 	appVersion: null | string;
 };
 
-const publicServerInfoContext = createContext<PublicServerInfo>({
+const PublicServerInfoContext = createContext<PublicServerInfo>({
 	appVersion: null,
 });
 
 export function usePublicServerInfo() {
-	return useContext(publicServerInfoContext);
+	return useContext(PublicServerInfoContext);
 }
 
 type Props = {
@@ -21,8 +22,8 @@ type Props = {
 
 export function PublicServerInfoProvider(props: Props) {
 	return (
-		<publicServerInfoContext.Provider value={props.publicServerInfo}>
+		<PublicServerInfoContext.Provider value={props.publicServerInfo}>
 			{props.children}
-		</publicServerInfoContext.Provider>
+		</PublicServerInfoContext.Provider>
 	);
 }

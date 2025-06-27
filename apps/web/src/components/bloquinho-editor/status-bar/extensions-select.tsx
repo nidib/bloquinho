@@ -13,37 +13,6 @@ import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import type { Extension } from 'src/lib/types/bloquinho';
 
-export function ExtensionsSelect() {
-	const { extension, setExtension } = useBloquinhoEditorContext();
-
-	const items = useMemo(
-		() =>
-			displayedExtensions.map((ext) => (
-				<SelectItem key={ext.value} value={ext.value}>
-					<span className="flex gap-1 items-center">
-						{ext.displayName}
-						{ext.showNewBadge && (
-							<div className="w-1 h-1 rounded-full bg-green-500" />
-						)}
-					</span>
-				</SelectItem>
-			)),
-		[],
-	);
-
-	return (
-		<div className="relative">
-			{displayedExtensions.some((ext) => ext.showNewBadge) && <NewBadgeIcon />}
-			<Select value={extension} onValueChange={setExtension}>
-				<SelectTrigger className="w-[180px] text-xs font-mono">
-					<SelectValue />
-				</SelectTrigger>
-				<SelectContent>{items}</SelectContent>
-			</Select>
-		</div>
-	);
-}
-
 type ExtensionListItem = {
 	value: Extension;
 	displayName: string;
@@ -96,3 +65,34 @@ const displayedExtensions: ExtensionListItem[] = [
 		displayName: 'Go',
 	},
 ];
+
+export function ExtensionsSelect() {
+	const { extension, setExtension } = useBloquinhoEditorContext();
+
+	const items = useMemo(
+		() =>
+			displayedExtensions.map(ext => (
+				<SelectItem key={ext.value} value={ext.value}>
+					<span className="flex gap-1 items-center">
+						{ext.displayName}
+						{ext.showNewBadge && (
+							<div className="w-1 h-1 rounded-full bg-green-500" />
+						)}
+					</span>
+				</SelectItem>
+			)),
+		[],
+	);
+
+	return (
+		<div className="relative">
+			{displayedExtensions.some(ext => ext.showNewBadge) && <NewBadgeIcon />}
+			<Select value={extension} onValueChange={setExtension}>
+				<SelectTrigger className="w-[180px] text-xs font-mono">
+					<SelectValue />
+				</SelectTrigger>
+				<SelectContent>{items}</SelectContent>
+			</Select>
+		</div>
+	);
+}

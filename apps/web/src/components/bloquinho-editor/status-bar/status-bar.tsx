@@ -28,7 +28,8 @@ import {
 } from 'src/components/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
-import { getAvailableLanguages, type Lang } from 'src/utils/i18n';
+import { getAvailableLanguages } from 'src/utils/i18n';
+import type { Lang } from 'src/utils/i18n';
 
 export function StatusBar() {
 	return (
@@ -94,9 +95,9 @@ function LanguageDropdown() {
 				<DropdownMenuSeparator />
 				<DropdownMenuRadioGroup
 					value={language}
-					onValueChange={(value) => changeLanguage(value as Lang)}
+					onValueChange={value => changeLanguage(value as Lang)}
 				>
-					{getAvailableLanguages().map((lang) => (
+					{getAvailableLanguages().map(lang => (
 						<DropdownMenuRadioItem key={lang.code} value={lang.code}>
 							{lang.name}
 						</DropdownMenuRadioItem>
@@ -109,8 +110,8 @@ function LanguageDropdown() {
 
 function PreferencesDropdown() {
 	const { t } = useI18n();
-	const { lineWrap, enableLineWrap, disableLineWrap } =
-		useBloquinhoEditorContext();
+	const { lineWrap, enableLineWrap, disableLineWrap }
+		= useBloquinhoEditorContext();
 
 	return (
 		<DropdownMenu>

@@ -1,4 +1,5 @@
-import { cva, type VariantProps } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
 import { cn } from 'src/utils/classes';
 
@@ -39,12 +40,12 @@ export function Textarea({ size = 'default', errorMessage, ...props }: Props) {
 		<div className="w-full h-full flex flex-col items-start justify-center gap-1">
 			<textarea
 				value={props.value}
-				onChange={(e) => props.onChange(e.currentTarget.value)}
+				onChange={e => props.onChange(e.currentTarget.value)}
 				id={props.id}
 				placeholder={props.placeholder}
 				className={className}
 			/>
-			{errorMessage && (
+			{Boolean(errorMessage) && (
 				<span className="text-sm text-red-500">{errorMessage}</span>
 			)}
 		</div>

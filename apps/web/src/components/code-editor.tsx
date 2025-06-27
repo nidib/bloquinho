@@ -1,7 +1,9 @@
 'use client';
 
-import { Editor, type OnChange, type OnMount } from '@monaco-editor/react';
-import { type ComponentProps, useCallback, useMemo } from 'react';
+import { Editor } from '@monaco-editor/react';
+import type { OnMount } from '@monaco-editor/react';
+import { useCallback, useMemo } from 'react';
+import type { ComponentProps } from 'react';
 
 type EditorOptions = ComponentProps<typeof Editor>['options'];
 
@@ -26,12 +28,7 @@ export function CodeEditor({ lineWrap = true, ...props }: Props) {
 		[lineWrap],
 	);
 
-	const focus = useCallback<OnMount>((editor) => editor.focus(), []);
-
-	const handleChange = useCallback<OnChange>(
-		(value = '') => props.onChange(value),
-		[props.onChange],
-	);
+	const focus = useCallback<OnMount>(editor => editor.focus(), []);
 
 	return (
 		<Editor
@@ -39,14 +36,13 @@ export function CodeEditor({ lineWrap = true, ...props }: Props) {
 			onMount={focus}
 			defaultValue={props.value}
 			language={props.language}
-			onChange={handleChange}
+			onChange={(value = '') => props.onChange(value)}
 			options={options}
 		/>
 	);
 }
 
-export type Language =
-	| 'javascript'
+export type Language = | 'javascript'
 	| 'typescript'
 	| 'markdown'
 	| 'html'

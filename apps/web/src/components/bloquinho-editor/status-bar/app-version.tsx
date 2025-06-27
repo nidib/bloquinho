@@ -2,7 +2,8 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useQuery } from '@tanstack/react-query';
 import { omit } from 'lodash';
 import { useMemo } from 'react';
-import Markdown, { type Components } from 'react-markdown';
+import Markdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 
 import {
 	Dialog,
@@ -42,7 +43,8 @@ export function AppVersion() {
 			<DialogContent className="gap-8">
 				<DialogHeader>
 					<DialogTitle className="font-bold text-xl flex gap-4 items-center">
-						Bloquinho{' '}
+						Bloquinho
+						{' '}
 						<a
 							href="https://github.com/nidib/bloquinho"
 							aria-label="Link para o repositório"
@@ -68,39 +70,6 @@ function useLatestRelease() {
 	});
 }
 
-type VersionProps = {
-	version: Release;
-};
-
-function Version(props: VersionProps) {
-	const { version } = props;
-	const { t, language } = useI18n();
-	const markdown = useMemo(
-		() => <Markdown components={markdownComponents}>{version.body}</Markdown>,
-		[version.body],
-	);
-
-	return (
-		<div>
-			<div className="flex gap-6 justify-between mb-2">
-				<p>
-					<strong className="font-bold">{t('Version')}: </strong>
-					<span className="text-sm font-mono">{version.name}</span>
-				</p>
-				<p>
-					<strong className="font-bold">{t('PublishedAt')}: </strong>
-					<span className="text-sm font-mono">
-						{version.publishedAt.toLocaleDateString(language)}
-					</span>
-				</p>
-			</div>
-			<div className="border shadow-sm border-solid border-zinc-200 rounded-md px-3 py-2">
-				{markdown}
-			</div>
-		</div>
-	);
-}
-
 const markdownComponents: Components = {
 	h2: (props) => {
 		return <h2 {...omit(props, 'node')} className="text-lg font-bold mb-3" />;
@@ -117,3 +86,44 @@ const markdownComponents: Components = {
 		return <strong {...omit(props, 'node')} className="font-semibold" />;
 	},
 };
+
+type VersionProps = {
+	version: Release;
+};
+
+function Version(props: VersionProps) {
+	const { version } = props;
+	const { t, language } = useI18n();
+	const markdown = useMemo(
+		() => <Markdown components={markdownComponents}>{version.body}</Markdown>,
+		[version.body],
+	);
+
+	return (
+		<div>
+			<div className="flex gap-6 justify-between mb-2">
+				<p>
+					<strong className="font-bold">
+						{t('Version')}
+						:
+						{' '}
+					</strong>
+					<span className="text-sm font-mono">{version.name}</span>
+				</p>
+				<p>
+					<strong className="font-bold">
+						{t('PublishedAt')}
+						:
+						{' '}
+					</strong>
+					<span className="text-sm font-mono">
+						{version.publishedAt.toLocaleDateString(language)}
+					</span>
+				</p>
+			</div>
+			<div className="border shadow-sm border-solid border-zinc-200 rounded-md px-3 py-2">
+				{markdown}
+			</div>
+		</div>
+	);
+}

@@ -8,7 +8,7 @@ const envSchema = z.object({
 		.nonempty('Missing required env: MONGO_DB_URL'),
 	VERCEL_GIT_COMMIT_SHA: z
 		.string()
-		.transform((sha) => sha.substring(0, 8))
+		.transform(sha => sha.substring(0, 8))
 		.optional(),
 	RESEND_API_KEY: z.string().default('re_123'),
 	RESEND_FEEDBACK_FROM: z.string().default('foo@bar.com'),

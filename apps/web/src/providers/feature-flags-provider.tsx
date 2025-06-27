@@ -1,13 +1,14 @@
 'use client';
 
-import { createContext, type ReactNode, useContext } from 'react';
+import { createContext, useContext } from 'react';
+import type { ReactNode } from 'react';
 
 import type { FeaturesFlags } from 'src/lib/types/feature-flags';
 
-const featureFlagsContext = createContext<null | FeaturesFlags>(null);
+const FeatureFlagsContext = createContext<null | FeaturesFlags>(null);
 
 export function useFeatureFlags() {
-	const ctx = useContext(featureFlagsContext);
+	const ctx = useContext(FeatureFlagsContext);
 
 	if (!ctx) {
 		throw new Error(
@@ -25,8 +26,8 @@ type Props = {
 
 export function FeatureFlagsProvider(props: Props) {
 	return (
-		<featureFlagsContext.Provider value={props.featureFlags}>
+		<FeatureFlagsContext.Provider value={props.featureFlags}>
 			{props.children}
-		</featureFlagsContext.Provider>
+		</FeatureFlagsContext.Provider>
 	);
 }

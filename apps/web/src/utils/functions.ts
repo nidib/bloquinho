@@ -1,12 +1,12 @@
+/* eslint-disable ts/no-unsafe-argument */
 import debounce from 'lodash/debounce';
 
-// biome-ignore lint/suspicious/noExplicitAny: we need any here
-export function asyncDebounce<T extends (...args: any) => any>(
+export function asyncDebounce<T extends (...args: any) => Promise<any>>(
 	func: T,
 	wait: number,
 ): (...args: Parameters<T>) => Promise<Awaited<ReturnType<T>>> {
 	const debounced = debounce((resolve, reject, args) => {
-		func(...args)
+		void func(...args)
 			.then(resolve)
 			.catch(reject);
 	}, wait);

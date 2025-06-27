@@ -1,5 +1,5 @@
 export function removeAccents(str: string): string {
-	return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+	return str.normalize('NFD').replace(/[\u0300-\u036F]/g, '');
 }
 
 export function replaceWhiteSpacesByDashes(str: string): string {

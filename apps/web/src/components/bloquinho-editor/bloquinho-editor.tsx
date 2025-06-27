@@ -2,7 +2,8 @@
 
 import { StatusBar } from 'src/components/bloquinho-editor/status-bar/status-bar';
 import { ClientOnly } from 'src/components/client-only';
-import { CodeEditor, type Language } from 'src/components/code-editor';
+import { CodeEditor } from 'src/components/code-editor';
+import type { Language } from 'src/components/code-editor';
 import {
 	BloquinhoEditorContextProvider,
 	useBloquinhoEditorContext,
@@ -36,8 +37,8 @@ export function BloquinhoEditor(props: Props) {
 }
 
 function BloquinhoCodeEditor() {
-	const { content, setContent, lineWrap, extension } =
-		useBloquinhoEditorContext();
+	const { content, setContent, lineWrap, extension }
+		= useBloquinhoEditorContext();
 	const languageByExtension: Record<Extension, Language> = {
 		js: 'javascript',
 		ts: 'typescript',

@@ -1,4 +1,5 @@
-import { Fragment, type JSX } from 'react';
+import { Fragment } from 'react';
+import type { JSX } from 'react';
 
 const dictionary = {
 	'en-US': {
@@ -90,7 +91,7 @@ export function t(
 	language: Lang,
 	...textReplacements: string[]
 ) {
-	if (dictionary[language]) {
+	if (dictionary[language] !== undefined) {
 		return stringF(dictionary[language].translations[key], ...textReplacements);
 	}
 
@@ -111,7 +112,7 @@ function stringF(str: string, ...values: string[]) {
 
 export function richStringF(str: string, ...richValues: JSX.Element[]) {
 	const newReplacements = [...richValues];
-	const parts = str.split(/(%s)/g);
+	const parts = str.split(/(%s)/);
 
 	return parts.map((part) => {
 		if (part === '%s') {
@@ -123,7 +124,7 @@ export function richStringF(str: string, ...richValues: JSX.Element[]) {
 }
 
 export function getAvailableLanguages(): { name: string; code: Lang }[] {
-	return Object.keys(dictionary).map((lang) => ({
+	return Object.keys(dictionary).map(lang => ({
 		name: dictionary[lang as Lang].name,
 		code: lang as Lang,
 	}));

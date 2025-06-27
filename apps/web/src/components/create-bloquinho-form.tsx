@@ -1,7 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { type FormEventHandler, useState } from 'react';
+import { useState } from 'react';
+import type { FormEventHandler } from 'react';
 
 import { Button } from 'src/components/form/button';
 import { TextInput } from 'src/components/form/text-input';
