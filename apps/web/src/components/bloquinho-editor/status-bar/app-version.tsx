@@ -12,10 +12,9 @@ import {
 	DialogTrigger,
 } from 'src/components/dialog';
 import { GithubIcon } from 'src/components/icons/github-icon';
+import type { Release } from 'src/lib/client/api/github';
 import { Api } from 'src/lib/client/client-api';
 import { useI18n } from 'src/providers/i18n-provider';
-
-type Release = Awaited<ReturnType<typeof Api.Github.getLatestRelease>>;
 
 export function AppVersion() {
 	const { data: latestRelease, isFetching, isError } = useLatestRelease();

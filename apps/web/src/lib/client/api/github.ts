@@ -6,6 +6,8 @@ const releaseSchema = z.object({
 	body: z.string(),
 });
 
+export type Release = z.infer<typeof releaseSchema>;
+
 export async function getLatestRelease() {
 	const responseData = await fetch(
 		'https://api.github.com/repos/nidib/bloquinho/releases/latest',
