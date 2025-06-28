@@ -76,8 +76,12 @@ jobs:
                   cache: pnpm
             - name: Install Dependencies
               run: pnpm install
+            - name: Wait for services
+              run: |
+                pnpx wait-on tcp:127.0.0.1:27017 -v -t 10s
             - name: Run E2E Tests
-              run: echo "E2E Tests"
+              run: |
+                curl http://localhost:27017/
 
     deploy-to-preview:
         name: Deploy to Preview
