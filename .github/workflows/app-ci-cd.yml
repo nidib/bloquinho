@@ -76,12 +76,10 @@ jobs:
             - name: Wait for services
               run: |
                 pnpx wait-on tcp:127.0.0.1:27017 -v -t 10s
-            - name: Test - Build web app
-              run: |
-                pnpm --filter web run build --no-lint
             - name: Cypress run
               uses: cypress-io/github-action@v6
               with:
+                build: 'pnpm --filter web run build --no-lint'
                 start: 'pnpm --filter web run dev'
                 wait-on: 'http://localhost:3000'
                 browser: chrome
