@@ -6,9 +6,8 @@
 		"compile": "tsc --noEmit",
 		"lint": "eslint",
 		"lint:fix": "eslint --fix",
-		"e2e:open": "cypress open",
-		"e2e:run": "cypress run",
-		"start-and-test": "start-server-and-test 'pnpm --filter web run dev' http://localhost:3000 'pnpm e2e:run'",
+		"test": "cypress run",
+		"start-and-test": "start-server-and-test 'pnpm --filter web run dev' http://localhost:3000 'pnpm run test'",
 		"precommit": "pnpm lint && pnpm compile && pnpm test"
 	},
 	"devDependencies": {
