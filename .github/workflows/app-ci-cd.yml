@@ -79,9 +79,12 @@ jobs:
             - name: Wait for services
               run: |
                 pnpx wait-on tcp:127.0.0.1:27017 -v -t 10s
-            - name: Run E2E Tests
+            - name: Test - Build web app
               run: |
-                curl http://localhost:27017/
+                pnpm --filter web run build
+            - name: Test - Run E2E
+              run: |
+                pnpm --filter web-e2e run test
 
     deploy-to-preview:
         name: Deploy to Preview
