@@ -76,13 +76,13 @@ jobs:
             - name: Wait for services
               run: |
                 pnpx wait-on tcp:127.0.0.1:27017 -v -t 10s
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
             - name: Cache Cypress
               uses: actions/cache@v4
               with:
                 path: ~/.cache/Cypress
                 key: cypress-${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
             - name: Cypress run
               uses: cypress-io/github-action@v6
               with:
