@@ -83,9 +83,8 @@ jobs:
                 key: cypress-${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
             - name: Install dependencies
               run: |
-                DEBUG=cypress:cli* pnpm install --frozen-lockfile
-                pnpm cypress verify || echo "Cypress is not installed at root"
-                cd apps/web-e2e && pnpm cypress verify || echo "Cypress is not installed at apps/web-e2e"
+                pnpm install
+                pnpm --filter web-e2e exec cypress install
             - name: Check Cypress at root
               run: pnpm cypress verify || echo "Cypress is not installed"
             - name: Check Cypress at apps/web-e2e
