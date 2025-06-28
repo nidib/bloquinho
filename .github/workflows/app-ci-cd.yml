@@ -83,7 +83,6 @@ jobs:
                 start: 'pnpm --filter web run dev'
                 wait-on: 'http://localhost:3000'
                 browser: chrome
-                working-directory: apps/web-e2e
 
     deploy-to-preview:
         name: Deploy to Preview
