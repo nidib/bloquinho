@@ -8,15 +8,12 @@ import { ReactQueryProvider } from 'src/components/providers/react-query-provide
 import { FeatureFlagsService } from 'src/lib/infra/mongo/services/feature-flag-services';
 import { FeatureFlagsProvider } from 'src/providers/feature-flags-provider';
 import { I18nProvider } from 'src/providers/i18n-provider';
-import {
-	type PublicServerInfo,
-	PublicServerInfoProvider,
-} from 'src/providers/public-server-info-provider';
+import { PublicServerInfoProvider } from 'src/providers/public-server-info-provider';
+import type { PublicServerInfo } from 'src/providers/public-server-info-provider';
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
 import { Envs } from 'src/utils/constants/envs';
 import { FALLBACK_LANGUAGE, t } from 'src/utils/i18n';
-
 import './globals.css';
 
 const nunito = Nunito({
@@ -48,16 +45,18 @@ export default async function RootLayout({ children }: Props) {
 		<html lang="pt-BR" className={cn(nunito.variable)}>
 			<body className="antialiased">
 				<I18nProvider>
-					{featureFlags.UNDER_MAINTENANCE ? (
-						<MaintenancePage />
-					) : (
-						<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
-							<FeatureFlagsProvider featureFlags={featureFlags}>
-								<Toaster />
-								<ReactQueryProvider>{children}</ReactQueryProvider>
-							</FeatureFlagsProvider>
-						</PublicServerInfoProvider>
-					)}
+					{featureFlags.UNDER_MAINTENANCE
+						? (
+								<MaintenancePage />
+							)
+						: (
+								<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
+									<FeatureFlagsProvider featureFlags={featureFlags}>
+										<Toaster />
+										<ReactQueryProvider>{children}</ReactQueryProvider>
+									</FeatureFlagsProvider>
+								</PublicServerInfoProvider>
+							)}
 				</I18nProvider>
 			</body>
 		</html>

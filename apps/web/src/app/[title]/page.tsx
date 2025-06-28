@@ -18,8 +18,7 @@ export default async function BloquinhoPage({ params }: Props) {
 		redirect(`/${decodedTitle}`);
 	}
 
-	const bloquinho =
-		await BloquinhoServices.getOrCreateBloquinhoByTitle(decodedTitle);
+	const bloquinho = await BloquinhoServices.getOrCreateBloquinhoByTitle(decodedTitle);
 
 	return (
 		<BloquinhoEditor

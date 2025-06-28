@@ -1,7 +1,8 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { type ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
 import {
 	Controller,
 	FormProvider,

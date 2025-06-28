@@ -12,6 +12,16 @@ import {
 import { useI18n } from 'src/providers/i18n-provider';
 import { cva } from 'src/utils/classes';
 
+const statusIndicatorVariants = cva('w-[15px] h-[15px] z-[200] rounded-full', {
+	variants: {
+		status: {
+			pending: ['bg-yellow-600'],
+			success: ['bg-green-600'],
+			error: ['bg-red-600'],
+		},
+	},
+});
+
 type Status = 'pending' | 'success' | 'error';
 
 export function StatusIndicator() {
@@ -38,13 +48,3 @@ export function StatusIndicator() {
 		</TooltipProvider>
 	);
 }
-
-const statusIndicatorVariants = cva('w-[15px] h-[15px] z-[200] rounded-full', {
-	variants: {
-		status: {
-			pending: ['bg-yellow-600'],
-			success: ['bg-green-600'],
-			error: ['bg-red-600'],
-		},
-	},
-});

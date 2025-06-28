@@ -1,7 +1,9 @@
-import { type CreateEmailOptions, Resend } from 'resend';
+import { Resend } from 'resend';
+import type { CreateEmailOptions } from 'resend';
 import { z } from 'zod';
 
-import { type FeedbackType, feedbackTypes } from 'src/lib/types/feedback';
+import { feedbackTypes } from 'src/lib/types/feedback';
+import type { FeedbackType } from 'src/lib/types/feedback';
 import { Envs } from 'src/utils/constants/envs';
 
 const resend = new Resend(Envs.RESEND_API_KEY);
@@ -30,14 +32,13 @@ async function sendFeedbackEmail(content: {
 	};
 
 	if (!Envs.RESEND_API_KEY) {
-		// biome-ignore lint/suspicious/noConsole: TODO: replace with a logger
+		// eslint-disable-next-line no-console
 		console.log('would send the email:', email);
 		return true;
 	}
 
 	const { error } = await resend.emails.send(email);
 	if (error) {
-		// biome-ignore lint/suspicious/noConsole: TODO: replace with a logger
 		console.error({ error });
 		return false;
 	}

@@ -2,13 +2,11 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
 
 import { Api } from 'src/lib/client/client-api';
-import type {
-	EditableBloquinhoFields,
-	Extension,
-} from 'src/lib/types/bloquinho';
+import type { EditableBloquinhoFields, Extension } from 'src/lib/types/bloquinho';
 import { asyncDebounce } from 'src/utils/functions';
 
 const debouncedUpdate = asyncDebounce(
@@ -63,7 +61,7 @@ export function BloquinhoEditorContextProvider(props: {
 			};
 		},
 		onMutate: (soonToBeUpdatedBloquinho) => {
-			setBloquinho((current) => ({
+			setBloquinho(current => ({
 				...current,
 				...soonToBeUpdatedBloquinho,
 			}));
@@ -74,10 +72,10 @@ export function BloquinhoEditorContextProvider(props: {
 	});
 	const [lineWrap, setLineWrap] = useLocalStorage('lineWrap', true);
 
-	const enableLineWrap = () => setLineWrap(true);
-	const disableLineWrap = () => setLineWrap(false);
+	const enableLineWrap = useCallback(() => setLineWrap(true), [setLineWrap]);
+	const disableLineWrap = useCallback(() => setLineWrap(false), [setLineWrap]);
 
-	const context = {
+	const context = useMemo(() => ({
 		status: mutation.status === 'idle' ? 'success' : mutation.status,
 		content: bloquinho.content,
 		setContent: (content: string) => {
@@ -90,7 +88,7 @@ export function BloquinhoEditorContextProvider(props: {
 		lineWrap,
 		enableLineWrap,
 		disableLineWrap,
-	};
+	}), [bloquinho.content, bloquinho.extension, disableLineWrap, enableLineWrap, lineWrap, mutation]);
 
 	return (
 		<BloquinhoEditorContext.Provider value={context}>

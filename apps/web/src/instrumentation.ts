@@ -1,5 +1,4 @@
-// biome-ignore-all lint/suspicious/noConsole: this is fine
-
+/* eslint-disable no-console */
 export async function register() {
 	console.log('\n');
 
@@ -18,7 +17,7 @@ export async function register() {
 
 		console.group('Feature flags:');
 		console.table(
-			featureFlags.map((flag) => ({
+			featureFlags.map(flag => ({
 				key: flag.key,
 				value: flag.value,
 			})),

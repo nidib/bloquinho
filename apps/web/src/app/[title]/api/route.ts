@@ -1,3 +1,5 @@
+/* eslint-disable ts/no-unsafe-argument */
+/* eslint-disable ts/no-unsafe-assignment */
 import { z } from 'zod';
 
 import { BloquinhoServices } from 'src/lib/infra/mongo/services/bloquinho-services';

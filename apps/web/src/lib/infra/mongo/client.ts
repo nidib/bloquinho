@@ -1,4 +1,5 @@
-import { type Document, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
+import type { Document } from 'mongodb';
 
 import type { Bloquinho } from 'src/lib/types/bloquinho';
 import type { FeaturesFlags, Flags } from 'src/lib/types/feature-flags';

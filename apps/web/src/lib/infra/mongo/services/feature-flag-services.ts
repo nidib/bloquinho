@@ -1,9 +1,6 @@
 import { mongo } from 'src/lib/infra/mongo/client';
-import {
-	FeatureFlagsDefaultValues,
-	type FeaturesFlags,
-	type Flags,
-} from 'src/lib/types/feature-flags';
+import { FeatureFlagsDefaultValues } from 'src/lib/types/feature-flags';
+import type { FeaturesFlags, Flags } from 'src/lib/types/feature-flags';
 
 async function getFeatureFlagValue<T extends Flags>(
 	flag: T,

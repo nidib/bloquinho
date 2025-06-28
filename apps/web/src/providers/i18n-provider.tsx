@@ -3,22 +3,20 @@
 import { useLocalStorage } from '@uidotdev/usehooks';
 import {
 	createContext,
-	type JSX,
-	type ReactNode,
 	useCallback,
 	useContext,
 	useMemo,
 } from 'react';
+import type { JSX, ReactNode } from 'react';
 
 import { withClientOnly } from 'src/components/client-only';
 import {
 	FALLBACK_LANGUAGE,
 	isLanguageAvailable,
-	type Lang,
 	richStringF,
-	type TranslationKey,
 	t as translateKey,
 } from 'src/utils/i18n';
+import type { Lang, TranslationKey } from 'src/utils/i18n';
 
 type I18nContext = {
 	language: Lang;
