@@ -73,17 +73,19 @@ jobs:
               with:
                   node-version-file: .nvmrc
                   cache: pnpm
-            - name: Install Dependencies
-              run: pnpm install
             - name: Wait for services
               run: |
                 pnpx wait-on tcp:127.0.0.1:27017 -v -t 10s
             - name: Test - Build web app
               run: |
                 pnpm --filter web run build --no-lint
-            - name: Test - Run E2E
-              run: |
-                pnpm --filter web-e2e run start-and-test
+            - name: Cypress run
+              uses: cypress-io/github-action@v6
+              with:
+                start: 'pnpm --filter web run dev'
+                wait-on: 'http://localhost:3000'
+                browser: chrome
+                working-directory: apps/web-e2e
 
     deploy-to-preview:
         name: Deploy to Preview
