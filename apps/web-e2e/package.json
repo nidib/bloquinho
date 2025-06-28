@@ -8,10 +8,11 @@
 		"lint:fix": "eslint --fix",
 		"e2e:open": "cypress open",
 		"e2e:run": "cypress run",
-		"test": "pnpm e2e:run",
+		"start-and-test": "start-server-and-test 'pnpm --filter web run dev' http://localhost:3000 'pnpm e2e:run'",
 		"precommit": "pnpm lint && pnpm compile && pnpm test"
 	},
 	"devDependencies": {
-		"cypress": "^14.5.0"
+		"cypress": "^14.5.0",
+		"start-server-and-test": "^2.0.12"
 	}
 }
