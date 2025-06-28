@@ -76,19 +76,23 @@ jobs:
             - name: Wait for services
               run: |
                 pnpx wait-on tcp:127.0.0.1:27017 -v -t 10s
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
             - name: Cache Cypress
               uses: actions/cache@v4
               with:
                 path: ~/.cache/Cypress
                 key: cypress-${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+            - name: Check Cypress at root
+              run: pnpm cypress verify || echo "Cypress is not installed"
+            - name: Check Cypress at apps/web-e2e
+              run: cd apps/web-e2e && pnpm cypress verify || echo "Cypress is not installed"
             - name: Cypress run
               uses: cypress-io/github-action@v6
               with:
                 install: false
                 working-directory: apps/web-e2e
-                build: 'pnpm --filter web run build --no-lint'
+                # build: 'pnpm --filter web run build --no-lint'
                 start: 'pnpm --filter web run dev'
                 command: 'pnpm run test'
                 wait-on: 'http://localhost:3000'
