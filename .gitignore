@@ -6,3 +6,4 @@ bin/
 **/.log/*
 !**/.log/.gitkeep
 .vercel
+tsconfig.tsbuildinfo

@@ -1,0 +1,17 @@
+{
+	"name": "web-e2e",
+	"packageManager": "pnpm@10.12.3",
+	"description": "E2Es for the web app",
+	"scripts": {
+		"compile": "tsc --noEmit",
+		"lint": "eslint",
+		"lint:fix": "eslint --fix",
+		"e2e:open": "cypress open",
+		"e2e:run": "cypress run",
+		"test": "pnpm e2e:run",
+		"precommit": "pnpm lint && pnpm compile && pnpm test"
+	},
+	"devDependencies": {
+		"cypress": "^14.5.0"
+	}
+}

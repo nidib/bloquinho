@@ -1,5 +1,7 @@
 {
 	"name": "@bloquinho/web",
+	"packageManager": "pnpm@10.12.3",
+	"description": "Web app for Bloquinho",
 	"scripts": {
 		"dev": "next dev",
 		"infra:start": "docker compose up",

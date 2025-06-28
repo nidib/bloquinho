@@ -1,4 +1,5 @@
 import antfu from '@antfu/eslint-config';
+import pluginCypress from 'eslint-plugin-cypress';
 
 export default antfu({
 	react: true,
@@ -33,4 +34,7 @@ export default antfu({
 			],
 		}],
 	},
+}, {
+	files: ['apps/web-e2e/**/*.cy.js'],
+	...pluginCypress.configs.recommended,
 });
