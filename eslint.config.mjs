@@ -25,6 +25,7 @@ export default antfu({
 		'ts/promise-function-async': 'off',
 		'ts/switch-exhaustiveness-check': 'off',
 		'ts/consistent-type-definitions': 'off',
+		'ts/no-unsafe-call': 'off',
 		'perfectionist/sort-imports': ['error', {
 			internalPattern: ['^src/.+'],
 			groups: [
