@@ -13,7 +13,6 @@
 		"precommit": "pnpm lint && pnpm compile && pnpm test"
 	},
 	"devDependencies": {
-		"@faker-js/faker": "^9.8.0",
 		"cypress": "^14.5.0",
 		"start-server-and-test": "^2.0.12"
 	}
