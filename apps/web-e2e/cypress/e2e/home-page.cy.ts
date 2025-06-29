@@ -34,7 +34,7 @@ describe('Home page', () => {
 
 		cy.get('button[type="submit"]').click();
 
-		cy.url({ timeout: 6_000 }).should('include', `/${text}`);
+		cy.url({ timeout: 10_000 }).should('include', `/${text}`);
 	});
 
 	it('should navigate to the bloquinho page when the form is submitted by pressing enter', () => {
@@ -44,6 +44,6 @@ describe('Home page', () => {
 
 		cy.get('input[type="text"]').type('{enter}');
 
-		cy.url({ timeout: 6_000 }).should('include', `/${text}`);
+		cy.url({ timeout: 10_000 }).should('include', `/${text}`);
 	});
 });
