@@ -41,7 +41,11 @@ export function StatusIndicator() {
 		<TooltipProvider delayDuration={400}>
 			<Tooltip>
 				<TooltipTrigger className="outline-none focus-visible:ring-offset-2 focus-visible:ring-zinc-700 focus-visible:ring-2 rounded-full cursor-help">
-					<div className={statusIndicatorVariants({ status })} />
+					<div
+						className={statusIndicatorVariants({ status })}
+						role="status"
+						aria-label={title}
+					/>
 				</TooltipTrigger>
 				<TooltipContent>{title}</TooltipContent>
 			</Tooltip>

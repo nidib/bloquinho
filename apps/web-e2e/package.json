@@ -1,0 +1,19 @@
+{
+	"name": "web-e2e",
+	"packageManager": "pnpm@10.12.3",
+	"description": "E2Es for the web app",
+	"scripts": {
+		"compile": "tsc --noEmit",
+		"lint": "eslint",
+		"lint:fix": "eslint --fix",
+		"test": "cypress run",
+		"start-and-test": "start-server-and-test 'NODE_ENV=test pnpm --filter web run dev' http://localhost:3000 'pnpm run test'",
+		"test:open": "cypress open --browser chrome",
+		"start-and-test:open": "start-server-and-test 'NODE_ENV=test pnpm --filter web run dev' http://localhost:3000 'pnpm run test:open'",
+		"precommit": "pnpm lint && pnpm compile && pnpm test"
+	},
+	"devDependencies": {
+		"cypress": "^14.5.0",
+		"start-server-and-test": "^2.0.12"
+	}
+}
