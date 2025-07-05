@@ -29,7 +29,7 @@ import {
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
 import { getAvailableLanguages } from 'src/utils/i18n';
-import type { Lang } from 'src/utils/i18n';
+import type { Lang } from 'src/utils/i18n/dictionary';
 
 export function StatusBar() {
 	return (

@@ -16,7 +16,7 @@ import {
 	richStringF,
 	t as translateKey,
 } from 'src/utils/i18n';
-import type { Lang, TranslationKey } from 'src/utils/i18n';
+import type { Lang, TranslationKey } from 'src/utils/i18n/dictionary';
 
 type I18nContext = {
 	language: Lang;
