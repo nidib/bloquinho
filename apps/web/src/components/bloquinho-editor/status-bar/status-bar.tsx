@@ -5,17 +5,6 @@ import { BugIcon, LanguagesIcon, SlidersVerticalIcon } from 'lucide-react';
 import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-version';
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuLabel,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from 'src/components/drop-down-menu';
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
 import { Button } from 'src/components/form/button';
 import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
@@ -26,6 +15,18 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from 'src/components/tooltip';
+import { Button as Button_V2 } from 'src/components/ui/button';
+import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuLabel,
+	DropdownMenuRadioGroup,
+	DropdownMenuRadioItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from 'src/components/ui/dropdown-menu';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
 import { getAvailableLanguages } from 'src/utils/i18n';
@@ -85,9 +86,9 @@ function LanguageDropdown() {
 			<div className="relative">
 				<NewBadgeIcon />
 				<DropdownMenuTrigger asChild>
-					<Button variant="secondary">
+					<Button_V2 variant="outline">
 						<LanguagesIcon className="w-4 h-4" />
-					</Button>
+					</Button_V2>
 				</DropdownMenuTrigger>
 			</div>
 			<DropdownMenuContent className="w-56">
@@ -116,9 +117,9 @@ function PreferencesDropdown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="secondary">
+				<Button_V2 variant="outline">
 					<SlidersVerticalIcon className="w-4 h-4" />
-				</Button>
+				</Button_V2>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
 				<DropdownMenuLabel>{t('Preferences')}</DropdownMenuLabel>
