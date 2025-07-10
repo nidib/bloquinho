@@ -8,8 +8,8 @@ import { cn, cva } from 'src/utils/classes';
 const inputVariants = cva(
 	[
 		'text-ellipsis whitespace-nowrap overflow-hidden',
-		'w-full bg-white text-zinc-700 max-w-full rounded-md shadow-sm placeholder-zinc-400 transition-all',
-		'border border-zinc-200 ring-offset-white hover:border-zinc-300 focus-visible:border-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-700 focus-visible:ring-offset-2',
+		'w-full bg-white text-zinc-700 max-w-full rounded-md shadow-xs placeholder-zinc-400 transition-all',
+		'border border-zinc-200 ring-offset-white hover:border-zinc-300 focus-visible:border-zinc-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-zinc-700 focus-visible:ring-offset-2',
 	],
 	{
 		variants: {

@@ -33,7 +33,7 @@ import type { Lang } from 'src/utils/i18n';
 
 export function StatusBar() {
 	return (
-		<footer className="border-t border-t-zinc-200 py-2 px-[--monaco-scrollbar-width] shrink-0 flex gap-8 items-center justify-between">
+		<footer className="border-t border-t-zinc-200 py-2 px-(--monaco-scrollbar-width) shrink-0 flex gap-8 items-center justify-between">
 			<div className="h-full flex items-center justify-start gap-4">
 				<AppVersion />
 				<Separator />
@@ -53,7 +53,7 @@ export function StatusBar() {
 }
 
 function Separator() {
-	return <div className={cn('w-[1px] bg-zinc-200 h-[50%]')} />;
+	return <div className={cn('w-px bg-zinc-200 h-[50%]')} />;
 }
 
 function FeedbackButton() {

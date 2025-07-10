@@ -12,7 +12,7 @@ import {
 import { useI18n } from 'src/providers/i18n-provider';
 import { cva } from 'src/utils/classes';
 
-const statusIndicatorVariants = cva('w-[15px] h-[15px] z-[200] rounded-full', {
+const statusIndicatorVariants = cva('w-[15px] h-[15px] z-200 rounded-full', {
 	variants: {
 		status: {
 			pending: ['bg-yellow-600'],
@@ -40,7 +40,7 @@ export function StatusIndicator() {
 	return (
 		<TooltipProvider delayDuration={400}>
 			<Tooltip>
-				<TooltipTrigger className="outline-none focus-visible:ring-offset-2 focus-visible:ring-zinc-700 focus-visible:ring-2 rounded-full cursor-help">
+				<TooltipTrigger className="outline-hidden focus-visible:ring-offset-2 focus-visible:ring-zinc-700 focus-visible:ring-2 rounded-full cursor-help">
 					<div
 						className={statusIndicatorVariants({ status })}
 						role="status"
