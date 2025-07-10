@@ -8,12 +8,6 @@ import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/stat
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
 import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from 'src/components/tooltip';
 import { Button } from 'src/components/ui/button';
 import {
 	DropdownMenu,
@@ -26,6 +20,12 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from 'src/components/ui/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
 import { getAvailableLanguages } from 'src/utils/i18n';
