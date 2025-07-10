@@ -12,13 +12,6 @@ import {
 import { toast } from 'sonner';
 
 import { Button } from 'src/components/form/button';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from 'src/components/form/select';
 import { Textarea } from 'src/components/form/textarea';
 import {
 	Dialog,
@@ -29,6 +22,13 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from 'src/components/ui/dialog';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from 'src/components/ui/select';
 import { Api } from 'src/lib/client/client-api';
 import type { FeedbackType } from 'src/lib/types/feedback';
 import { useI18n } from 'src/providers/i18n-provider';
