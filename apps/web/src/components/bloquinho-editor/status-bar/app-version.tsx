@@ -121,7 +121,7 @@ function Version(props: VersionProps) {
 					</span>
 				</p>
 			</div>
-			<div className="border shadow-sm border-solid border-zinc-200 rounded-md px-3 py-2">
+			<div className="border shadow-xs border-solid border-zinc-200 rounded-md px-3 py-2">
 				{markdown}
 			</div>
 		</div>

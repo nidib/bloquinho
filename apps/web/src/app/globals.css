@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+	--text-2xs: 0.625rem;
+	--text-2xs--line-height: 0.875rem;
+	--text-3xs: 0.5rem;
+	--text-3xs--line-height: 0.75rem;
+}
 
 :root {
 	font-family: var(--font-nunito), sans-serif;

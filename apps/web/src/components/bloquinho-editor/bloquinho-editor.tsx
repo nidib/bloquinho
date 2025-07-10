@@ -25,7 +25,7 @@ export function BloquinhoEditor(props: Props) {
 	};
 
 	return (
-		<div className="h-[100dvh] flex flex-col">
+		<div className="h-dvh flex flex-col">
 			<ClientOnly>
 				<BloquinhoEditorContextProvider bloquinho={bloquinho}>
 					<BloquinhoCodeEditor />
