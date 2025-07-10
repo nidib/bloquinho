@@ -11,7 +11,7 @@ import {
 } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import { Button } from 'src/components/form/button';
+import { Button } from 'src/components/ui/button';
 import {
 	Dialog,
 	DialogContent,

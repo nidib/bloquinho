@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { FormEventHandler } from 'react';
 
-import { Button } from 'src/components/form/button';
 import { TextInput } from 'src/components/form/text-input';
+import { Button } from 'src/components/ui/button';
 import { useI18n } from 'src/providers/i18n-provider';
 import { normalizeBloquinhoTitle } from 'src/utils/text';
 
