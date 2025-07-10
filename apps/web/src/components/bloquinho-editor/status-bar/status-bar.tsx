@@ -6,7 +6,6 @@ import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-versi
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
-import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import { Button } from 'src/components/ui/button';
 import {
@@ -41,7 +40,6 @@ export function StatusBar() {
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
 				<LanguageDropdown />
-				<Separator />
 				<PreferencesDropdown />
 				<Separator />
 				<ExtensionsSelect />
@@ -82,14 +80,11 @@ function LanguageDropdown() {
 
 	return (
 		<DropdownMenu>
-			<div className="relative">
-				<NewBadgeIcon />
-				<DropdownMenuTrigger asChild>
-					<Button variant="outline">
-						<LanguagesIcon className="w-4 h-4" />
-					</Button>
-				</DropdownMenuTrigger>
-			</div>
+			<DropdownMenuTrigger asChild>
+				<Button variant="outline">
+					<LanguagesIcon className="w-4 h-4" />
+				</Button>
+			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
 				<DropdownMenuLabel>{t('Language')}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
