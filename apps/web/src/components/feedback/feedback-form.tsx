@@ -59,7 +59,7 @@ export function FeedbackForm(props: Props) {
 		onSuccess: () => {
 			methods.reset();
 			setIsDialogOpen(false);
-			toast.success(t('YourMessageHasBeenSentThankYou'));
+			toast.success(t('YourMessageHasBeenSentThankYou'), { position: 'top-right' });
 		},
 	});
 
