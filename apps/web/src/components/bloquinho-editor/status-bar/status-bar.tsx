@@ -5,6 +5,9 @@ import { BugIcon, LanguagesIcon, SlidersVerticalIcon } from 'lucide-react';
 import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-version';
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
+import { FeedbackForm } from 'src/components/feedback/feedback-form';
+import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
+import { Button } from 'src/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -15,17 +18,13 @@ import {
 	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from 'src/components/drop-down-menu';
-import { FeedbackForm } from 'src/components/feedback/feedback-form';
-import { Button } from 'src/components/form/button';
-import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
-import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
+} from 'src/components/ui/dropdown-menu';
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from 'src/components/tooltip';
+} from 'src/components/ui/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cn } from 'src/utils/classes';
 import { getAvailableLanguages } from 'src/utils/i18n';
@@ -33,7 +32,7 @@ import type { Lang } from 'src/utils/i18n/dictionary';
 
 export function StatusBar() {
 	return (
-		<footer className="border-t border-t-zinc-200 py-2 px-(--monaco-scrollbar-width) shrink-0 flex gap-8 items-center justify-between">
+		<footer className="border-t border-t-border py-2 px-(--monaco-scrollbar-width) shrink-0 flex gap-8 items-center justify-between">
 			<div className="h-full flex items-center justify-start gap-4">
 				<AppVersion />
 				<Separator />
@@ -41,7 +40,6 @@ export function StatusBar() {
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
 				<LanguageDropdown />
-				<Separator />
 				<PreferencesDropdown />
 				<Separator />
 				<ExtensionsSelect />
@@ -53,7 +51,7 @@ export function StatusBar() {
 }
 
 function Separator() {
-	return <div className={cn('w-px bg-zinc-200 h-[50%]')} />;
+	return <div className={cn('w-px bg-border h-[50%]')} />;
 }
 
 function FeedbackButton() {
@@ -64,7 +62,7 @@ function FeedbackButton() {
 			<Tooltip>
 				<FeedbackForm.Trigger>
 					<TooltipTrigger asChild>
-						<Button variant="secondary">
+						<Button variant="outline">
 							<BugIcon className="w-4 h-4" />
 						</Button>
 					</TooltipTrigger>
@@ -82,14 +80,11 @@ function LanguageDropdown() {
 
 	return (
 		<DropdownMenu>
-			<div className="relative">
-				<NewBadgeIcon />
-				<DropdownMenuTrigger asChild>
-					<Button variant="secondary">
-						<LanguagesIcon className="w-4 h-4" />
-					</Button>
-				</DropdownMenuTrigger>
-			</div>
+			<DropdownMenuTrigger asChild>
+				<Button variant="outline">
+					<LanguagesIcon className="w-4 h-4" />
+				</Button>
+			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
 				<DropdownMenuLabel>{t('Language')}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
@@ -116,7 +111,7 @@ function PreferencesDropdown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="secondary">
+				<Button variant="outline">
 					<SlidersVerticalIcon className="w-4 h-4" />
 				</Button>
 			</DropdownMenuTrigger>

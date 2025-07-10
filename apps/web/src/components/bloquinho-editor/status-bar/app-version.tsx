@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Markdown from 'react-markdown';
 import type { Components } from 'react-markdown';
 
+import { GithubIcon } from 'src/components/icons/github-icon';
 import {
 	Dialog,
 	DialogContent,
@@ -12,8 +13,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from 'src/components/dialog';
-import { GithubIcon } from 'src/components/icons/github-icon';
+} from 'src/components/ui/dialog';
 import type { Release } from 'src/lib/client/api/github';
 import { Api } from 'src/lib/client/client-api';
 import { useI18n } from 'src/providers/i18n-provider';
@@ -27,7 +27,7 @@ export function AppVersion() {
 
 	if (isFetching || !latestRelease) {
 		return (
-			<span className="font-mono text-xs text-transparent select-none bg-zinc-300 rounded-md animate-pulse">
+			<span className="font-mono text-xs text-transparent select-none bg-foreground/40 rounded-md animate-pulse">
 				v0.0.0
 			</span>
 		);
@@ -40,7 +40,7 @@ export function AppVersion() {
 					{latestRelease.name}
 				</span>
 			</DialogTrigger>
-			<DialogContent className="gap-8">
+			<DialogContent className="gap-8 w-3xl">
 				<DialogHeader>
 					<DialogTitle className="font-bold text-xl flex gap-4 items-center">
 						Bloquinho
@@ -121,7 +121,7 @@ function Version(props: VersionProps) {
 					</span>
 				</p>
 			</div>
-			<div className="border shadow-xs border-solid border-zinc-200 rounded-md px-3 py-2">
+			<div className="border border-border rounded-md px-3 py-2 shadow-xs">
 				{markdown}
 			</div>
 		</div>

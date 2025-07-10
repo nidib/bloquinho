@@ -8,7 +8,7 @@ import {
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from 'src/components/tooltip';
+} from 'src/components/ui/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
 import { cva } from 'src/utils/classes';
 

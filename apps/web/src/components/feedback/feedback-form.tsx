@@ -11,6 +11,7 @@ import {
 } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { Button } from 'src/components/ui/button';
 import {
 	Dialog,
 	DialogContent,
@@ -19,16 +20,15 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from 'src/components/dialog';
-import { Button } from 'src/components/form/button';
+} from 'src/components/ui/dialog';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from 'src/components/form/select';
-import { Textarea } from 'src/components/form/textarea';
+} from 'src/components/ui/select';
+import { Textarea } from 'src/components/ui/textarea';
 import { Api } from 'src/lib/client/client-api';
 import type { FeedbackType } from 'src/lib/types/feedback';
 import { useI18n } from 'src/providers/i18n-provider';
@@ -59,7 +59,7 @@ export function FeedbackForm(props: Props) {
 		onSuccess: () => {
 			methods.reset();
 			setIsDialogOpen(false);
-			toast.success(t('YourMessageHasBeenSentThankYou'));
+			toast.success(t('YourMessageHasBeenSentThankYou'), { position: 'top-right' });
 		},
 	});
 
@@ -77,7 +77,7 @@ export function FeedbackForm(props: Props) {
 			}}
 		>
 			{props.trigger}
-			<DialogContent className="gap-8">
+			<DialogContent className="gap-8 w-2xl">
 				<FormProvider {...methods}>
 					<DialogHeader>
 						<DialogTitle>{t('ReportBugOrSuggestion')}</DialogTitle>

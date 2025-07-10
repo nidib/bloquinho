@@ -6,7 +6,7 @@ export function MaintenancePage() {
 	const { t, tt } = useI18n();
 
 	return (
-		<div className="h-screen w-full flex flex-col gap-3 items-center justify-center text-zinc-600">
+		<div className="h-screen w-full flex flex-col gap-3 items-center justify-center text-foreground/85">
 			<h1 className="text-2xl lg:text-4xl font-bold">
 				{tt('BloquinhoUnderMaintenance', <strong>Bloquinho</strong>)}
 			</h1>

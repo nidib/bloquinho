@@ -42,7 +42,7 @@ export default async function RootLayout({ children }: Props) {
 	]);
 
 	return (
-		<html lang="pt-BR" className={cn(nunito.variable)}>
+		<html lang="en-US" className={cn(nunito.variable)}>
 			<body className="antialiased">
 				<I18nProvider>
 					{featureFlags.UNDER_MAINTENANCE

@@ -2,15 +2,15 @@
 
 import { useMemo } from 'react';
 
+import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
+import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from 'src/components/form/select';
-import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
-import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
+} from 'src/components/ui/select';
 import type { Extension } from 'src/lib/types/bloquinho';
 
 type ExtensionListItem = {
