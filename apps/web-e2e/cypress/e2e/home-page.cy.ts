@@ -46,4 +46,54 @@ describe('Home page', () => {
 
 		cy.url({ timeout: 10_000 }).should('include', `/${text}`);
 	});
+
+	describe('i18n', () => {
+		it('should render the page in the default language (en-US)', () => {
+			cy.visit('/', {
+				onBeforeLoad(win) {
+					Object.defineProperty(win.navigator, 'language', {
+						value: 'en-US',
+					});
+				},
+			});
+
+			cy.get('h2').should('have.text', 'Sharing your snippets easily');
+		});
+
+		it('should render the page in the default language (en-US) when the language is not supported', () => {
+			cy.visit('/', {
+				onBeforeLoad(win) {
+					Object.defineProperty(win.navigator, 'language', {
+						value: 'BlackSpeech',
+					});
+				},
+			});
+
+			cy.get('h2').should('have.text', 'Sharing your snippets easily');
+		});
+
+		it('should render the page in the default language (es-ES)', () => {
+			cy.visit('/', {
+				onBeforeLoad(win) {
+					Object.defineProperty(win.navigator, 'language', {
+						value: 'es-ES',
+					});
+				},
+			});
+
+			cy.get('h2').should('have.text', 'Comparte tus fragmentos fácilmente');
+		});
+
+		it('should render the page in the selected language (pt-BR)', () => {
+			cy.visit('/', {
+				onBeforeLoad(win) {
+					Object.defineProperty(win.navigator, 'language', {
+						value: 'pt-BR',
+					});
+				},
+			});
+
+			cy.get('h2').should('have.text', 'Compartilhando seus snippets facilmente');
+		});
+	});
 });

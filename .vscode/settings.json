@@ -3,7 +3,7 @@
 	"typescript.tsdk": "./node_modules/typescript/lib",
 
 	// Spell checker
-	"cSpell.language": "en,pt_BR",
+	"cSpell.language": "en,pt_BR,es",
 
 	// Disable the default formatter, use eslint instead
 	"prettier.enable": false,
