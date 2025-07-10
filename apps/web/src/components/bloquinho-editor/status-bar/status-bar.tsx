@@ -6,7 +6,6 @@ import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-versi
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
-import { Button } from 'src/components/form/button';
 import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import {
@@ -15,7 +14,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from 'src/components/tooltip';
-import { Button as Button_V2 } from 'src/components/ui/button';
+import { Button } from 'src/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -65,7 +64,7 @@ function FeedbackButton() {
 			<Tooltip>
 				<FeedbackForm.Trigger>
 					<TooltipTrigger asChild>
-						<Button variant="secondary">
+						<Button variant="outline">
 							<BugIcon className="w-4 h-4" />
 						</Button>
 					</TooltipTrigger>
@@ -86,9 +85,9 @@ function LanguageDropdown() {
 			<div className="relative">
 				<NewBadgeIcon />
 				<DropdownMenuTrigger asChild>
-					<Button_V2 variant="outline">
+					<Button variant="outline">
 						<LanguagesIcon className="w-4 h-4" />
-					</Button_V2>
+					</Button>
 				</DropdownMenuTrigger>
 			</div>
 			<DropdownMenuContent className="w-56">
@@ -117,9 +116,9 @@ function PreferencesDropdown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button_V2 variant="outline">
+				<Button variant="outline">
 					<SlidersVerticalIcon className="w-4 h-4" />
-				</Button_V2>
+				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
 				<DropdownMenuLabel>{t('Preferences')}</DropdownMenuLabel>
