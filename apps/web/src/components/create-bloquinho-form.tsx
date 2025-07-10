@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { FormEventHandler } from 'react';
 
-import { TextInput } from 'src/components/form/text-input';
 import { Button } from 'src/components/ui/button';
+import { Input } from 'src/components/ui/input';
 import { useI18n } from 'src/providers/i18n-provider';
 import { normalizeBloquinhoTitle } from 'src/utils/text';
 
@@ -31,7 +31,8 @@ export function CreateBloquinhoForm() {
 		<div className="flex flex-col items-start gap-3">
 			<form className="flex flex-col gap-3 sm:flex-row" onSubmit={handleSubmit}>
 				<div className="w-[300px] h-full">
-					<TextInput
+					<Input
+						id="bloquinho-title"
 						value={bloquinhoTitle}
 						placeholder={t('CreateBloquinhoInputPlaceholder')}
 						onChange={setBloquinhoTitle}
