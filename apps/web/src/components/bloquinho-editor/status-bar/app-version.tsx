@@ -27,7 +27,7 @@ export function AppVersion() {
 
 	if (isFetching || !latestRelease) {
 		return (
-			<span className="font-mono text-xs text-transparent select-none bg-zinc-300 rounded-md animate-pulse">
+			<span className="font-mono text-xs text-transparent select-none bg-foreground/40 rounded-md animate-pulse">
 				v0.0.0
 			</span>
 		);
@@ -121,7 +121,7 @@ function Version(props: VersionProps) {
 					</span>
 				</p>
 			</div>
-			<div className="border shadow-xs border-solid border-zinc-200 rounded-md px-3 py-2">
+			<div className="border border-border rounded-md px-3 py-2 shadow-xs">
 				{markdown}
 			</div>
 		</div>
