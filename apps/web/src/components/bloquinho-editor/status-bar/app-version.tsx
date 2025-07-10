@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Markdown from 'react-markdown';
 import type { Components } from 'react-markdown';
 
+import { GithubIcon } from 'src/components/icons/github-icon';
 import {
 	Dialog,
 	DialogContent,
@@ -12,8 +13,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from 'src/components/dialog';
-import { GithubIcon } from 'src/components/icons/github-icon';
+} from 'src/components/ui/dialog';
 import type { Release } from 'src/lib/client/api/github';
 import { Api } from 'src/lib/client/client-api';
 import { useI18n } from 'src/providers/i18n-provider';
@@ -40,7 +40,7 @@ export function AppVersion() {
 					{latestRelease.name}
 				</span>
 			</DialogTrigger>
-			<DialogContent className="gap-8">
+			<DialogContent className="gap-8 w-3xl">
 				<DialogHeader>
 					<DialogTitle className="font-bold text-xl flex gap-4 items-center">
 						Bloquinho
