@@ -53,4 +53,5 @@ export type Language = | 'javascript'
 	| 'plaintext'
 	| 'php'
 	| 'go'
-	| 'pascal';
+	| 'pascal'
+	| 'lua';
