@@ -31,8 +31,8 @@ describe('Home page', () => {
 		cy.visit('/');
 		const text = 'foo';
 		cy.get('input[type="text"]').type(text);
-
-		cy.get('button[type="submit"]').click();
+		cy.get('input[type="text"]').should('have.value', text);
+		cy.get('button[type="submit"]').should('not.be.disabled').click();
 
 		cy.url({ timeout: 10_000 }).should('include', `/${text}`);
 	});
@@ -41,7 +41,7 @@ describe('Home page', () => {
 		cy.visit('/');
 		const text = 'foo';
 		cy.get('input[type="text"]').type(text);
-
+		cy.get('input[type="text"]').should('have.value', text);
 		cy.get('input[type="text"]').type('{enter}');
 
 		cy.url({ timeout: 10_000 }).should('include', `/${text}`);

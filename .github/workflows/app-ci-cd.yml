@@ -91,9 +91,10 @@ jobs:
                 install: false
                 working-directory: apps/web-e2e
                 build: 'pnpm --filter web run build --no-lint'
-                start: 'pnpm --filter web run dev'
+                start: 'pnpm --filter web run start'
                 command: 'pnpm run test'
                 wait-on: 'http://localhost:3000'
+                wait-on-timeout: 120
                 browser: chrome
 
     deploy-to-preview:
