@@ -69,6 +69,11 @@ const displayedExtensions: ExtensionListItem[] = [
 		displayName: 'Pascal',
 		showNewBadge: true,
 	},
+	{
+		value: 'lua',
+		displayName: 'Lua',
+		showNewBadge: true,
+	},
 ];
 
 export function ExtensionsSelect() {

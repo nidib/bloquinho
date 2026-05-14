@@ -52,6 +52,7 @@ function BloquinhoCodeEditor() {
 		php: 'php',
 		go: 'go',
 		pas: 'pascal',
+		lua: 'lua',
 	};
 
 	return (
