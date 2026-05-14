@@ -12,6 +12,7 @@ export const extensions = [
 	'css',
 	'php',
 	'go',
+	'pas',
 ] as const;
 
 export type Extension = (typeof extensions)[number];

@@ -64,6 +64,11 @@ const displayedExtensions: ExtensionListItem[] = [
 		value: 'go',
 		displayName: 'Go',
 	},
+	{
+		value: 'pas',
+		displayName: 'Pascal',
+		showNewBadge: true,
+	},
 ];
 
 export function ExtensionsSelect() {
