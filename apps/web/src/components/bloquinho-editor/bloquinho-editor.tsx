@@ -51,6 +51,7 @@ function BloquinhoCodeEditor() {
 		txt: 'plaintext',
 		php: 'php',
 		go: 'go',
+		pas: 'pascal',
 	};
 
 	return (
