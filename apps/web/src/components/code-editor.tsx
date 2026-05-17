@@ -5,6 +5,8 @@ import type { OnMount } from '@monaco-editor/react';
 import { useCallback, useMemo } from 'react';
 import type { ComponentProps } from 'react';
 
+import { useTheme } from 'src/providers/theme-provider';
+
 type EditorOptions = ComponentProps<typeof Editor>['options'];
 
 type Props = {
@@ -15,6 +17,7 @@ type Props = {
 };
 
 export function CodeEditor({ lineWrap = true, ...props }: Props) {
+	const { isDark } = useTheme();
 	const options = useMemo<EditorOptions>(
 		() => ({
 			wordWrap: lineWrap ? 'on' : 'off',
@@ -32,7 +35,7 @@ export function CodeEditor({ lineWrap = true, ...props }: Props) {
 
 	return (
 		<Editor
-			theme="light"
+			theme={isDark ? 'vs-dark' : 'light'}
 			onMount={focus}
 			defaultValue={props.value}
 			language={props.language}
