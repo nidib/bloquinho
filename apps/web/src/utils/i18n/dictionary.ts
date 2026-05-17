@@ -35,6 +35,9 @@ export const dictionary = {
 			TryAgainLater: 'Try again later.',
 			BloquinhoUnderMaintenance: '%s is under maintenance',
 			New: 'New',
+			Theme: 'Theme',
+			Light: 'Light',
+			Dark: 'Dark',
 		},
 	},
 	'pt-BR': {
@@ -73,6 +76,9 @@ export const dictionary = {
 			TryAgainLater: 'Tente novamente mais tarde.',
 			BloquinhoUnderMaintenance: '%s em manutenção',
 			New: 'Novo',
+			Theme: 'Tema',
+			Light: 'Claro',
+			Dark: 'Escuro',
 		},
 	},
 	'es-ES': {
@@ -110,6 +116,9 @@ export const dictionary = {
 			TryAgainLater: 'Intenta de nuevo más tarde.',
 			BloquinhoUnderMaintenance: '%s está en mantenimiento',
 			New: 'Nuevo',
+			Theme: 'Tema',
+			Light: 'Claro',
+			Dark: 'Oscuro',
 		},
 	},
 } as const;

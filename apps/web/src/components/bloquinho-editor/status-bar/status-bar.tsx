@@ -6,6 +6,7 @@ import { AppVersion } from 'src/components/bloquinho-editor/status-bar/app-versi
 import { ExtensionsSelect } from 'src/components/bloquinho-editor/status-bar/extensions-select';
 import { StatusIndicator } from 'src/components/bloquinho-editor/status-bar/status-indicator';
 import { FeedbackForm } from 'src/components/feedback/feedback-form';
+import { NewBadgeIcon } from 'src/components/icons/new-badge-icon';
 import { useBloquinhoEditorContext } from 'src/components/providers/bloquinho-editor-provider';
 import { Button } from 'src/components/ui/button';
 import {
@@ -26,6 +27,7 @@ import {
 	TooltipTrigger,
 } from 'src/components/ui/tooltip';
 import { useI18n } from 'src/providers/i18n-provider';
+import { useTheme } from 'src/providers/theme-provider';
 import { cn } from 'src/utils/classes';
 import { getAvailableLanguages } from 'src/utils/i18n';
 import type { Lang } from 'src/utils/i18n/dictionary';
@@ -40,7 +42,11 @@ export function StatusBar() {
 			</div>
 			<div className="shrink-0 ml-auto flex flex-wrap items-center justify-start gap-4 h-full">
 				<LanguageDropdown />
-				<PreferencesDropdown />
+				<div className="relative">
+					<NewBadgeIcon />
+					<PreferencesDropdown />
+				</div>
+
 				<Separator />
 				<ExtensionsSelect />
 				<Separator />
@@ -107,6 +113,7 @@ function PreferencesDropdown() {
 	const { t } = useI18n();
 	const { lineWrap, enableLineWrap, disableLineWrap }
 		= useBloquinhoEditorContext();
+	const { isDark, setTheme } = useTheme();
 
 	return (
 		<DropdownMenu>
@@ -126,6 +133,18 @@ function PreferencesDropdown() {
 						{t('LineWrap')}
 					</DropdownMenuCheckboxItem>
 				</DropdownMenuGroup>
+				<DropdownMenuSeparator />
+				<DropdownMenuLabel className="flex gap-1 items-center">
+					{t('Theme')}
+					<div className="w-1 h-1 rounded-full bg-green-500" />
+				</DropdownMenuLabel>
+				<DropdownMenuRadioGroup
+					value={isDark ? 'dark' : 'light'}
+					onValueChange={value => setTheme(value as 'dark' | 'light')}
+				>
+					<DropdownMenuRadioItem value="light">{t('Light')}</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value="dark">{t('Dark')}</DropdownMenuRadioItem>
+				</DropdownMenuRadioGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

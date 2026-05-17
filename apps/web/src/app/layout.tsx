@@ -10,6 +10,7 @@ import { FeatureFlagsProvider } from 'src/providers/feature-flags-provider';
 import { I18nProvider } from 'src/providers/i18n-provider';
 import { PublicServerInfoProvider } from 'src/providers/public-server-info-provider';
 import type { PublicServerInfo } from 'src/providers/public-server-info-provider';
+import { ThemeProvider } from 'src/providers/theme-provider';
 import { cn } from 'src/utils/classes';
 import { App } from 'src/utils/constants/app-constants';
 import { Envs } from 'src/utils/constants/envs';
@@ -45,18 +46,20 @@ export default async function RootLayout({ children }: Props) {
 		<html lang="en-US" className={cn(nunito.variable)}>
 			<body className="antialiased">
 				<I18nProvider>
-					{featureFlags.UNDER_MAINTENANCE
-						? (
-								<MaintenancePage />
-							)
-						: (
-								<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
-									<FeatureFlagsProvider featureFlags={featureFlags}>
-										<Toaster />
-										<ReactQueryProvider>{children}</ReactQueryProvider>
-									</FeatureFlagsProvider>
-								</PublicServerInfoProvider>
-							)}
+					<ThemeProvider>
+						{featureFlags.UNDER_MAINTENANCE
+							? (
+									<MaintenancePage />
+								)
+							: (
+									<PublicServerInfoProvider publicServerInfo={publicServerInfo}>
+										<FeatureFlagsProvider featureFlags={featureFlags}>
+											<Toaster />
+											<ReactQueryProvider>{children}</ReactQueryProvider>
+										</FeatureFlagsProvider>
+									</PublicServerInfoProvider>
+								)}
+					</ThemeProvider>
 				</I18nProvider>
 			</body>
 		</html>
